@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 const profile = {
   name: "Khaled Alassad (Jakob)",
   title:
@@ -86,11 +84,6 @@ const projects = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 26 },
-  visible: { opacity: 1, y: 0 },
-};
-
 function Icon({ name, className = "h-5 w-5" }) {
   const common = {
     className,
@@ -151,14 +144,9 @@ function Icon({ name, className = "h-5 w-5" }) {
 
 function Section({ id, eyebrow, title, children }) {
   return (
-    <motion.section
+    <section
       id={id}
-      className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 lg:py-18"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.55, ease: "easeOut" }}
-      variants={fadeUp}
+      className="portfolio-section mx-auto w-full max-w-6xl px-5 py-14 sm:px-8 lg:py-18"
     >
       <div className="mb-8 max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">
@@ -169,7 +157,7 @@ function Section({ id, eyebrow, title, children }) {
         </h2>
       </div>
       {children}
-    </motion.section>
+    </section>
   );
 }
 
@@ -227,11 +215,7 @@ function App() {
 
       <main>
         <section id="hero" className="mx-auto grid min-h-[calc(100vh-73px)] max-w-6xl items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[1.08fr_0.92fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
+          <div className="animate-fade-up">
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
               <Icon name="spark" className="h-4 w-4" />
               Renewable energy, data, and AI
@@ -273,14 +257,9 @@ function App() {
                 <Icon name="arrow" className="h-4 w-4" />
               </a>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-          >
+          <div className="relative animate-scale-in">
             <div className="grid gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-soft">
               <div className="rounded-lg bg-blue-50 p-5 ring-1 ring-blue-100">
                 <p className="text-sm font-bold uppercase tracking-[0.16em] text-blue-700">
@@ -309,7 +288,7 @@ function App() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </section>
 
         <Section id="about" eyebrow="About" title="A cross-cultural energy analyst with a data-first lens.">
@@ -423,7 +402,7 @@ function App() {
       </main>
 
       <footer className="border-t border-slate-200 bg-white px-5 py-8 text-center text-sm font-semibold text-slate-500">
-        © {new Date().getFullYear()} {profile.name}. Built with React, Tailwind CSS, and Framer Motion.
+        Copyright {new Date().getFullYear()} {profile.name}. Built with React and Tailwind CSS.
       </footer>
     </div>
   );
