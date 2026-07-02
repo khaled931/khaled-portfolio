@@ -275,7 +275,7 @@ function EnergyMap({ selectedId, onSelect }) {
               style={{ left: `${place.position.x}%`, top: `${place.position.y}%` }}
             >
               <span className={`absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full ${place.markerClass} opacity-20 blur-xl`} />
-              <span className="relative block rounded-2xl border border-white/15 bg-white/10 px-3 py-2 shadow-soft backdrop-blur-md sm:px-4 sm:py-3">
+              <span className="relative block rounded-2xl border border-white/20 bg-white/10 px-3 py-2 shadow-soft backdrop-blur-md sm:px-4 sm:py-3">
                 <span className="flex items-center gap-2">
                   <span className={`h-3 w-3 rounded-full ${place.markerClass}`} />
                   <span className="text-xs font-black uppercase tracking-[0.18em] text-white">
@@ -299,7 +299,7 @@ function EnergyMap({ selectedId, onSelect }) {
             onClick={() => onSelect(place.id)}
             className={`rounded-2xl border px-3 py-3 text-center text-xs font-black uppercase tracking-[0.12em] transition ${
               selectedId === place.id
-                ? "border-white/35 bg-white/15 text-white"
+                ? "border-white/30 bg-white/20 text-white"
                 : "border-white/10 bg-white/5 text-white/55 hover:bg-white/10 hover:text-white"
             }`}
           >
@@ -313,7 +313,7 @@ function EnergyMap({ selectedId, onSelect }) {
 
 function AchievementPanel({ activePlace }) {
   return (
-    <div className="rounded-[2rem] border border-[#217A8D]/15 bg-white p-5 shadow-soft sm:p-7">
+    <div className="rounded-[2rem] border border-[#217A8D]/20 bg-white p-5 shadow-soft sm:p-7">
       <div className={`mb-6 rounded-3xl bg-gradient-to-br ${activePlace.gradient} p-5 ring-1 ring-black/5`}>
         <p className={`text-sm font-black uppercase tracking-[0.2em] ${activePlace.textClass}`}>
           {activePlace.country}
@@ -338,7 +338,7 @@ function AchievementPanel({ activePlace }) {
         {activePlace.metrics.map((metric) => (
           <span
             key={metric}
-            className="rounded-full border border-[#217A8D]/15 bg-[#217A8D]/5 px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-[#217A8D]"
+            className="rounded-full border border-[#217A8D]/20 bg-[#217A8D]/5 px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-[#217A8D]"
           >
             {metric}
           </span>
@@ -381,7 +381,7 @@ function App() {
           </div>
           <a
             href={`mailto:${profile.email}`}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-black text-white transition hover:bg-white hover:text-[#0B1F2A]"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-black text-white transition hover:bg-white hover:text-[#0B1F2A]"
           >
             <Icon name="mail" className="h-4 w-4" />
             <span className="hidden sm:inline">Contact</span>
@@ -422,7 +422,7 @@ function App() {
                 </a>
                 <a
                   href="#projects"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/10 px-5 py-3.5 text-sm font-black text-white transition hover:bg-white hover:text-[#0B1F2A]"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-5 py-3.5 text-sm font-black text-white transition hover:bg-white hover:text-[#0B1F2A]"
                 >
                   View projects
                   <Icon name="arrow" className="h-4 w-4" />
@@ -441,7 +441,7 @@ function App() {
                   <div key={place} className="rounded-3xl border border-white/10 bg-white/10 p-5">
                     <p className="text-xs font-black uppercase tracking-[0.18em] text-[#F2B84B]">{place}</p>
                     <h2 className="mt-2 text-xl font-black text-white">{type}</h2>
-                    <p className="mt-3 text-sm leading-6 text-white/62">{text}</p>
+                    <p className="mt-3 text-sm leading-6 text-white/60">{text}</p>
                   </div>
                 ))}
               </div>
@@ -468,7 +468,7 @@ function App() {
                 href={project.url}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex min-h-[22rem] flex-col rounded-[2rem] border border-[#217A8D]/10 bg-white p-6 shadow-soft transition duration-300 hover:-translate-y-1 hover:border-[#217A8D]/35"
+                className="group flex min-h-[22rem] flex-col rounded-[2rem] border border-[#217A8D]/10 bg-white p-6 shadow-soft transition duration-300 hover:-translate-y-1 hover:border-[#217A8D]/30"
               >
                 <div className="mb-6 flex items-center justify-between">
                   <span className="rounded-full bg-[#217A8D]/10 px-3 py-1.5 text-xs font-black uppercase tracking-[0.16em] text-[#217A8D]">
@@ -533,7 +533,7 @@ function App() {
                   href={profile.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 px-5 py-3.5 text-sm font-black text-white transition hover:bg-white hover:text-[#0B1F2A]"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 px-5 py-3.5 text-sm font-black text-white transition hover:bg-white hover:text-[#0B1F2A]"
                 >
                   LinkedIn
                   <Icon name="arrow" className="h-4 w-4" />
