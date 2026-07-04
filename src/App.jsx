@@ -1,6 +1,13 @@
 import React, { useMemo, useState } from "react";
 
 const languages = {
+  en: "EN",
+  ar: "AR",
+  no: "NO",
+  fr: "FR",
+};
+
+const languageNames = {
   en: "English",
   ar: "العربية",
   no: "Norsk",
@@ -251,6 +258,10 @@ export default function App() {
     window.history.replaceState(null, "", `#${id}`);
   }
 
+  function toggleTheme() {
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
+  }
+
   return (
     <main className="portfolio-gateway" data-theme={theme} dir={isArabic ? "rtl" : "ltr"}>
       <div className="ambient-bg" aria-hidden="true">
@@ -271,17 +282,19 @@ export default function App() {
           <div className="nav-right">
             <button
               type="button"
-              className="utility-button"
-              onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+              className="theme-toggle"
+              onClick={toggleTheme}
               aria-label={text.theme}
+              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {theme === "dark" ? "☾" : "☀"}
+              <span className="theme-toggle-thumb" aria-hidden="true" />
+              <span className="theme-toggle-icon" aria-hidden="true">{theme === "dark" ? "☾" : "☀"}</span>
             </button>
 
-            <label className="language-select" aria-label={text.language}>
+            <label className="language-select" aria-label={text.language} title={languageNames[language]}>
               <select value={language} onChange={(event) => setLanguage(event.target.value)}>
-                {Object.entries(languages).map(([code, name]) => (
-                  <option key={code} value={code}>{name}</option>
+                {Object.entries(languages).map(([code, label]) => (
+                  <option key={code} value={code}>{label}</option>
                 ))}
               </select>
             </label>
