@@ -29,7 +29,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #0b1300;
+  background: #eef3e8;
 }
 
 button,
@@ -54,31 +54,36 @@ button {
 }
 
 .portfolio-gateway {
-  --page-bg: #0b1300;
-  --frame-bg: rgba(246, 247, 244, 0.94);
+  --page-bg: #eef3e8;
+  --frame-bg: rgba(255, 255, 255, 0.93);
   --text: #10120f;
-  --muted: rgba(16, 18, 15, 0.54);
+  --muted: rgba(16, 18, 15, 0.56);
   --chip: rgba(16, 18, 15, 0.055);
-  --chip-hover: rgba(16, 18, 15, 0.09);
-  --border: rgba(16, 18, 15, 0.11);
-  --shadow: rgba(0, 0, 0, 0.33);
+  --chip-hover: rgba(16, 18, 15, 0.1);
+  --border: rgba(16, 18, 15, 0.12);
+  --shadow: rgba(73, 96, 42, 0.23);
+  --nav-strong-bg: #050505;
+  --nav-strong-text: #ffffff;
   position: relative;
   min-height: 100svh;
   overflow: hidden;
   padding: clamp(0.8rem, 2vw, 1.8rem);
   background: var(--page-bg);
   color: var(--text);
+  transition: background 260ms ease, color 260ms ease;
 }
 
-.portfolio-gateway[data-theme="light"] {
-  --page-bg: #eef3e8;
-  --frame-bg: rgba(255, 255, 255, 0.92);
-  --text: #11130f;
-  --muted: rgba(16, 18, 15, 0.57);
-  --chip: rgba(16, 18, 15, 0.055);
-  --chip-hover: rgba(16, 18, 15, 0.1);
-  --border: rgba(16, 18, 15, 0.12);
-  --shadow: rgba(73, 96, 42, 0.22);
+.portfolio-gateway[data-theme="dark"] {
+  --page-bg: #0b1300;
+  --frame-bg: rgba(14, 17, 12, 0.92);
+  --text: #f4f7ef;
+  --muted: rgba(244, 247, 239, 0.58);
+  --chip: rgba(255, 255, 255, 0.085);
+  --chip-hover: rgba(255, 255, 255, 0.15);
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow: rgba(0, 0, 0, 0.42);
+  --nav-strong-bg: #f5f7ef;
+  --nav-strong-text: #0f130d;
 }
 
 .ambient-bg {
@@ -87,16 +92,17 @@ button {
   z-index: 0;
   overflow: hidden;
   background:
-    radial-gradient(circle at 15% 17%, rgba(210, 255, 0, 0.38), transparent 22rem),
-    radial-gradient(circle at 78% 12%, rgba(207, 255, 38, 0.28), transparent 20rem),
-    linear-gradient(120deg, #1e3000 0%, var(--page-bg) 46%, #304500 100%);
-}
-
-.portfolio-gateway[data-theme="light"] .ambient-bg {
-  background:
     radial-gradient(circle at 15% 17%, rgba(196, 255, 45, 0.34), transparent 24rem),
     radial-gradient(circle at 78% 12%, rgba(33, 122, 141, 0.14), transparent 20rem),
     linear-gradient(120deg, #f6f8f2 0%, #e9f0df 46%, #f7f9f2 100%);
+  transition: background 260ms ease, opacity 260ms ease;
+}
+
+.portfolio-gateway[data-theme="dark"] .ambient-bg {
+  background:
+    radial-gradient(circle at 15% 17%, rgba(210, 255, 0, 0.38), transparent 22rem),
+    radial-gradient(circle at 78% 12%, rgba(207, 255, 38, 0.28), transparent 20rem),
+    linear-gradient(120deg, #1e3000 0%, #0b1300 46%, #304500 100%);
 }
 
 .ambient-bg::after {
@@ -104,16 +110,19 @@ button {
   position: absolute;
   inset: -24%;
   background:
-    linear-gradient(90deg, transparent 0 35%, rgba(222, 255, 0, 0.7) 43%, transparent 52%),
-    linear-gradient(0deg, transparent 0 38%, rgba(222, 255, 0, 0.55) 47%, transparent 57%);
+    linear-gradient(90deg, transparent 0 35%, rgba(222, 255, 0, 0.42) 43%, transparent 52%),
+    linear-gradient(0deg, transparent 0 38%, rgba(222, 255, 0, 0.32) 47%, transparent 57%);
   filter: blur(14px);
-  opacity: 0.72;
+  opacity: 0.24;
   transform: rotate(-2deg) scale(1.08);
   animation: drift 18s ease-in-out infinite alternate;
 }
 
-.portfolio-gateway[data-theme="light"] .ambient-bg::after {
-  opacity: 0.24;
+.portfolio-gateway[data-theme="dark"] .ambient-bg::after {
+  opacity: 0.72;
+  background:
+    linear-gradient(90deg, transparent 0 35%, rgba(222, 255, 0, 0.7) 43%, transparent 52%),
+    linear-gradient(0deg, transparent 0 38%, rgba(222, 255, 0, 0.55) 47%, transparent 57%);
 }
 
 .ambient-bg span {
@@ -122,7 +131,7 @@ button {
   width: 44vw;
   height: 44vw;
   border-radius: 999px;
-  border: 34px solid rgba(222, 255, 0, 0.17);
+  border: 34px solid rgba(222, 255, 0, 0.15);
   filter: blur(10px);
 }
 
@@ -155,6 +164,7 @@ button {
   background: var(--frame-bg);
   box-shadow: 0 42px 130px var(--shadow);
   backdrop-filter: blur(28px);
+  transition: background 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
 }
 
 .topbar {
@@ -177,8 +187,6 @@ button {
 }
 
 .nav-left button,
-.utility-button,
-.language-select select,
 .contact-button {
   min-height: 2.35rem;
   border-radius: 0.8rem;
@@ -195,9 +203,7 @@ button {
     box-shadow 180ms ease;
 }
 
-.nav-left button:hover,
-.utility-button:hover,
-.language-select select:hover {
+.nav-left button:hover {
   transform: translateY(-1px);
   background: var(--chip-hover);
   color: var(--text);
@@ -207,8 +213,8 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #050505;
-  color: white;
+  background: var(--nav-strong-bg);
+  color: var(--nav-strong-text);
 }
 
 .contact-button:hover {
@@ -225,25 +231,82 @@ button {
   font-weight: 1000;
   letter-spacing: -0.14em;
   line-height: 1;
+  transition: color 260ms ease;
+}
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  width: 3.15rem;
+  min-width: 3.15rem;
+  height: 2.1rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--text);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  background: var(--chip-hover);
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  left: 0.22rem;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  background: var(--nav-strong-bg);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+  transition: transform 220ms ease, background 220ms ease;
+}
+
+.portfolio-gateway[data-theme="dark"] .theme-toggle-thumb {
+  transform: translateX(1rem);
+}
+
+.theme-toggle-icon {
+  position: relative;
+  z-index: 2;
+  color: var(--nav-strong-text);
+  font-size: 0.85rem;
+  font-weight: 1000;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .language-select {
   display: inline-flex;
+  width: 3.05rem;
+  min-width: 3.05rem;
+  height: 2.1rem;
 }
 
 .language-select select {
+  width: 100%;
+  height: 100%;
   appearance: none;
-  padding-inline-end: 1.8rem;
-  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
-  background-position: calc(100% - 13px) 53%, calc(100% - 8px) 53%;
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--muted);
+  text-align: center;
+  text-align-last: center;
+  padding: 0;
+  font-size: 0.72rem;
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+  outline: none;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
-.portfolio-gateway[dir="rtl"] .language-select select {
-  padding-inline-start: 1.8rem;
-  padding-inline-end: 1rem;
-  background-position: 13px 53%, 8px 53%;
+.language-select select:hover,
+.language-select select:focus-visible {
+  transform: translateY(-1px);
+  background: var(--chip-hover);
+  color: var(--text);
 }
 
 .gateway-content {
@@ -352,7 +415,7 @@ button {
   line-height: 1.18;
   letter-spacing: -0.03em;
   opacity: 0.82;
-  transition: opacity 220ms ease, transform 220ms ease;
+  transition: opacity 220ms ease, transform 220ms ease, color 260ms ease;
 }
 
 .portal-choice:hover .portal-title,
@@ -782,16 +845,30 @@ button {
   }
 
   .nav-left button,
-  .utility-button,
-  .language-select select,
   .contact-button {
     min-height: 2.15rem;
     padding: 0.42rem 0.65rem;
     font-size: 0.72rem;
   }
 
+  .theme-toggle,
+  .language-select {
+    width: 2.75rem;
+    min-width: 2.75rem;
+    height: 2.05rem;
+  }
+
+  .theme-toggle-thumb {
+    width: 1.55rem;
+    height: 1.55rem;
+  }
+
+  .portfolio-gateway[data-theme="dark"] .theme-toggle-thumb {
+    transform: translateX(0.76rem);
+  }
+
   .language-select select {
-    max-width: 5.9rem;
+    font-size: 0.68rem;
   }
 
   .intro-copy {
