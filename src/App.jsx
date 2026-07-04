@@ -244,7 +244,7 @@ function Modal({ type, text, onClose }) {
 }
 
 export default function App() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [language, setLanguage] = useState("en");
   const [activePortal, setActivePortal] = useState(null);
   const [modal, setModal] = useState(null);
