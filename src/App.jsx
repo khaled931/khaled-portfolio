@@ -116,150 +116,306 @@ const portalLabels = {
   },
 };
 
-const energyContent = {
-  en: {
-    label: "Energy profile",
-    title: "Renewable Energy",
-    subtitle:
-      "Education, market analysis experience, and data-driven energy projects across Norway, Europe, Syria, and MENA.",
-    education: "Education",
-    work: "Work",
-    projects: "Projects",
-    educationItems: [
-      {
-        year: "2021",
-        title: "B.Sc. Renewable Energy Engineering",
-        place: "NTNU — Norwegian University of Science and Technology",
-        text: "Bachelor’s degree in Renewable Energy Engineering, completed in 2021.",
-      },
-      {
-        year: "2026",
-        title: "M.Sc. Renewable Energy Systems",
-        place: "University of Oslo",
-        text: "Master’s degree in Renewable Energy Systems, focused on renewable energy systems, policy analysis, and the economics of renewable energy markets.",
-      },
-    ],
-    workItems: [
-      {
-        year: "2 years",
-        title: "Renewable Energy Market & Policy Analysis",
-        place: "EU renewable energy markets",
-        text: "Two years of experience analyzing renewable energy markets and renewable energy policy in the European Union.",
-      },
-    ],
-    projectItems: [
-      "Syrian Renewables — renewable energy data and intelligence platform for Syria.",
-      "Granular Certificates — knowledge platform for renewable energy certificates and market transparency.",
-      "Energy data tools — trackers, dashboards, and structured datasets for energy analysis.",
-    ],
+const profileContent = {
+  energy: {
+    en: {
+      label: "Energy profile",
+      title: "Renewable Energy",
+      subtitle:
+        "Education, market analysis experience, and data-driven energy projects across Norway, Europe, Syria, and MENA.",
+      primary: "Education",
+      secondary: "Work",
+      tertiary: "Projects",
+      object: "energy",
+      primaryItems: [
+        {
+          year: "2021",
+          title: "B.Sc. Renewable Energy Engineering",
+          place: "NTNU — Norwegian University of Science and Technology",
+          text: "Bachelor’s degree in Renewable Energy Engineering, completed in 2021.",
+        },
+        {
+          year: "2026",
+          title: "M.Sc. Renewable Energy Systems",
+          place: "University of Oslo",
+          text: "Master’s degree in Renewable Energy Systems, focused on renewable energy systems, policy analysis, and the economics of renewable energy markets.",
+        },
+      ],
+      secondaryItems: [
+        {
+          year: "2 years",
+          title: "Renewable Energy Market & Policy Analysis",
+          place: "EU renewable energy markets",
+          text: "Two years of experience analyzing renewable energy markets and renewable energy policy in the European Union.",
+        },
+      ],
+      tertiaryItems: [
+        "Syrian Renewables — renewable energy data and intelligence platform for Syria.",
+        "Granular Certificates — knowledge platform for renewable energy certificates and market transparency.",
+        "Energy data tools — trackers, dashboards, and structured datasets for energy analysis.",
+      ],
+    },
+    ar: {
+      label: "ملف الطاقة",
+      title: "الطاقة المتجددة",
+      subtitle:
+        "التعليم، الخبرة العملية، ومشاريع البيانات والتحليل في الطاقة المتجددة بين النرويج، أوروبا، سورية، ومنطقة MENA.",
+      primary: "التعليم",
+      secondary: "العمل والخبرة",
+      tertiary: "المشاريع",
+      object: "energy",
+      primaryItems: [
+        {
+          year: "2021",
+          title: "بكالوريوس في هندسة الطاقة المتجددة",
+          place: "جامعة NTNU النرويجية",
+          text: "حاصل على بكالوريوس في هندسة الطاقة المتجددة من جامعة NTNU النرويجية، وأنهيته في عام 2021.",
+        },
+        {
+          year: "2026",
+          title: "ماجستير في أنظمة الطاقة المتجددة",
+          place: "University of Oslo — جامعة أوسلو",
+          text: "حاصل على ماجستير من جامعة أوسلو في أنظمة الطاقة المتجددة، مع تركيز على تحليل سياسات واقتصاديات أسواق الطاقة المتجددة، وأنهيته في عام 2026.",
+        },
+      ],
+      secondaryItems: [
+        {
+          year: "سنتان",
+          title: "تحليل أسواق وسياسات الطاقة المتجددة",
+          place: "أسواق الطاقة المتجددة في الاتحاد الأوروبي",
+          text: "لدي خبرة سنتين في تحليل أسواق الطاقة المتجددة وسياسات الطاقة المتجددة في الاتحاد الأوروبي.",
+        },
+      ],
+      tertiaryItems: [
+        "Syrian Renewables — منصة بيانات وتحليل لقطاع الطاقة المتجددة في سورية.",
+        "Granular Certificates — منصة معرفية حول شهادات الطاقة المتجددة وشفافية الأسواق.",
+        "Energy data tools — أدوات تتبع ولوحات بيانات ومجموعات بيانات مهيكلة لتحليل الطاقة.",
+      ],
+    },
+    no: {
+      label: "Energiprofil",
+      title: "Fornybar energi",
+      subtitle:
+        "Utdanning, markedserfaring og datadrevne energiprosjekter på tvers av Norge, Europa, Syria og MENA.",
+      primary: "Utdanning",
+      secondary: "Arbeid",
+      tertiary: "Prosjekter",
+      object: "energy",
+      primaryItems: [
+        {
+          year: "2021",
+          title: "B.Sc. Fornybar energiteknikk",
+          place: "NTNU — Norges teknisk-naturvitenskapelige universitet",
+          text: "Bachelorgrad i fornybar energiteknikk, fullført i 2021.",
+        },
+        {
+          year: "2026",
+          title: "M.Sc. Renewable Energy Systems",
+          place: "University of Oslo",
+          text: "Mastergrad i fornybare energisystemer, med fokus på systemer, politisk analyse og økonomi i fornybare energimarkeder.",
+        },
+      ],
+      secondaryItems: [
+        {
+          year: "2 år",
+          title: "Analyse av fornybare energimarkeder og politikk",
+          place: "EUs fornybare energimarkeder",
+          text: "To års erfaring med analyse av fornybare energimarkeder og fornybar energipolitikk i EU.",
+        },
+      ],
+      tertiaryItems: [
+        "Syrian Renewables — data- og analyseplattform for fornybar energi i Syria.",
+        "Granular Certificates — kunnskapsplattform for fornybare energisertifikater og markedstransparens.",
+        "Energy data tools — sporere, dashboards og strukturerte datasett for energianalyse.",
+      ],
+    },
+    fr: {
+      label: "Profil énergie",
+      title: "Énergies renouvelables",
+      subtitle:
+        "Formation, expérience en analyse de marché et projets de données énergétiques entre la Norvège, l’Europe, la Syrie et la région MENA.",
+      primary: "Formation",
+      secondary: "Expérience",
+      tertiary: "Projets",
+      object: "energy",
+      primaryItems: [
+        {
+          year: "2021",
+          title: "B.Sc. Ingénierie des énergies renouvelables",
+          place: "NTNU — Norwegian University of Science and Technology",
+          text: "Licence en ingénierie des énergies renouvelables, terminée en 2021.",
+        },
+        {
+          year: "2026",
+          title: "M.Sc. Renewable Energy Systems",
+          place: "University of Oslo",
+          text: "Master en systèmes d’énergies renouvelables, avec un focus sur les systèmes, l’analyse des politiques et l’économie des marchés renouvelables.",
+        },
+      ],
+      secondaryItems: [
+        {
+          year: "2 ans",
+          title: "Analyse des marchés et politiques des énergies renouvelables",
+          place: "Marchés renouvelables de l’Union européenne",
+          text: "Deux ans d’expérience dans l’analyse des marchés des énergies renouvelables et des politiques renouvelables dans l’Union européenne.",
+        },
+      ],
+      tertiaryItems: [
+        "Syrian Renewables — plateforme de données et d’intelligence pour les énergies renouvelables en Syrie.",
+        "Granular Certificates — plateforme de connaissance sur les certificats d’énergie renouvelable et la transparence des marchés.",
+        "Energy data tools — trackers, tableaux de bord et jeux de données structurés pour l’analyse énergétique.",
+      ],
+    },
   },
-  ar: {
-    label: "ملف الطاقة",
-    title: "الطاقة المتجددة",
-    subtitle:
-      "التعليم، الخبرة العملية، ومشاريع البيانات والتحليل في الطاقة المتجددة بين النرويج، أوروبا، سورية، ومنطقة MENA.",
-    education: "التعليم",
-    work: "العمل والخبرة",
-    projects: "المشاريع",
-    educationItems: [
-      {
-        year: "2021",
-        title: "بكالوريوس في هندسة الطاقة المتجددة",
-        place: "جامعة NTNU النرويجية",
-        text: "حاصل على بكالوريوس في هندسة الطاقة المتجددة من جامعة NTNU النرويجية، وأنهيته في عام 2021.",
-      },
-      {
-        year: "2026",
-        title: "ماجستير في أنظمة الطاقة المتجددة",
-        place: "University of Oslo — جامعة أوسلو",
-        text: "حاصل على ماجستير من جامعة أوسلو في أنظمة الطاقة المتجددة، مع تركيز على تحليل سياسات واقتصاديات أسواق الطاقة المتجددة، وأنهيته في عام 2026.",
-      },
-    ],
-    workItems: [
-      {
-        year: "سنتان",
-        title: "تحليل أسواق وسياسات الطاقة المتجددة",
-        place: "أسواق الطاقة المتجددة في الاتحاد الأوروبي",
-        text: "لدي خبرة سنتين في تحليل أسواق الطاقة المتجددة وسياسات الطاقة المتجددة في الاتحاد الأوروبي.",
-      },
-    ],
-    projectItems: [
-      "Syrian Renewables — منصة بيانات وتحليل لقطاع الطاقة المتجددة في سورية.",
-      "Granular Certificates — منصة معرفية حول شهادات الطاقة المتجددة وشفافية الأسواق.",
-      "Energy data tools — أدوات تتبع ولوحات بيانات ومجموعات بيانات مهيكلة لتحليل الطاقة.",
-    ],
-  },
-  no: {
-    label: "Energiprofil",
-    title: "Fornybar energi",
-    subtitle:
-      "Utdanning, markedserfaring og datadrevne energiprosjekter på tvers av Norge, Europa, Syria og MENA.",
-    education: "Utdanning",
-    work: "Arbeid",
-    projects: "Prosjekter",
-    educationItems: [
-      {
-        year: "2021",
-        title: "B.Sc. Fornybar energiteknikk",
-        place: "NTNU — Norges teknisk-naturvitenskapelige universitet",
-        text: "Bachelorgrad i fornybar energiteknikk, fullført i 2021.",
-      },
-      {
-        year: "2026",
-        title: "M.Sc. Renewable Energy Systems",
-        place: "University of Oslo",
-        text: "Mastergrad i fornybare energisystemer, med fokus på systemer, politisk analyse og økonomi i fornybare energimarkeder.",
-      },
-    ],
-    workItems: [
-      {
-        year: "2 år",
-        title: "Analyse av fornybare energimarkeder og politikk",
-        place: "EUs fornybare energimarkeder",
-        text: "To års erfaring med analyse av fornybare energimarkeder og fornybar energipolitikk i EU.",
-      },
-    ],
-    projectItems: [
-      "Syrian Renewables — data- og analyseplattform for fornybar energi i Syria.",
-      "Granular Certificates — kunnskapsplattform for fornybare energisertifikater og markedstransparens.",
-      "Energy data tools — sporere, dashboards og strukturerte datasett for energianalyse.",
-    ],
-  },
-  fr: {
-    label: "Profil énergie",
-    title: "Énergies renouvelables",
-    subtitle:
-      "Formation, expérience en analyse de marché et projets de données énergétiques entre la Norvège, l’Europe, la Syrie et la région MENA.",
-    education: "Formation",
-    work: "Expérience",
-    projects: "Projets",
-    educationItems: [
-      {
-        year: "2021",
-        title: "B.Sc. Ingénierie des énergies renouvelables",
-        place: "NTNU — Norwegian University of Science and Technology",
-        text: "Licence en ingénierie des énergies renouvelables, terminée en 2021.",
-      },
-      {
-        year: "2026",
-        title: "M.Sc. Renewable Energy Systems",
-        place: "University of Oslo",
-        text: "Master en systèmes d’énergies renouvelables, avec un focus sur les systèmes, l’analyse des politiques et l’économie des marchés renouvelables.",
-      },
-    ],
-    workItems: [
-      {
-        year: "2 ans",
-        title: "Analyse des marchés et politiques des énergies renouvelables",
-        place: "Marchés renouvelables de l’Union européenne",
-        text: "Deux ans d’expérience dans l’analyse des marchés des énergies renouvelables et des politiques renouvelables dans l’Union européenne.",
-      },
-    ],
-    projectItems: [
-      "Syrian Renewables — plateforme de données et d’intelligence pour les énergies renouvelables en Syrie.",
-      "Granular Certificates — plateforme de connaissance sur les certificats d’énergie renouvelable et la transparence des marchés.",
-      "Energy data tools — trackers, tableaux de bord et jeux de données structurés pour l’analyse énergétique.",
-    ],
+  volunteer: {
+    en: {
+      label: "Community impact",
+      title: "Organized & Volunteer Work",
+      subtitle:
+        "Community leadership, Arabic-speaking migrant support, media work, and organized volunteer initiatives in Norway.",
+      primary: "Leadership & Organizations",
+      secondary: "Media & Community Role",
+      tertiary: "Focus Areas",
+      object: "volunteer",
+      primaryItems: [
+        {
+          year: "2019–2023",
+          title: "Radio Mangfold Norge",
+          place: "Volunteer, then General Manager from 2021 to 2023",
+          text: "Started volunteering in 2019, became General Manager in 2021, and led the organization until its work ended in 2023. The organization served Arabic-speaking immigrants and refugees in Norway.",
+        },
+        {
+          year: "End of 2025–Present",
+          title: "Norway Now Platform",
+          place: "Founder and Director",
+          text: "Founded Norway Now at the end of 2025 to support Arabic-speaking refugees and immigrants in Norway. Currently serving as its director.",
+        },
+      ],
+      secondaryItems: [
+        {
+          year: "2022–2025",
+          title: "Syrian Student Organization in Norway",
+          place: "Member and Media Department Lead",
+          text: "Joined the organization in 2022 and remained active until 2025, with responsibility for the media section and communication-related activities.",
+        },
+      ],
+      tertiaryItems: [
+        "Supporting Arabic-speaking refugees and immigrants in Norway.",
+        "Community media, communication, and public information work.",
+        "Organizing volunteer initiatives and building community-oriented platforms.",
+      ],
+    },
+    ar: {
+      label: "الأثر المجتمعي",
+      title: "المنظمات والعمل التطوعي",
+      subtitle:
+        "خبرة في إدارة المبادرات المجتمعية، دعم اللاجئين والمهاجرين الناطقين بالعربية في النرويج، والعمل الإعلامي والتنظيمي التطوعي.",
+      primary: "القيادة والمنظمات",
+      secondary: "الإعلام والعمل المجتمعي",
+      tertiary: "مجالات التركيز",
+      object: "volunteer",
+      primaryItems: [
+        {
+          year: "2019–2023",
+          title: "منظمة راديو التنوع النرويجي",
+          place: "متطوع ثم مدير عام بين 2021 و2023",
+          text: "بدأ العمل التطوعي في هذه المنظمة في عام 2019، ثم أصبح مديراً عاماً لها في عام 2021، واستمر في إدارتها حتى توقف أو انتهى عمل المنظمة في عام 2023. كانت المنظمة تُعنى بالمهاجرين واللاجئين في النرويج الناطقين باللغة العربية.",
+        },
+        {
+          year: "نهاية 2025–الآن",
+          title: "منصة النرويج الآن",
+          place: "المؤسس والمدير",
+          text: "أنشأ منصة النرويج الآن في نهاية عام 2025 بهدف دعم اللاجئين والمهاجرين في النرويج والناطقين باللغة العربية، وهو مديرها حتى هذا الوقت.",
+        },
+      ],
+      secondaryItems: [
+        {
+          year: "2022–2025",
+          title: "منظمة الطالب السوري في النرويج",
+          place: "عضو ومسؤول القسم الإعلامي",
+          text: "انضم إلى منظمة الطالب السوري في النرويج في عام 2022 واستمر حتى عام 2025، وكان مسؤولاً عن القسم الإعلامي في المنظمة.",
+        },
+      ],
+      tertiaryItems: [
+        "دعم اللاجئين والمهاجرين في النرويج والناطقين باللغة العربية.",
+        "العمل الإعلامي المجتمعي، التواصل، وإدارة المحتوى.",
+        "تنظيم المبادرات التطوعية وبناء منصات مجتمعية عملية.",
+      ],
+    },
+    no: {
+      label: "Samfunnsarbeid",
+      title: "Organisert og frivillig arbeid",
+      subtitle:
+        "Erfaring med organisasjonsledelse, støtte til arabisktalende flyktninger og innvandrere i Norge, mediearbeid og frivillig koordinering.",
+      primary: "Ledelse og organisasjoner",
+      secondary: "Media og samfunnsrolle",
+      tertiary: "Fokusområder",
+      object: "volunteer",
+      primaryItems: [
+        {
+          year: "2019–2023",
+          title: "Radio Mangfold Norge",
+          place: "Frivillig, deretter daglig leder fra 2021 til 2023",
+          text: "Startet som frivillig i 2019, ble daglig leder i 2021 og ledet organisasjonen frem til arbeidet ble avsluttet i 2023. Organisasjonen arbeidet for arabisktalende innvandrere og flyktninger i Norge.",
+        },
+        {
+          year: "Slutten av 2025–nå",
+          title: "Norway Now Platform",
+          place: "Grunnlegger og leder",
+          text: "Etablerte Norway Now på slutten av 2025 for å støtte arabisktalende flyktninger og innvandrere i Norge, og leder plattformen i dag.",
+        },
+      ],
+      secondaryItems: [
+        {
+          year: "2022–2025",
+          title: "Syrian Student Organization in Norway",
+          place: "Medlem og ansvarlig for mediaavdelingen",
+          text: "Ble med i organisasjonen i 2022 og var aktiv til 2025, med ansvar for media, kommunikasjon og innholdsarbeid.",
+        },
+      ],
+      tertiaryItems: [
+        "Støtte til arabisktalende flyktninger og innvandrere i Norge.",
+        "Samfunnsmedia, kommunikasjon og offentlig informasjon.",
+        "Organisering av frivillige initiativer og bygging av samfunnsplattformer.",
+      ],
+    },
+    fr: {
+      label: "Impact communautaire",
+      title: "Organisations et bénévolat",
+      subtitle:
+        "Leadership communautaire, soutien aux réfugiés et immigrés arabophones en Norvège, communication et initiatives bénévoles organisées.",
+      primary: "Leadership et organisations",
+      secondary: "Médias et rôle communautaire",
+      tertiary: "Axes de travail",
+      object: "volunteer",
+      primaryItems: [
+        {
+          year: "2019–2023",
+          title: "Radio Mangfold Norge",
+          place: "Bénévole, puis directeur général de 2021 à 2023",
+          text: "A commencé comme bénévole en 2019, puis est devenu directeur général en 2021 et a dirigé l’organisation jusqu’à la fin de ses activités en 2023. L’organisation soutenait les immigrés et réfugiés arabophones en Norvège.",
+        },
+        {
+          year: "Fin 2025–présent",
+          title: "Norway Now Platform",
+          place: "Fondateur et directeur",
+          text: "A fondé Norway Now fin 2025 pour soutenir les réfugiés et immigrés arabophones en Norvège, et dirige actuellement la plateforme.",
+        },
+      ],
+      secondaryItems: [
+        {
+          year: "2022–2025",
+          title: "Syrian Student Organization in Norway",
+          place: "Membre et responsable du département médias",
+          text: "A rejoint l’organisation en 2022 et y est resté actif jusqu’en 2025, avec la responsabilité du département médias et communication.",
+        },
+      ],
+      tertiaryItems: [
+        "Soutien aux réfugiés et immigrés arabophones en Norvège.",
+        "Médias communautaires, communication et information publique.",
+        "Organisation d’initiatives bénévoles et création de plateformes communautaires.",
+      ],
+    },
   },
 };
 
@@ -460,9 +616,9 @@ function GatewayHome({ labels, activePortal, openPortal, text }) {
   );
 }
 
-function EnergyPage({ content }) {
+function ProfilePage({ content }) {
   return (
-    <div className="energy-page" id="energy">
+    <div className="energy-page" id={content.object}>
       <section className="energy-hero">
         <div>
           <p>{content.label}</p>
@@ -471,16 +627,16 @@ function EnergyPage({ content }) {
         </div>
         <div className="energy-hero-orb" aria-hidden="true">
           <span className="sphere3d energy-page-sphere">
-            <Object3D type="energy" />
+            <Object3D type={content.object} />
           </span>
         </div>
       </section>
 
-      <section className="energy-sections" aria-label="Energy portfolio details">
+      <section className="energy-sections" aria-label={`${content.title} portfolio details`}>
         <article className="energy-card energy-card-wide">
-          <p className="energy-card-label">{content.education}</p>
+          <p className="energy-card-label">{content.primary}</p>
           <div className="energy-timeline">
-            {content.educationItems.map((item) => (
+            {content.primaryItems.map((item) => (
               <div className="energy-item" key={`${item.year}-${item.title}`}>
                 <span className="energy-year">{item.year}</span>
                 <div>
@@ -494,9 +650,9 @@ function EnergyPage({ content }) {
         </article>
 
         <article className="energy-card">
-          <p className="energy-card-label">{content.work}</p>
+          <p className="energy-card-label">{content.secondary}</p>
           <div className="energy-timeline compact">
-            {content.workItems.map((item) => (
+            {content.secondaryItems.map((item) => (
               <div className="energy-item" key={`${item.year}-${item.title}`}>
                 <span className="energy-year">{item.year}</span>
                 <div>
@@ -510,9 +666,9 @@ function EnergyPage({ content }) {
         </article>
 
         <article className="energy-card">
-          <p className="energy-card-label">{content.projects}</p>
+          <p className="energy-card-label">{content.tertiary}</p>
           <div className="energy-projects">
-            {content.projectItems.map((item) => (
+            {content.tertiaryItems.map((item) => (
               <span key={item}>{item}</span>
             ))}
           </div>
@@ -527,19 +683,23 @@ export default function App() {
   const [language, setLanguage] = useState("en");
   const [activePortal, setActivePortal] = useState(null);
   const [modal, setModal] = useState(null);
-  const [page, setPage] = useState(() => (window.location.hash === "#energy" ? "energy" : "home"));
+  const [page, setPage] = useState(() => {
+    if (window.location.hash === "#energy") return "energy";
+    if (window.location.hash === "#volunteer") return "volunteer";
+    return "home";
+  });
 
   const text = copy[language];
   const labels = portalLabels[language];
-  const energy = energyContent[language];
   const isArabic = language === "ar";
+  const currentProfile = page === "home" ? null : profileContent[page]?.[language];
 
   function openPortal(id) {
     setActivePortal(id);
 
-    if (id === "energy") {
-      setPage("energy");
-      window.history.replaceState(null, "", "#energy");
+    if (profileContent[id]) {
+      setPage(id);
+      window.history.replaceState(null, "", `#${id}`);
       return;
     }
 
@@ -565,7 +725,7 @@ export default function App() {
         <span />
       </div>
 
-      <section className={`gateway-frame ${page === "energy" ? "gateway-frame-subpage" : ""}`} aria-label="Interactive portfolio gateway">
+      <section className={`gateway-frame ${page !== "home" ? "gateway-frame-subpage" : ""}`} aria-label="Interactive portfolio gateway">
         <Topbar
           text={text}
           theme={theme}
@@ -577,8 +737,8 @@ export default function App() {
           isSubpage={page !== "home"}
         />
 
-        {page === "energy" ? (
-          <EnergyPage content={energy} />
+        {currentProfile ? (
+          <ProfilePage content={currentProfile} />
         ) : (
           <GatewayHome labels={labels} activePortal={activePortal} openPortal={openPortal} text={text} />
         )}
