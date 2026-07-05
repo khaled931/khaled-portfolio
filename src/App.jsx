@@ -49,7 +49,7 @@ const portalLabels = {
   fr: { energy: "Énergies renouvelables", media: "Photo / vidéo / drone", volunteer: "Organisations et bénévolat", digital: "Marketing digital / freelance / sites web" },
 };
 
-const profileContent = {
+const baseTranslations = {
   energy: {
     en: {
       label: "Energy profile", title: "Renewable Energy",
@@ -86,75 +86,119 @@ const profileContent = {
       tertiaryItems: ["Syrian Renewables — plateforme de données et d’intelligence pour les énergies renouvelables en Syrie.", "Granular Certificates — plateforme de connaissance sur les certificats d’énergie renouvelable.", "Energy data tools — tableaux de bord et jeux de données structurés pour l’analyse énergétique."],
     },
   },
-  volunteer: {
+  media: {
     en: {
-      label: "Community impact", title: "Organized & Volunteer Work", subtitle: "Community leadership, Arabic-speaking migrant support, media work, and organized volunteer initiatives in Norway.", primary: "Leadership & Organizations", secondary: "Media & Community Role", tertiary: "Focus Areas", object: "volunteer",
-      primaryItems: [{ year: "2019–2023", title: "Radio Mangfold Norge", place: "Volunteer, then General Manager from 2021 to 2023", text: "Started volunteering in 2019, became General Manager in 2021, and led the organization until its work ended in 2023. The organization served Arabic-speaking immigrants and refugees in Norway." }, { year: "End of 2025–Present", title: "Norway Now Platform", place: "Founder and Director", text: "Founded Norway Now at the end of 2025 to support Arabic-speaking refugees and immigrants in Norway. Currently serving as its director." }],
-      secondaryItems: [{ year: "2022–2025", title: "Syrian Student Organization in Norway", place: "Member and Media Department Lead", text: "Joined the organization in 2022 and remained active until 2025, with responsibility for the media section and communication-related activities." }],
-      tertiaryItems: ["Supporting Arabic-speaking refugees and immigrants in Norway.", "Community media, communication, and public information work.", "Organizing volunteer initiatives and building community-oriented platforms."],
+      label: "Visual storytelling", title: "Photography / Videography / Drone",
+      subtitle: "A visual portfolio section for photography, video production, drone footage, and creative documentation.",
+      primary: "Photography & Video", secondary: "Drone Production", tertiary: "Visual Focus", object: "media",
+      primaryItems: [
+        { year: "Skill", title: "Photo Production", place: "Photography and visual documentation", text: "Creating strong photographic content for places, people, projects, organizations, and digital platforms." },
+        { year: "Skill", title: "Video Production", place: "Filming and visual storytelling", text: "Producing video content for campaigns, social media, events, communities, and project documentation." },
+      ],
+      secondaryItems: [{ year: "Skill", title: "Drone Video Production", place: "Aerial visuals", text: "Producing drone-based video content for places, projects, events, and visual documentation." }],
+      tertiaryItems: ["Photography for projects, communities, and places.", "Video storytelling for social media and campaigns.", "Drone footage for visual identity, documentation, and promotion."],
     },
     ar: {
-      label: "الأثر المجتمعي", title: "المنظمات والعمل التطوعي", subtitle: "خبرة في إدارة المبادرات المجتمعية، دعم اللاجئين والمهاجرين الناطقين بالعربية في النرويج، والعمل الإعلامي والتنظيمي التطوعي.", primary: "القيادة والمنظمات", secondary: "الإعلام والعمل المجتمعي", tertiary: "مجالات التركيز", object: "volunteer",
-      primaryItems: [{ year: "2019–2023", title: "منظمة راديو التنوع النرويجي", place: "متطوع ثم مدير عام بين 2021 و2023", text: "بدأ العمل التطوعي في هذه المنظمة في عام 2019، ثم أصبح مديراً عاماً لها في عام 2021، واستمر في إدارتها حتى توقف أو انتهى عمل المنظمة في عام 2023. كانت المنظمة تُعنى بالمهاجرين واللاجئين في النرويج الناطقين باللغة العربية." }, { year: "نهاية 2025–الآن", title: "منصة النرويج الآن", place: "المؤسس والمدير", text: "أنشأ منصة النرويج الآن في نهاية عام 2025 بهدف دعم اللاجئين والمهاجرين في النرويج والناطقين باللغة العربية، وهو مديرها حتى هذا الوقت." }],
-      secondaryItems: [{ year: "2022–2025", title: "منظمة الطالب السوري في النرويج", place: "عضو ومسؤول القسم الإعلامي", text: "انضم إلى منظمة الطالب السوري في النرويج في عام 2022 واستمر حتى عام 2025، وكان مسؤولاً عن القسم الإعلامي في المنظمة." }],
-      tertiaryItems: ["دعم اللاجئين والمهاجرين في النرويج والناطقين باللغة العربية.", "العمل الإعلامي المجتمعي، التواصل، وإدارة المحتوى.", "تنظيم المبادرات التطوعية وبناء منصات مجتمعية عملية."],
+      label: "السرد البصري", title: "التصوير / الفيديو / الدرون",
+      subtitle: "قسم بصري مخصص للتصوير الفوتوغرافي، إنتاج الفيديو، تصوير الدرون، والتوثيق الإبداعي.",
+      primary: "التصوير والفيديو", secondary: "تصوير الدرون", tertiary: "التركيز البصري", object: "media",
+      primaryItems: [
+        { year: "مهارة", title: "تصوير الصور", place: "تصوير وتوثيق بصري", text: "تصوير محتوى فوتوغرافي مناسب للأماكن، الأشخاص، المشاريع، المنظمات، والمنصات الرقمية." },
+        { year: "مهارة", title: "تصوير الفيديو", place: "إنتاج فيديو وسرد بصري", text: "إنتاج فيديوهات للحملات، وسائل التواصل الاجتماعي، الفعاليات، المجتمعات، وتوثيق المشاريع." },
+      ],
+      secondaryItems: [{ year: "مهارة", title: "تصوير فيديو باستخدام الدرون", place: "تصوير جوي ومحتوى بصري", text: "إنتاج فيديوهات باستخدام الدرون للأماكن، المشاريع، الفعاليات، والتوثيق البصري الاحترافي." }],
+      tertiaryItems: ["تصوير صور للمشاريع والمجتمعات والأماكن.", "إنتاج فيديوهات للسوشيال ميديا والحملات.", "تصوير درون للهوية البصرية، التوثيق، والترويج."],
     },
     no: {
-      label: "Samfunnsarbeid", title: "Organisert og frivillig arbeid", subtitle: "Erfaring med organisasjonsledelse, støtte til arabisktalende flyktninger og innvandrere i Norge, mediearbeid og frivillig koordinering.", primary: "Ledelse og organisasjoner", secondary: "Media og samfunnsrolle", tertiary: "Fokusområder", object: "volunteer",
-      primaryItems: [{ year: "2019–2023", title: "Radio Mangfold Norge", place: "Frivillig, deretter daglig leder fra 2021 til 2023", text: "Startet som frivillig i 2019, ble daglig leder i 2021 og ledet organisasjonen frem til arbeidet ble avsluttet i 2023." }, { year: "Slutten av 2025–nå", title: "Norway Now Platform", place: "Grunnlegger og leder", text: "Etablerte Norway Now på slutten av 2025 for å støtte arabisktalende flyktninger og innvandrere i Norge, og leder plattformen i dag." }],
-      secondaryItems: [{ year: "2022–2025", title: "Syrian Student Organization in Norway", place: "Medlem og ansvarlig for mediaavdelingen", text: "Ble med i organisasjonen i 2022 og var aktiv til 2025, med ansvar for media, kommunikasjon og innholdsarbeid." }],
-      tertiaryItems: ["Støtte til arabisktalende flyktninger og innvandrere i Norge.", "Samfunnsmedia, kommunikasjon og offentlig informasjon.", "Organisering av frivillige initiativer og bygging av samfunnsplattformer."],
+      label: "Visuell historiefortelling", title: "Foto / video / drone", subtitle: "En visuell seksjon for foto, video, droneopptak og kreativ dokumentasjon.", primary: "Foto og video", secondary: "Droneproduksjon", tertiary: "Visuelt fokus", object: "media",
+      primaryItems: [{ year: "Skill", title: "Foto", place: "Fotografi og dokumentasjon", text: "Produksjon av fotografisk innhold for steder, mennesker, prosjekter, organisasjoner og digitale plattformer." }, { year: "Skill", title: "Videoproduksjon", place: "Film og visuell historiefortelling", text: "Produksjon av video for kampanjer, sosiale medier, arrangementer og dokumentasjon." }],
+      secondaryItems: [{ year: "Skill", title: "Dronevideo", place: "Luftfoto og video", text: "Dronebasert videoinnhold for steder, prosjekter, arrangementer og visuell dokumentasjon." }],
+      tertiaryItems: ["Foto for prosjekter, samfunn og steder.", "Video for sosiale medier og kampanjer.", "Droneopptak for identitet, dokumentasjon og promotering."],
     },
     fr: {
-      label: "Impact communautaire", title: "Organisations et bénévolat", subtitle: "Leadership communautaire, soutien aux réfugiés et immigrés arabophones en Norvège, communication et initiatives bénévoles organisées.", primary: "Leadership et organisations", secondary: "Médias et rôle communautaire", tertiary: "Axes de travail", object: "volunteer",
-      primaryItems: [{ year: "2019–2023", title: "Radio Mangfold Norge", place: "Bénévole, puis directeur général de 2021 à 2023", text: "A commencé comme bénévole en 2019, puis est devenu directeur général en 2021 et a dirigé l’organisation jusqu’à la fin de ses activités en 2023." }, { year: "Fin 2025–présent", title: "Norway Now Platform", place: "Fondateur et directeur", text: "A fondé Norway Now fin 2025 pour soutenir les réfugiés et immigrés arabophones en Norvège, et dirige actuellement la plateforme." }],
-      secondaryItems: [{ year: "2022–2025", title: "Syrian Student Organization in Norway", place: "Membre et responsable du département médias", text: "A rejoint l’organisation en 2022 et y est resté actif jusqu’en 2025, avec la responsabilité du département médias et communication." }],
-      tertiaryItems: ["Soutien aux réfugiés et immigrés arabophones en Norvège.", "Médias communautaires, communication et information publique.", "Organisation d’initiatives bénévoles et création de plateformes communautaires."],
+      label: "Storytelling visuel", title: "Photo / vidéo / drone", subtitle: "Une section visuelle dédiée à la photographie, la vidéo, le drone et la documentation créative.", primary: "Photo et vidéo", secondary: "Production drone", tertiary: "Focus visuel", object: "media",
+      primaryItems: [{ year: "Skill", title: "Photographie", place: "Contenu visuel", text: "Création de contenu photo pour lieux, personnes, projets, organisations et plateformes digitales." }, { year: "Skill", title: "Production vidéo", place: "Storytelling visuel", text: "Production de vidéos pour campagnes, réseaux sociaux, événements et documentation." }],
+      secondaryItems: [{ year: "Skill", title: "Vidéo drone", place: "Images aériennes", text: "Production de vidéos drone pour lieux, projets, événements et documentation visuelle." }],
+      tertiaryItems: ["Photo pour projets, communautés et lieux.", "Vidéo pour réseaux sociaux et campagnes.", "Drone pour identité visuelle, documentation et promotion."],
     },
   },
-  digital: {
-    en: {
-      label: "Digital systems", title: "Digital Marketing / Freelancing / Website Creation",
-      subtitle: "A practical skill set for producing visual content, managing digital channels, building websites, and supporting online growth.",
-      primary: "Creative Production", secondary: "Digital Execution", tertiary: "Service Areas", object: "digital",
-      primaryItems: [
-        { year: "Skill", title: "Photo & Video Production", place: "Visual content creation", text: "Creating photos and videos for brands, platforms, campaigns, communities, and digital storytelling." },
-        { year: "Skill", title: "Drone Video Production", place: "Aerial visuals", text: "Producing drone-based video content for places, projects, events, and visual documentation." },
-      ],
-      secondaryItems: [
-        { year: "Skill", title: "Website Creation", place: "Web presence and landing pages", text: "Creating clean websites and landing pages for projects, organizations, services, and personal brands." },
-        { year: "Skill", title: "Social Media Management", place: "Digital communication", text: "Managing content, publishing workflows, campaigns, and communication across social media channels." },
-      ],
-      tertiaryItems: ["Email marketing and newsletter campaigns.", "Content planning, visual assets, and campaign support.", "Freelance digital execution combining media, websites, and marketing."],
-    },
-    ar: {
-      label: "الأنظمة الرقمية", title: "التسويق الرقمي / الفريلانس / إنشاء المواقع",
-      subtitle: "مجموعة مهارات عملية تجمع بين إنتاج المحتوى البصري، إدارة القنوات الرقمية، إنشاء المواقع، ودعم النمو الرقمي.",
-      primary: "الإنتاج البصري", secondary: "التنفيذ الرقمي", tertiary: "مجالات الخدمة", object: "digital",
-      primaryItems: [
-        { year: "مهارة", title: "تصوير الصور والفيديو", place: "إنتاج المحتوى البصري", text: "تصوير صور وفيديوهات مناسبة للمنصات، الحملات، المشاريع، المجتمعات، وسرد القصص الرقمية." },
-        { year: "مهارة", title: "تصوير فيديو باستخدام الدرون", place: "تصوير جوي ومحتوى بصري", text: "إنتاج فيديوهات باستخدام الدرون للأماكن، المشاريع، الفعاليات، والتوثيق البصري الاحترافي." },
-      ],
-      secondaryItems: [
-        { year: "مهارة", title: "إنشاء المواقع", place: "مواقع وصفحات هبوط", text: "إنشاء مواقع وصفحات هبوط نظيفة للمشاريع، المنظمات، الخدمات، والهويات الشخصية." },
-        { year: "مهارة", title: "إدارة وسائل التواصل الاجتماعي", place: "إدارة المحتوى والقنوات الرقمية", text: "إدارة المحتوى، النشر، الحملات، والتواصل عبر قنوات التواصل الاجتماعي بطريقة منظمة." },
-      ],
-      tertiaryItems: ["إيميل ماركتينج وإدارة النشرات البريدية.", "تخطيط المحتوى، تصميم المواد البصرية، ودعم الحملات.", "تنفيذ أعمال فريلانس تجمع بين التصوير، المواقع، والتسويق الرقمي."],
-    },
-    no: {
-      label: "Digitale systemer", title: "Digital markedsføring / frilans / nettsider", subtitle: "Praktiske ferdigheter innen visuelt innhold, digitale kanaler, nettsider og markedsføring.", primary: "Kreativ produksjon", secondary: "Digital gjennomføring", tertiary: "Tjenesteområder", object: "digital",
-      primaryItems: [{ year: "Skill", title: "Foto- og videoproduksjon", place: "Visuelt innhold", text: "Produksjon av foto og video for plattformer, kampanjer, prosjekter og digital historiefortelling." }, { year: "Skill", title: "Dronevideo", place: "Luftfoto og video", text: "Dronebasert videoinnhold for steder, prosjekter, arrangementer og dokumentasjon." }],
-      secondaryItems: [{ year: "Skill", title: "Nettsideutvikling", place: "Web og landingssider", text: "Enkle og ryddige nettsider for prosjekter, organisasjoner, tjenester og personlige merkevarer." }, { year: "Skill", title: "Sosiale medier", place: "Digital kommunikasjon", text: "Innhold, publisering, kampanjer og kommunikasjon på sosiale medier." }],
-      tertiaryItems: ["E-postmarkedsføring og nyhetsbrev.", "Innholdsplanlegging, visuelle ressurser og kampanjestøtte.", "Frilansarbeid som kombinerer media, nettsider og digital markedsføring."],
-    },
-    fr: {
-      label: "Systèmes digitaux", title: "Marketing digital / freelance / création de sites", subtitle: "Compétences pratiques en contenu visuel, canaux digitaux, création de sites et croissance en ligne.", primary: "Production créative", secondary: "Exécution digitale", tertiary: "Services", object: "digital",
-      primaryItems: [{ year: "Skill", title: "Photo et vidéo", place: "Création de contenu visuel", text: "Création de photos et vidéos pour plateformes, campagnes, projets et storytelling digital." }, { year: "Skill", title: "Vidéo drone", place: "Images aériennes", text: "Production de vidéos drone pour lieux, projets, événements et documentation visuelle." }],
-      secondaryItems: [{ year: "Skill", title: "Création de sites web", place: "Sites et landing pages", text: "Création de sites simples et propres pour projets, organisations, services et marques personnelles." }, { year: "Skill", title: "Gestion des réseaux sociaux", place: "Communication digitale", text: "Gestion de contenu, publication, campagnes et communication sur les réseaux sociaux." }],
-      tertiaryItems: ["Email marketing et newsletters.", "Planification de contenu, visuels et support de campagnes.", "Exécution freelance combinant médias, sites web et marketing digital."],
-    },
+  volunteer: {},
+  digital: {},
+};
+
+baseTranslations.volunteer = {
+  en: {
+    label: "Community impact", title: "Organized & Volunteer Work", subtitle: "Community leadership, Arabic-speaking migrant support, media work, and organized volunteer initiatives in Norway.", primary: "Leadership & Organizations", secondary: "Media & Community Role", tertiary: "Focus Areas", object: "volunteer",
+    primaryItems: [{ year: "2019–2023", title: "Radio Mangfold Norge", place: "Volunteer, then General Manager from 2021 to 2023", text: "Started volunteering in 2019, became General Manager in 2021, and led the organization until its work ended in 2023. The organization served Arabic-speaking immigrants and refugees in Norway." }, { year: "End of 2025–Present", title: "Norway Now Platform", place: "Founder and Director", text: "Founded Norway Now at the end of 2025 to support Arabic-speaking refugees and immigrants in Norway. Currently serving as its director." }],
+    secondaryItems: [{ year: "2022–2025", title: "Syrian Student Organization in Norway", place: "Member and Media Department Lead", text: "Joined the organization in 2022 and remained active until 2025, with responsibility for the media section and communication-related activities." }],
+    tertiaryItems: ["Supporting Arabic-speaking refugees and immigrants in Norway.", "Community media, communication, and public information work.", "Organizing volunteer initiatives and building community-oriented platforms."],
+  },
+  ar: {
+    label: "الأثر المجتمعي", title: "المنظمات والعمل التطوعي", subtitle: "خبرة في إدارة المبادرات المجتمعية، دعم اللاجئين والمهاجرين الناطقين بالعربية في النرويج، والعمل الإعلامي والتنظيمي التطوعي.", primary: "القيادة والمنظمات", secondary: "الإعلام والعمل المجتمعي", tertiary: "مجالات التركيز", object: "volunteer",
+    primaryItems: [{ year: "2019–2023", title: "منظمة راديو التنوع النرويجي", place: "متطوع ثم مدير عام بين 2021 و2023", text: "بدأ العمل التطوعي في هذه المنظمة في عام 2019، ثم أصبح مديراً عاماً لها في عام 2021، واستمر في إدارتها حتى توقف أو انتهى عمل المنظمة في عام 2023. كانت المنظمة تُعنى بالمهاجرين واللاجئين في النرويج الناطقين باللغة العربية." }, { year: "نهاية 2025–الآن", title: "منصة النرويج الآن", place: "المؤسس والمدير", text: "أنشأ منصة النرويج الآن في نهاية عام 2025 بهدف دعم اللاجئين والمهاجرين في النرويج والناطقين باللغة العربية، وهو مديرها حتى هذا الوقت." }],
+    secondaryItems: [{ year: "2022–2025", title: "منظمة الطالب السوري في النرويج", place: "عضو ومسؤول القسم الإعلامي", text: "انضم إلى منظمة الطالب السوري في النرويج في عام 2022 واستمر حتى عام 2025، وكان مسؤولاً عن القسم الإعلامي في المنظمة." }],
+    tertiaryItems: ["دعم اللاجئين والمهاجرين في النرويج والناطقين باللغة العربية.", "العمل الإعلامي المجتمعي، التواصل، وإدارة المحتوى.", "تنظيم المبادرات التطوعية وبناء منصات مجتمعية عملية."],
+  },
+  no: {
+    label: "Samfunnsarbeid", title: "Organisert og frivillig arbeid", subtitle: "Erfaring med organisasjonsledelse, støtte til arabisktalende flyktninger og innvandrere i Norge, mediearbeid og frivillig koordinering.", primary: "Ledelse og organisasjoner", secondary: "Media og samfunnsrolle", tertiary: "Fokusområder", object: "volunteer",
+    primaryItems: [{ year: "2019–2023", title: "Radio Mangfold Norge", place: "Frivillig, deretter daglig leder fra 2021 til 2023", text: "Startet som frivillig i 2019, ble daglig leder i 2021 og ledet organisasjonen frem til arbeidet ble avsluttet i 2023." }, { year: "Slutten av 2025–nå", title: "Norway Now Platform", place: "Grunnlegger og leder", text: "Etablerte Norway Now på slutten av 2025 for å støtte arabisktalende flyktninger og innvandrere i Norge, og leder plattformen i dag." }],
+    secondaryItems: [{ year: "2022–2025", title: "Syrian Student Organization in Norway", place: "Medlem og ansvarlig for mediaavdelingen", text: "Ble med i organisasjonen i 2022 og var aktiv til 2025, med ansvar for media, kommunikasjon og innholdsarbeid." }],
+    tertiaryItems: ["Støtte til arabisktalende flyktninger og innvandrere i Norge.", "Samfunnsmedia, kommunikasjon og offentlig informasjon.", "Organisering av frivillige initiativer og bygging av samfunnsplattformer."],
+  },
+  fr: {
+    label: "Impact communautaire", title: "Organisations et bénévolat", subtitle: "Leadership communautaire, soutien aux réfugiés et immigrés arabophones en Norvège, communication et initiatives bénévoles organisées.", primary: "Leadership et organisations", secondary: "Médias et rôle communautaire", tertiary: "Axes de travail", object: "volunteer",
+    primaryItems: [{ year: "2019–2023", title: "Radio Mangfold Norge", place: "Bénévole, puis directeur général de 2021 à 2023", text: "A commencé comme bénévole en 2019, puis est devenu directeur général en 2021 et a dirigé l’organisation jusqu’à la fin de ses activités en 2023." }, { year: "Fin 2025–présent", title: "Norway Now Platform", place: "Fondateur et directeur", text: "A fondé Norway Now fin 2025 pour soutenir les réfugiés et immigrés arabophones en Norvège, et dirige actuellement la plateforme." }],
+    secondaryItems: [{ year: "2022–2025", title: "Syrian Student Organization in Norway", place: "Membre et responsable du département médias", text: "A rejoint l’organisation en 2022 et y est resté actif jusqu’en 2025, avec la responsabilité du département médias et communication." }],
+    tertiaryItems: ["Soutien aux réfugiés et immigrés arabophones en Norvège.", "Médias communautaires, communication et information publique.", "Organisation d’initiatives bénévoles et création de plateformes communautaires."],
   },
 };
+
+baseTranslations.digital = {
+  en: {
+    label: "Digital systems", title: "Digital Marketing / Freelancing / Website Creation",
+    subtitle: "A focused digital skill set for websites, social media, email marketing, strategy, freelancing, and AI automation.",
+    primary: "Core Digital Skills", secondary: "Strategy & Automation", tertiary: "Service Areas", object: "digital",
+    primaryItems: [
+      { year: "Skill", title: "Website Creation", place: "Web presence and landing pages", text: "Creating clean websites and landing pages for projects, organizations, services, and personal brands." },
+      { year: "Skill", title: "Social Media Management", place: "Digital communication", text: "Managing content, publishing workflows, campaigns, and communication across social media channels." },
+      { year: "Skill", title: "Email Marketing", place: "Newsletters and audience communication", text: "Planning and managing email campaigns, newsletters, subscriber communication, and audience updates." },
+    ],
+    secondaryItems: [
+      { year: "Skill", title: "Content Planning & Strategies", place: "Content systems", text: "Planning content calendars, campaign structures, publishing strategies, and audience-focused messaging." },
+      { year: "Skill", title: "Freelancing & AI Automation", place: "Efficient digital execution", text: "Combining freelance delivery with AI-assisted workflows, automation, research, content production, and practical digital systems." },
+    ],
+    tertiaryItems: ["Website creation and landing pages.", "Social media management and campaign planning.", "Email marketing, content strategy, freelancing, and AI automation."],
+  },
+  ar: {
+    label: "الأنظمة الرقمية", title: "التسويق الرقمي / الفريلانس / إنشاء المواقع",
+    subtitle: "قسم مخصص للمهارات الرقمية: إنشاء المواقع، إدارة وسائل التواصل، الإيميل ماركتينغ، تخطيط المحتوى والاستراتيجيات، الفريلانس، وAI automation.",
+    primary: "المهارات الرقمية الأساسية", secondary: "الاستراتيجية والأتمتة", tertiary: "مجالات الخدمة", object: "digital",
+    primaryItems: [
+      { year: "مهارة", title: "إنشاء المواقع", place: "مواقع وصفحات هبوط", text: "إنشاء مواقع وصفحات هبوط نظيفة للمشاريع، المنظمات، الخدمات، والهويات الشخصية." },
+      { year: "مهارة", title: "إدارة وسائل التواصل الاجتماعي", place: "إدارة المحتوى والقنوات الرقمية", text: "إدارة المحتوى، النشر، الحملات، والتواصل عبر قنوات التواصل الاجتماعي بطريقة منظمة." },
+      { year: "مهارة", title: "إيميل ماركتينج", place: "النشرات البريدية والتواصل مع الجمهور", text: "تخطيط وإدارة حملات البريد الإلكتروني، النشرات البريدية، تواصل المشتركين، وتحديثات الجمهور." },
+    ],
+    secondaryItems: [
+      { year: "مهارة", title: "Content Planning and Strategies", place: "أنظمة المحتوى", text: "تخطيط تقويم المحتوى، هيكلة الحملات، استراتيجيات النشر، وصياغة الرسائل المناسبة للجمهور." },
+      { year: "مهارة", title: "Freelancing and AI Automation", place: "تنفيذ رقمي فعّال", text: "دمج أعمال الفريلانس مع workflows مدعومة بالذكاء الاصطناعي، الأتمتة، البحث، إنتاج المحتوى، والأنظمة الرقمية العملية." },
+    ],
+    tertiaryItems: ["إنشاء المواقع وصفحات الهبوط.", "إدارة السوشيال ميديا وتخطيط الحملات.", "إيميل ماركتينج، استراتيجية محتوى، فريلانس، وأتمتة بالذكاء الاصطناعي."],
+  },
+  no: {
+    label: "Digitale systemer", title: "Digital markedsføring / frilans / nettsider", subtitle: "Ferdigheter innen nettsider, sosiale medier, e-postmarkedsføring, strategi, frilans og AI-automatisering.", primary: "Digitale kjerneferdigheter", secondary: "Strategi og automatisering", tertiary: "Tjenesteområder", object: "digital",
+    primaryItems: [{ year: "Skill", title: "Nettsideutvikling", place: "Web og landingssider", text: "Enkle og ryddige nettsider for prosjekter, organisasjoner, tjenester og personlige merkevarer." }, { year: "Skill", title: "Sosiale medier", place: "Digital kommunikasjon", text: "Innhold, publisering, kampanjer og kommunikasjon på sosiale medier." }, { year: "Skill", title: "E-postmarkedsføring", place: "Nyhetsbrev", text: "Planlegging og oppfølging av e-postkampanjer, nyhetsbrev og publikumskommunikasjon." }],
+    secondaryItems: [{ year: "Skill", title: "Innholdsplanlegging og strategier", place: "Innholdssystemer", text: "Planlegging av innholdskalendere, kampanjer, publiseringsstrategier og målrettede budskap." }, { year: "Skill", title: "Frilans og AI-automatisering", place: "Effektiv digital gjennomføring", text: "Kombinerer frilansarbeid med AI-støttede arbeidsflyter, automatisering, research og innholdsproduksjon." }],
+    tertiaryItems: ["Nettsider og landingssider.", "Sosiale medier og kampanjeplanlegging.", "E-postmarkedsføring, innholdsstrategi, frilans og AI-automatisering."],
+  },
+  fr: {
+    label: "Systèmes digitaux", title: "Marketing digital / freelance / création de sites", subtitle: "Compétences en sites web, réseaux sociaux, email marketing, stratégie, freelance et automatisation IA.", primary: "Compétences digitales", secondary: "Stratégie et automatisation", tertiary: "Services", object: "digital",
+    primaryItems: [{ year: "Skill", title: "Création de sites web", place: "Sites et landing pages", text: "Création de sites simples et propres pour projets, organisations, services et marques personnelles." }, { year: "Skill", title: "Gestion des réseaux sociaux", place: "Communication digitale", text: "Gestion de contenu, publication, campagnes et communication sur les réseaux sociaux." }, { year: "Skill", title: "Email marketing", place: "Newsletters", text: "Planification et gestion de campagnes email, newsletters et communication avec l’audience." }],
+    secondaryItems: [{ year: "Skill", title: "Planification et stratégies de contenu", place: "Systèmes de contenu", text: "Calendriers de contenu, structures de campagnes, stratégies de publication et messages ciblés." }, { year: "Skill", title: "Freelance et automatisation IA", place: "Exécution digitale efficace", text: "Combinaison du freelancing avec des workflows assistés par IA, automatisation, recherche et production de contenu." }],
+    tertiaryItems: ["Création de sites et landing pages.", "Gestion des réseaux sociaux et planification de campagnes.", "Email marketing, stratégie de contenu, freelance et automatisation IA."],
+  },
+};
+
+const profileContent = baseTranslations;
 
 const portals = [
   { id: "energy", field: "energy", accent: "#CFFF3E", glow: "rgba(207, 255, 62, 0.45)", gradient: "linear-gradient(135deg, #E8FFD5 0%, #9BE8D9 70%, #78C7FF 100%)" },
