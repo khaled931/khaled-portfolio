@@ -21,6 +21,7 @@ const copy = {
     contact: "Contact",
     theme: "Theme",
     language: "Language",
+    back: "Back",
     intro: "Interactive portfolio portal",
     headline: "Choose a professional world to explore.",
     subline:
@@ -38,6 +39,7 @@ const copy = {
     contact: "تواصل",
     theme: "الوضع",
     language: "اللغة",
+    back: "رجوع",
     intro: "بوابة بورتفوليو تفاعلية",
     headline: "اختر عالماً مهنياً للاستكشاف.",
     subline:
@@ -55,6 +57,7 @@ const copy = {
     contact: "Kontakt",
     theme: "Tema",
     language: "Språk",
+    back: "Tilbake",
     intro: "Interaktiv porteføljeportal",
     headline: "Velg en profesjonell verden å utforske.",
     subline:
@@ -72,6 +75,7 @@ const copy = {
     contact: "Contact",
     theme: "Mode",
     language: "Langue",
+    back: "Retour",
     intro: "Portail interactif de portfolio",
     headline: "Choisissez un univers professionnel à explorer.",
     subline:
@@ -109,6 +113,153 @@ const portalLabels = {
     media: "Photo / vidéo / drone",
     volunteer: "Organisations et bénévolat",
     digital: "Marketing digital / freelance / sites web",
+  },
+};
+
+const energyContent = {
+  en: {
+    label: "Energy profile",
+    title: "Renewable Energy",
+    subtitle:
+      "Education, market analysis experience, and data-driven energy projects across Norway, Europe, Syria, and MENA.",
+    education: "Education",
+    work: "Work",
+    projects: "Projects",
+    educationItems: [
+      {
+        year: "2021",
+        title: "B.Sc. Renewable Energy Engineering",
+        place: "NTNU — Norwegian University of Science and Technology",
+        text: "Bachelor’s degree in Renewable Energy Engineering, completed in 2021.",
+      },
+      {
+        year: "2026",
+        title: "M.Sc. Renewable Energy Systems",
+        place: "University of Oslo",
+        text: "Master’s degree in Renewable Energy Systems, focused on renewable energy systems, policy analysis, and the economics of renewable energy markets.",
+      },
+    ],
+    workItems: [
+      {
+        year: "2 years",
+        title: "Renewable Energy Market & Policy Analysis",
+        place: "EU renewable energy markets",
+        text: "Two years of experience analyzing renewable energy markets and renewable energy policy in the European Union.",
+      },
+    ],
+    projectItems: [
+      "Syrian Renewables — renewable energy data and intelligence platform for Syria.",
+      "Granular Certificates — knowledge platform for renewable energy certificates and market transparency.",
+      "Energy data tools — trackers, dashboards, and structured datasets for energy analysis.",
+    ],
+  },
+  ar: {
+    label: "ملف الطاقة",
+    title: "الطاقة المتجددة",
+    subtitle:
+      "التعليم، الخبرة العملية، ومشاريع البيانات والتحليل في الطاقة المتجددة بين النرويج، أوروبا، سورية، ومنطقة MENA.",
+    education: "التعليم",
+    work: "العمل والخبرة",
+    projects: "المشاريع",
+    educationItems: [
+      {
+        year: "2021",
+        title: "بكالوريوس في هندسة الطاقة المتجددة",
+        place: "جامعة NTNU النرويجية",
+        text: "حاصل على بكالوريوس في هندسة الطاقة المتجددة من جامعة NTNU النرويجية، وأنهيته في عام 2021.",
+      },
+      {
+        year: "2026",
+        title: "ماجستير في أنظمة الطاقة المتجددة",
+        place: "University of Oslo — جامعة أوسلو",
+        text: "حاصل على ماجستير من جامعة أوسلو في أنظمة الطاقة المتجددة، مع تركيز على تحليل سياسات واقتصاديات أسواق الطاقة المتجددة، وأنهيته في عام 2026.",
+      },
+    ],
+    workItems: [
+      {
+        year: "سنتان",
+        title: "تحليل أسواق وسياسات الطاقة المتجددة",
+        place: "أسواق الطاقة المتجددة في الاتحاد الأوروبي",
+        text: "لدي خبرة سنتين في تحليل أسواق الطاقة المتجددة وسياسات الطاقة المتجددة في الاتحاد الأوروبي.",
+      },
+    ],
+    projectItems: [
+      "Syrian Renewables — منصة بيانات وتحليل لقطاع الطاقة المتجددة في سورية.",
+      "Granular Certificates — منصة معرفية حول شهادات الطاقة المتجددة وشفافية الأسواق.",
+      "Energy data tools — أدوات تتبع ولوحات بيانات ومجموعات بيانات مهيكلة لتحليل الطاقة.",
+    ],
+  },
+  no: {
+    label: "Energiprofil",
+    title: "Fornybar energi",
+    subtitle:
+      "Utdanning, markedserfaring og datadrevne energiprosjekter på tvers av Norge, Europa, Syria og MENA.",
+    education: "Utdanning",
+    work: "Arbeid",
+    projects: "Prosjekter",
+    educationItems: [
+      {
+        year: "2021",
+        title: "B.Sc. Fornybar energiteknikk",
+        place: "NTNU — Norges teknisk-naturvitenskapelige universitet",
+        text: "Bachelorgrad i fornybar energiteknikk, fullført i 2021.",
+      },
+      {
+        year: "2026",
+        title: "M.Sc. Renewable Energy Systems",
+        place: "University of Oslo",
+        text: "Mastergrad i fornybare energisystemer, med fokus på systemer, politisk analyse og økonomi i fornybare energimarkeder.",
+      },
+    ],
+    workItems: [
+      {
+        year: "2 år",
+        title: "Analyse av fornybare energimarkeder og politikk",
+        place: "EUs fornybare energimarkeder",
+        text: "To års erfaring med analyse av fornybare energimarkeder og fornybar energipolitikk i EU.",
+      },
+    ],
+    projectItems: [
+      "Syrian Renewables — data- og analyseplattform for fornybar energi i Syria.",
+      "Granular Certificates — kunnskapsplattform for fornybare energisertifikater og markedstransparens.",
+      "Energy data tools — sporere, dashboards og strukturerte datasett for energianalyse.",
+    ],
+  },
+  fr: {
+    label: "Profil énergie",
+    title: "Énergies renouvelables",
+    subtitle:
+      "Formation, expérience en analyse de marché et projets de données énergétiques entre la Norvège, l’Europe, la Syrie et la région MENA.",
+    education: "Formation",
+    work: "Expérience",
+    projects: "Projets",
+    educationItems: [
+      {
+        year: "2021",
+        title: "B.Sc. Ingénierie des énergies renouvelables",
+        place: "NTNU — Norwegian University of Science and Technology",
+        text: "Licence en ingénierie des énergies renouvelables, terminée en 2021.",
+      },
+      {
+        year: "2026",
+        title: "M.Sc. Renewable Energy Systems",
+        place: "University of Oslo",
+        text: "Master en systèmes d’énergies renouvelables, avec un focus sur les systèmes, l’analyse des politiques et l’économie des marchés renouvelables.",
+      },
+    ],
+    workItems: [
+      {
+        year: "2 ans",
+        title: "Analyse des marchés et politiques des énergies renouvelables",
+        place: "Marchés renouvelables de l’Union européenne",
+        text: "Deux ans d’expérience dans l’analyse des marchés des énergies renouvelables et des politiques renouvelables dans l’Union européenne.",
+      },
+    ],
+    projectItems: [
+      "Syrian Renewables — plateforme de données et d’intelligence pour les énergies renouvelables en Syrie.",
+      "Granular Certificates — plateforme de connaissance sur les certificats d’énergie renouvelable et la transparence des marchés.",
+      "Energy data tools — trackers, tableaux de bord et jeux de données structurés pour l’analyse énergétique.",
+    ],
   },
 };
 
@@ -243,19 +394,163 @@ function Modal({ type, text, onClose }) {
   );
 }
 
+function Topbar({ text, theme, language, setLanguage, toggleTheme, setModal, onBack, isSubpage }) {
+  return (
+    <header className="topbar">
+      <nav className="nav-left" aria-label="Primary navigation">
+        {isSubpage && (
+          <button type="button" className="back-button" onClick={onBack}>
+            ← {text.back}
+          </button>
+        )}
+        <button type="button" onClick={() => setModal("overview")}>{text.overview}</button>
+        <button type="button" onClick={() => setModal("about")}>{text.about}</button>
+      </nav>
+
+      <a className="brand" href="#top" aria-label="Jakob Olsen home" onClick={onBack}>JO</a>
+
+      <div className="nav-right">
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label={text.theme}
+          title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          <span className="theme-toggle-thumb" aria-hidden="true" />
+          <span className="theme-toggle-icon" aria-hidden="true">{theme === "dark" ? "☾" : "☀"}</span>
+        </button>
+
+        <label className="language-select" aria-label={text.language} title={languageNames[language]}>
+          <select value={language} onChange={(event) => setLanguage(event.target.value)}>
+            {Object.entries(languages).map(([code, label]) => (
+              <option key={code} value={code}>{label}</option>
+            ))}
+          </select>
+        </label>
+
+        <a className="contact-button" href="mailto:jakoub.k.olsen@gmail.com">{text.contact}</a>
+      </div>
+    </header>
+  );
+}
+
+function GatewayHome({ labels, activePortal, openPortal, text }) {
+  return (
+    <div className="gateway-content" id="top">
+      <div className="portal-stage" aria-label="Portfolio fields">
+        {portals.map((portal, index) => (
+          <PortalButton
+            key={portal.id}
+            portal={portal}
+            title={labels[portal.field]}
+            active={activePortal === portal.id}
+            onOpen={openPortal}
+            index={index}
+          />
+        ))}
+      </div>
+
+      <div className="intro-copy">
+        <p>{text.intro}</p>
+        <h1>{text.headline}</h1>
+        <span>{text.subline}</span>
+      </div>
+    </div>
+  );
+}
+
+function EnergyPage({ content }) {
+  return (
+    <div className="energy-page" id="energy">
+      <section className="energy-hero">
+        <div>
+          <p>{content.label}</p>
+          <h1>{content.title}</h1>
+          <span>{content.subtitle}</span>
+        </div>
+        <div className="energy-hero-orb" aria-hidden="true">
+          <span className="sphere3d energy-page-sphere">
+            <Object3D type="energy" />
+          </span>
+        </div>
+      </section>
+
+      <section className="energy-sections" aria-label="Energy portfolio details">
+        <article className="energy-card energy-card-wide">
+          <p className="energy-card-label">{content.education}</p>
+          <div className="energy-timeline">
+            {content.educationItems.map((item) => (
+              <div className="energy-item" key={`${item.year}-${item.title}`}>
+                <span className="energy-year">{item.year}</span>
+                <div>
+                  <h2>{item.title}</h2>
+                  <h3>{item.place}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="energy-card">
+          <p className="energy-card-label">{content.work}</p>
+          <div className="energy-timeline compact">
+            {content.workItems.map((item) => (
+              <div className="energy-item" key={`${item.year}-${item.title}`}>
+                <span className="energy-year">{item.year}</span>
+                <div>
+                  <h2>{item.title}</h2>
+                  <h3>{item.place}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article className="energy-card">
+          <p className="energy-card-label">{content.projects}</p>
+          <div className="energy-projects">
+            {content.projectItems.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </article>
+      </section>
+    </div>
+  );
+}
+
 export default function App() {
   const [theme, setTheme] = useState("light");
   const [language, setLanguage] = useState("en");
   const [activePortal, setActivePortal] = useState(null);
   const [modal, setModal] = useState(null);
+  const [page, setPage] = useState(() => (window.location.hash === "#energy" ? "energy" : "home"));
 
   const text = copy[language];
   const labels = portalLabels[language];
+  const energy = energyContent[language];
   const isArabic = language === "ar";
 
   function openPortal(id) {
     setActivePortal(id);
+
+    if (id === "energy") {
+      setPage("energy");
+      window.history.replaceState(null, "", "#energy");
+      return;
+    }
+
     window.history.replaceState(null, "", `#${id}`);
+  }
+
+  function goHome(event) {
+    event?.preventDefault?.();
+    setPage("home");
+    setActivePortal(null);
+    window.history.replaceState(null, "", window.location.pathname);
   }
 
   function toggleTheme() {
@@ -270,59 +565,23 @@ export default function App() {
         <span />
       </div>
 
-      <section className="gateway-frame" aria-label="Interactive portfolio gateway">
-        <header className="topbar">
-          <nav className="nav-left" aria-label="Primary navigation">
-            <button type="button" onClick={() => setModal("overview")}>{text.overview}</button>
-            <button type="button" onClick={() => setModal("about")}>{text.about}</button>
-          </nav>
+      <section className={`gateway-frame ${page === "energy" ? "gateway-frame-subpage" : ""}`} aria-label="Interactive portfolio gateway">
+        <Topbar
+          text={text}
+          theme={theme}
+          language={language}
+          setLanguage={setLanguage}
+          toggleTheme={toggleTheme}
+          setModal={setModal}
+          onBack={goHome}
+          isSubpage={page !== "home"}
+        />
 
-          <a className="brand" href="#top" aria-label="Jakob Olsen home">JO</a>
-
-          <div className="nav-right">
-            <button
-              type="button"
-              className="theme-toggle"
-              onClick={toggleTheme}
-              aria-label={text.theme}
-              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              <span className="theme-toggle-thumb" aria-hidden="true" />
-              <span className="theme-toggle-icon" aria-hidden="true">{theme === "dark" ? "☾" : "☀"}</span>
-            </button>
-
-            <label className="language-select" aria-label={text.language} title={languageNames[language]}>
-              <select value={language} onChange={(event) => setLanguage(event.target.value)}>
-                {Object.entries(languages).map(([code, label]) => (
-                  <option key={code} value={code}>{label}</option>
-                ))}
-              </select>
-            </label>
-
-            <a className="contact-button" href="mailto:jakoub.k.olsen@gmail.com">{text.contact}</a>
-          </div>
-        </header>
-
-        <div className="gateway-content" id="top">
-          <div className="portal-stage" aria-label="Portfolio fields">
-            {portals.map((portal, index) => (
-              <PortalButton
-                key={portal.id}
-                portal={portal}
-                title={labels[portal.field]}
-                active={activePortal === portal.id}
-                onOpen={openPortal}
-                index={index}
-              />
-            ))}
-          </div>
-
-          <div className="intro-copy">
-            <p>{text.intro}</p>
-            <h1>{text.headline}</h1>
-            <span>{text.subline}</span>
-          </div>
-        </div>
+        {page === "energy" ? (
+          <EnergyPage content={energy} />
+        ) : (
+          <GatewayHome labels={labels} activePortal={activePortal} openPortal={openPortal} text={text} />
+        )}
       </section>
 
       <Modal type={modal} text={text} onClose={() => setModal(null)} />
