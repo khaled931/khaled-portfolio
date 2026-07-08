@@ -6,8 +6,8 @@ const languageNames = { en: "English", ar: "العربية", no: "Norsk", fr: "F
 const copy = {
   en: {
     overview: "Overview", about: "About", contact: "Contact", theme: "Theme", language: "Language", back: "Back",
-    intro: "Interactive portfolio portal", headline: "Choose a professional world to explore.",
-    subline: "A minimal, immersive gateway into my work across energy, visual storytelling, community work, and digital systems.",
+    intro: "Explore Jakob’s portfolio", headline: "Explore the world of Jakob Alassad.",
+    subline: "A personal gateway into renewable energy, visual storytelling, community work, digital strategy, and AI-assisted projects.",
     overviewTitle: "Quick overview",
     overviewText: "I am Jakob Olsen, a Syrian–Norwegian renewable energy and data analyst based in Oslo. My work connects energy markets, data platforms, visual content, communities, and practical digital execution.",
     aboutTitle: "About Jakob",
@@ -15,8 +15,8 @@ const copy = {
   },
   ar: {
     overview: "نظرة عامة", about: "حول", contact: "تواصل", theme: "الوضع", language: "اللغة", back: "رجوع",
-    intro: "بوابة بورتفوليو تفاعلية", headline: "اختر عالماً مهنياً للاستكشاف.",
-    subline: "واجهة بسيطة وغامرة تعرض مجالات عملي في الطاقة، التصوير، العمل المجتمعي، والأنظمة الرقمية.",
+    intro: "استكشف بورتفوليو خالد", headline: "استكشف عالم خالد الأسعد.",
+    subline: "بوابة شخصية إلى أعمالي في الطاقة المتجددة، التصوير، العمل المجتمعي، التسويق الرقمي، ومشاريع الذكاء الاصطناعي.",
     overviewTitle: "نظرة عامة سريعة",
     overviewText: "أنا Jakob Olsen، محلل طاقة متجددة وبيانات سوري–نرويجي مقيم في أوسلو. يربط عملي بين أسواق الطاقة، منصات البيانات، المحتوى البصري، المجتمع، والتنفيذ الرقمي العملي.",
     aboutTitle: "حول Jakob",
@@ -24,8 +24,8 @@ const copy = {
   },
   no: {
     overview: "Oversikt", about: "Om", contact: "Kontakt", theme: "Tema", language: "Språk", back: "Tilbake",
-    intro: "Interaktiv porteføljeportal", headline: "Velg en profesjonell verden å utforske.",
-    subline: "En enkel og visuell inngang til mitt arbeid innen energi, foto, frivillighet og digitale systemer.",
+    intro: "Utforsk Jakobs portefølje", headline: "Utforsk Jakob Alassads verden.",
+    subline: "En personlig inngang til arbeidet mitt innen fornybar energi, visuell historiefortelling, samfunnsarbeid, digital strategi og AI-støttede prosjekter.",
     overviewTitle: "Kort oversikt",
     overviewText: "Jeg er Jakob Olsen, en syrisk-norsk analytiker innen fornybar energi og data, basert i Oslo. Arbeidet mitt kobler energimarkeder, dataplattformer, visuelt innhold, samfunn og digital gjennomføring.",
     aboutTitle: "Om Jakob",
@@ -33,8 +33,8 @@ const copy = {
   },
   fr: {
     overview: "Aperçu", about: "À propos", contact: "Contact", theme: "Mode", language: "Langue", back: "Retour",
-    intro: "Portail interactif de portfolio", headline: "Choisissez un univers professionnel à explorer.",
-    subline: "Une porte d’entrée minimaliste vers mon travail dans l’énergie, l’image, l’engagement communautaire et les systèmes numériques.",
+    intro: "Explorez le portfolio de Jakob", headline: "Explorez l’univers de Jakob Alassad.",
+    subline: "Une porte d’entrée personnelle vers mon travail dans les énergies renouvelables, l’image, l’engagement communautaire, la stratégie digitale et les projets assistés par IA.",
     overviewTitle: "Aperçu rapide",
     overviewText: "Je suis Jakob Olsen, analyste syro-norvégien en énergies renouvelables et données, basé à Oslo. Mon travail relie les marchés de l’énergie, les plateformes de données, le contenu visuel, les communautés et l’exécution digitale.",
     aboutTitle: "À propos de Jakob",
