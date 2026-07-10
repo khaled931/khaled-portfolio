@@ -41,7 +41,6 @@ textarea {
 }
 
 /* English / LTR display hierarchy */
-.portfolio-gateway:not([dir="rtl"]) .brand,
 .portfolio-gateway:not([dir="rtl"]) .intro-copy h1,
 .portfolio-gateway:not([dir="rtl"]) .energy-hero h1,
 .portfolio-gateway:not([dir="rtl"]) .modal-card h2 {
@@ -85,19 +84,45 @@ textarea {
   line-height: 1.85;
 }
 
+/* Language-aware portfolio wordmark */
+.brand {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  color: inherit;
+  font-size: 0 !important;
+  line-height: 1;
+  letter-spacing: 0 !important;
+  white-space: nowrap;
+}
+
+.brand::after {
+  content: "Jakob Portfolio";
+  display: inline-block;
+  font-family: var(--font-en-display);
+  font-size: clamp(1rem, 1.75vw, 1.35rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+
+.portfolio-gateway[dir="rtl"] .brand::after {
+  content: "Portfolio خالد الأسعد (Jakob)";
+  direction: rtl;
+  font-family: var(--font-ar-heading);
+  font-size: clamp(0.92rem, 1.55vw, 1.18rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
 /* Numbers and small data-like UI should stay sharp */
-.brand,
 .energy-year,
 .language-select select,
 .theme-toggle-icon {
   font-family: var(--font-data) !important;
   font-variant-numeric: tabular-nums;
-}
-
-/* Keep the JO mark compact and iconic */
-.brand {
-  font-weight: 900 !important;
-  letter-spacing: -0.12em !important;
 }
 
 /* More refined readable weights across the UI */
@@ -140,7 +165,41 @@ textarea {
   direction: rtl;
 }
 
+@media (max-width: 960px) {
+  .brand::after {
+    font-size: 1rem;
+  }
+
+  .portfolio-gateway[dir="rtl"] .brand::after {
+    font-size: 0.88rem;
+  }
+}
+
 @media (max-width: 620px) {
+  .brand {
+    max-width: 9.5rem;
+  }
+
+  .brand::after {
+    overflow: hidden;
+    max-width: 9.5rem;
+    font-size: 0.96rem;
+    text-overflow: ellipsis;
+  }
+
+  .portfolio-gateway[dir="rtl"] .brand {
+    max-width: 10.5rem;
+  }
+
+  .portfolio-gateway[dir="rtl"] .brand::after {
+    overflow: visible;
+    max-width: 10.5rem;
+    font-size: 0.76rem;
+    line-height: 1.2;
+    text-overflow: clip;
+    white-space: normal;
+  }
+
   .portfolio-gateway[dir="rtl"] .intro-copy h1,
   .portfolio-gateway[dir="rtl"] .energy-hero h1 {
     line-height: 1.18;
