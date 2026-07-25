@@ -1,209 +1,13 @@
 import React, { useState } from "react";
+import { contactLinks, content, media } from "./content/index.js";
 
 const languages = { en: "EN", ar: "AR", no: "NO", fr: "FR" };
 const languageNames = { en: "English", ar: "العربية", no: "Norsk", fr: "Français" };
 
-const copy = {
-  en: {
-    overview: "Overview", about: "About", contact: "Contact", theme: "Theme", language: "Language", back: "Back",
-    intro: "Explore Jakob Olsen (Khaled)’s portfolio", headline: "Explore the world of Jakob Olsen (Khaled).",
-    subline: "A personal gateway into renewable energy, visual storytelling, community work, digital strategy, and AI-assisted projects.",
-    overviewTitle: "Quick overview",
-    overviewText: "I am Jakob Olsen (Khaled), a Syrian–Norwegian renewable energy and data analyst based in Oslo. My work connects energy markets, data platforms, visual content, communities, and practical digital execution.",
-    aboutTitle: "About Jakob Olsen (Khaled)",
-    aboutText: "My portfolio brings together renewable energy analysis, photography and drone work, organized volunteer initiatives, digital marketing, freelancing, and website creation.",
-  },
-  ar: {
-    overview: "نظرة عامة", about: "حول", contact: "تواصل", theme: "الوضع", language: "اللغة", back: "رجوع",
-    intro: "استكشف بورتفوليو خالد الأسعد (جاكوب)", headline: "استكشف عالم خالد الأسعد (جاكوب).",
-    subline: "بوابة شخصية إلى أعمالي في الطاقة المتجددة، التصوير، العمل المجتمعي، التسويق الرقمي، ومشاريع الذكاء الاصطناعي.",
-    overviewTitle: "نظرة عامة سريعة",
-    overviewText: "أنا خالد الأسعد (جاكوب)، محلل طاقة متجددة وبيانات سوري–نرويجي مقيم في أوسلو. يربط عملي بين أسواق الطاقة، منصات البيانات، المحتوى البصري، المجتمع، والتنفيذ الرقمي العملي.",
-    aboutTitle: "حول خالد الأسعد (جاكوب)",
-    aboutText: "يجمع هذا البورتفوليو بين تحليل الطاقة المتجددة، التصوير والفيديو والدرون، المبادرات التطوعية المنظمة، التسويق الرقمي، الفريلانس، وإنشاء المواقع.",
-  },
-  no: {
-    overview: "Oversikt", about: "Om", contact: "Kontakt", theme: "Tema", language: "Språk", back: "Tilbake",
-    intro: "Utforsk porteføljen til Jakob Olsen (Khaled)", headline: "Utforsk verdenen til Jakob Olsen (Khaled).",
-    subline: "En personlig inngang til arbeidet mitt innen fornybar energi, visuell historiefortelling, samfunnsarbeid, digital strategi og AI-støttede prosjekter.",
-    overviewTitle: "Kort oversikt",
-    overviewText: "Jeg er Jakob Olsen (Khaled), en syrisk-norsk analytiker innen fornybar energi og data, basert i Oslo. Arbeidet mitt kobler energimarkeder, dataplattformer, visuelt innhold, samfunn og digital gjennomføring.",
-    aboutTitle: "Om Jakob Olsen (Khaled)",
-    aboutText: "Porteføljen samler fornybar energianalyse, foto og drone, organisert frivillig arbeid, digital markedsføring, frilansarbeid og nettsideutvikling.",
-  },
-  fr: {
-    overview: "Aperçu", about: "À propos", contact: "Contact", theme: "Mode", language: "Langue", back: "Retour",
-    intro: "Explorez le portfolio de Jakob Olsen (Khaled)", headline: "Explorez l’univers de Jakob Olsen (Khaled).",
-    subline: "Une porte d’entrée personnelle vers mon travail dans les énergies renouvelables, l’image, l’engagement communautaire, la stratégie digitale et les projets assistés par IA.",
-    overviewTitle: "Aperçu rapide",
-    overviewText: "Je suis Jakob Olsen (Khaled), analyste syro-norvégien en énergies renouvelables et données, basé à Oslo. Mon travail relie les marchés de l’énergie, les plateformes de données, le contenu visuel, les communautés et l’exécution digitale.",
-    aboutTitle: "À propos de Jakob Olsen (Khaled)",
-    aboutText: "Ce portfolio réunit l’analyse des énergies renouvelables, la photographie, la vidéo, le drone, le bénévolat organisé, le marketing digital, le freelancing et la création de sites web.",
-  },
-};
-
-const portalLabels = {
-  en: { energy: "Renewable Energy", media: "Photography / Videography / Drone", volunteer: "Organized & Volunteer Work", digital: "Digital Marketing / Freelancing / Website Creation" },
-  ar: { energy: "الطاقة المتجددة", media: "التصوير / الفيديو / الدرون", volunteer: "المنظمات والعمل التطوعي", digital: "التسويق الرقمي / الفريلانس / إنشاء المواقع" },
-  no: { energy: "Fornybar energi", media: "Foto / video / drone", volunteer: "Organisert og frivillig arbeid", digital: "Digital markedsføring / frilans / nettsider" },
-  fr: { energy: "Énergies renouvelables", media: "Photo / vidéo / drone", volunteer: "Organisations et bénévolat", digital: "Marketing digital / freelance / sites web" },
-};
-
-const baseTranslations = {
-  energy: {
-    en: {
-      label: "Energy profile", title: "Renewable Energy",
-      subtitle: "Education, market analysis experience, and data-driven energy projects across Norway, Europe, Syria, and MENA.",
-      primary: "Education", secondary: "Work", tertiary: "Projects", object: "energy",
-      primaryItems: [
-        { year: "2021", title: "B.Sc. Renewable Energy Engineering", place: "NTNU — Norwegian University of Science and Technology", text: "Bachelor’s degree in Renewable Energy Engineering, completed in 2021." },
-        { year: "2026", title: "M.Sc. Renewable Energy Systems", place: "University of Oslo", text: "Master’s degree in Renewable Energy Systems, focused on renewable energy systems, policy analysis, and the economics of renewable energy markets." },
-      ],
-      secondaryItems: [{ year: "2 years", title: "Renewable Energy Market & Policy Analysis", place: "EU renewable energy markets", text: "Two years of experience analyzing renewable energy markets and renewable energy policy in the European Union." }],
-      tertiaryItems: ["Syrian Renewables — renewable energy data and intelligence platform for Syria.", "Granular Certificates — knowledge platform for renewable energy certificates and market transparency.", "Energy data tools — trackers, dashboards, and structured datasets for energy analysis."],
-    },
-    ar: {
-      label: "ملف الطاقة", title: "الطاقة المتجددة",
-      subtitle: "التعليم، الخبرة العملية، ومشاريع البيانات والتحليل في الطاقة المتجددة بين النرويج، أوروبا، سورية، ومنطقة MENA.",
-      primary: "التعليم", secondary: "العمل والخبرة", tertiary: "المشاريع", object: "energy",
-      primaryItems: [
-        { year: "2021", title: "بكالوريوس في هندسة الطاقة المتجددة", place: "جامعة NTNU النرويجية", text: "حاصل على بكالوريوس في هندسة الطاقة المتجددة من جامعة NTNU النرويجية، وأنهيته في عام 2021." },
-        { year: "2026", title: "ماجستير في أنظمة الطاقة المتجددة", place: "University of Oslo — جامعة أوسلو", text: "حاصل على ماجستير من جامعة أوسلو في أنظمة الطاقة المتجددة، مع تركيز على تحليل سياسات واقتصاديات أسواق الطاقة المتجددة، وأنهيته في عام 2026." },
-      ],
-      secondaryItems: [{ year: "سنتان", title: "تحليل أسواق وسياسات الطاقة المتجددة", place: "أسواق الطاقة المتجددة في الاتحاد الأوروبي", text: "لدي خبرة سنتين في تحليل أسواق الطاقة المتجددة وسياسات الطاقة المتجددة في الاتحاد الأوروبي." }],
-      tertiaryItems: ["Syrian Renewables — منصة بيانات وتحليل لقطاع الطاقة المتجددة في سورية.", "Granular Certificates — منصة معرفية حول شهادات الطاقة المتجددة وشفافية الأسواق.", "Energy data tools — أدوات تتبع ولوحات بيانات ومجموعات بيانات مهيكلة لتحليل الطاقة."],
-    },
-    no: {
-      label: "Energiprofil", title: "Fornybar energi", subtitle: "Utdanning, markedserfaring og datadrevne energiprosjekter på tvers av Norge, Europa, Syria og MENA.", primary: "Utdanning", secondary: "Arbeid", tertiary: "Prosjekter", object: "energy",
-      primaryItems: [{ year: "2021", title: "B.Sc. Fornybar energiteknikk", place: "NTNU", text: "Bachelorgrad i fornybar energiteknikk, fullført i 2021." }, { year: "2026", title: "M.Sc. Renewable Energy Systems", place: "University of Oslo", text: "Mastergrad i fornybare energisystemer, med fokus på systemer, politisk analyse og økonomi i fornybare energimarkeder." }],
-      secondaryItems: [{ year: "2 år", title: "Analyse av fornybare energimarkeder og politikk", place: "EUs fornybare energimarkeder", text: "To års erfaring med analyse av fornybare energimarkeder og fornybar energipolitikk i EU." }],
-      tertiaryItems: ["Syrian Renewables — data- og analyseplattform for fornybar energi i Syria.", "Granular Certificates — kunnskapsplattform for fornybare energisertifikater og markedstransparens.", "Energy data tools — sporere, dashboards og strukturerte datasett for energianalyse."],
-    },
-    fr: {
-      label: "Profil énergie", title: "Énergies renouvelables", subtitle: "Formation, expérience en analyse de marché et projets de données énergétiques entre la Norvège, l’Europe, la Syrie et la région MENA.", primary: "Formation", secondary: "Expérience", tertiary: "Projets", object: "energy",
-      primaryItems: [{ year: "2021", title: "B.Sc. Ingénierie des énergies renouvelables", place: "NTNU", text: "Licence en ingénierie des énergies renouvelables, terminée en 2021." }, { year: "2026", title: "M.Sc. Renewable Energy Systems", place: "University of Oslo", text: "Master en systèmes d’énergies renouvelables, avec un focus sur les systèmes, l’analyse des politiques et l’économie des marchés renouvelables." }],
-      secondaryItems: [{ year: "2 ans", title: "Analyse des marchés et politiques des énergies renouvelables", place: "Union européenne", text: "Deux ans d’expérience dans l’analyse des marchés et politiques des énergies renouvelables dans l’Union européenne." }],
-      tertiaryItems: ["Syrian Renewables — plateforme de données et d’intelligence pour les énergies renouvelables en Syrie.", "Granular Certificates — plateforme de connaissance sur les certificats d’énergie renouvelable.", "Energy data tools — tableaux de bord et jeux de données structurés pour l’analyse énergétique."],
-    },
-  },
-  media: {
-    en: {
-      label: "Visual storytelling", title: "Photography / Videography / Drone",
-      subtitle: "A visual portfolio section for photography, video production, drone footage, and creative documentation.",
-      primary: "Photography & Video", secondary: "Drone Production", tertiary: "Visual Focus", object: "media",
-      primaryItems: [
-        { year: "Skill", title: "Photo Production", place: "Photography and visual documentation", text: "Creating strong photographic content for places, people, projects, organizations, and digital platforms." },
-        { year: "Skill", title: "Video Production", place: "Filming and visual storytelling", text: "Producing video content for campaigns, social media, events, communities, and project documentation." },
-      ],
-      secondaryItems: [{ year: "Skill", title: "Drone Video Production", place: "Aerial visuals", text: "Producing drone-based video content for places, projects, events, and visual documentation." }],
-      tertiaryItems: ["Photography for projects, communities, and places.", "Video storytelling for social media and campaigns.", "Drone footage for visual identity, documentation, and promotion."],
-    },
-    ar: {
-      label: "السرد البصري", title: "التصوير / الفيديو / الدرون",
-      subtitle: "قسم بصري مخصص للتصوير الفوتوغرافي، إنتاج الفيديو، تصوير الدرون، والتوثيق الإبداعي.",
-      primary: "التصوير والفيديو", secondary: "تصوير الدرون", tertiary: "التركيز البصري", object: "media",
-      primaryItems: [
-        { year: "مهارة", title: "تصوير الصور", place: "تصوير وتوثيق بصري", text: "تصوير محتوى فوتوغرافي مناسب للأماكن، الأشخاص، المشاريع، المنظمات، والمنصات الرقمية." },
-        { year: "مهارة", title: "تصوير الفيديو", place: "إنتاج فيديو وسرد بصري", text: "إنتاج فيديوهات للحملات، وسائل التواصل الاجتماعي، الفعاليات، المجتمعات، وتوثيق المشاريع." },
-      ],
-      secondaryItems: [{ year: "مهارة", title: "تصوير فيديو باستخدام الدرون", place: "تصوير جوي ومحتوى بصري", text: "إنتاج فيديوهات باستخدام الدرون للأماكن، المشاريع، الفعاليات، والتوثيق البصري الاحترافي." }],
-      tertiaryItems: ["تصوير صور للمشاريع والمجتمعات والأماكن.", "إنتاج فيديوهات للسوشيال ميديا والحملات.", "تصوير درون للهوية البصرية، التوثيق، والترويج."],
-    },
-    no: {
-      label: "Visuell historiefortelling", title: "Foto / video / drone", subtitle: "En visuell seksjon for foto, video, droneopptak og kreativ dokumentasjon.", primary: "Foto og video", secondary: "Droneproduksjon", tertiary: "Visuelt fokus", object: "media",
-      primaryItems: [{ year: "Skill", title: "Foto", place: "Fotografi og dokumentasjon", text: "Produksjon av fotografisk innhold for steder, mennesker, prosjekter, organisasjoner og digitale plattformer." }, { year: "Skill", title: "Videoproduksjon", place: "Film og visuell historiefortelling", text: "Produksjon av video for kampanjer, sosiale medier, arrangementer og dokumentasjon." }],
-      secondaryItems: [{ year: "Skill", title: "Dronevideo", place: "Luftfoto og video", text: "Dronebasert videoinnhold for steder, prosjekter, arrangementer og visuell dokumentasjon." }],
-      tertiaryItems: ["Foto for prosjekter, samfunn og steder.", "Video for sosiale medier og kampanjer.", "Droneopptak for identitet, dokumentasjon og promotering."],
-    },
-    fr: {
-      label: "Storytelling visuel", title: "Photo / vidéo / drone", subtitle: "Une section visuelle dédiée à la photographie, la vidéo, le drone et la documentation créative.", primary: "Photo et vidéo", secondary: "Production drone", tertiary: "Focus visuel", object: "media",
-      primaryItems: [{ year: "Skill", title: "Photographie", place: "Contenu visuel", text: "Création de contenu photo pour lieux, personnes, projets, organisations et plateformes digitales." }, { year: "Skill", title: "Production vidéo", place: "Storytelling visuel", text: "Production de vidéos pour campagnes, réseaux sociaux, événements et documentation." }],
-      secondaryItems: [{ year: "Skill", title: "Vidéo drone", place: "Images aériennes", text: "Production de vidéos drone pour lieux, projets, événements et documentation visuelle." }],
-      tertiaryItems: ["Photo pour projets, communautés et lieux.", "Vidéo pour réseaux sociaux et campagnes.", "Drone pour identité visuelle, documentation et promotion."],
-    },
-  },
-  volunteer: {},
-  digital: {},
-};
-
-baseTranslations.volunteer = {
-  en: {
-    label: "Community impact", title: "Organized & Volunteer Work", subtitle: "Community leadership, Arabic-speaking migrant support, media work, and organized volunteer initiatives in Norway.", primary: "Leadership & Organizations", secondary: "Media & Community Role", tertiary: "Focus Areas", object: "volunteer",
-    primaryItems: [{ year: "2019–2023", title: "Radio Mangfold Norge", place: "Volunteer, then General Manager from 2021 to 2023", text: "Started volunteering in 2019, became General Manager in 2021, and led the organization until its work ended in 2023. The organization served Arabic-speaking immigrants and refugees in Norway." }, { year: "End of 2025–Present", title: "Norway Now Platform", place: "Founder and Director", text: "Founded Norway Now at the end of 2025 to support Arabic-speaking refugees and immigrants in Norway. Currently serving as its director." }],
-    secondaryItems: [{ year: "2022–2025", title: "Syrian Student Organization in Norway", place: "Member and Media Department Lead", text: "Joined the organization in 2022 and remained active until 2025, with responsibility for the media section and communication-related activities." }],
-    tertiaryItems: ["Supporting Arabic-speaking refugees and immigrants in Norway.", "Community media, communication, and public information work.", "Organizing volunteer initiatives and building community-oriented platforms."],
-  },
-  ar: {
-    label: "الأثر المجتمعي", title: "المنظمات والعمل التطوعي", subtitle: "خبرة في إدارة المبادرات المجتمعية، دعم اللاجئين والمهاجرين الناطقين بالعربية في النرويج، والعمل الإعلامي والتنظيمي التطوعي.", primary: "القيادة والمنظمات", secondary: "الإعلام والعمل المجتمعي", tertiary: "مجالات التركيز", object: "volunteer",
-    primaryItems: [{ year: "2019–2023", title: "منظمة راديو التنوع النرويجي", place: "متطوع ثم مدير عام بين 2021 و2023", text: "بدأ العمل التطوعي في هذه المنظمة في عام 2019، ثم أصبح مديراً عاماً لها في عام 2021، واستمر في إدارتها حتى توقف أو انتهى عمل المنظمة في عام 2023. كانت المنظمة تُعنى بالمهاجرين واللاجئين في النرويج الناطقين باللغة العربية." }, { year: "نهاية 2025–الآن", title: "منصة النرويج الآن", place: "المؤسس والمدير", text: "أنشأ منصة النرويج الآن في نهاية عام 2025 بهدف دعم اللاجئين والمهاجرين في النرويج والناطقين باللغة العربية، وهو مديرها حتى هذا الوقت." }],
-    secondaryItems: [{ year: "2022–2025", title: "منظمة الطالب السوري في النرويج", place: "عضو ومسؤول القسم الإعلامي", text: "انضم إلى منظمة الطالب السوري في النرويج في عام 2022 واستمر حتى عام 2025، وكان مسؤولاً عن القسم الإعلامي في المنظمة." }],
-    tertiaryItems: ["دعم اللاجئين والمهاجرين في النرويج والناطقين باللغة العربية.", "العمل الإعلامي المجتمعي، التواصل، وإدارة المحتوى.", "تنظيم المبادرات التطوعية وبناء منصات مجتمعية عملية."],
-  },
-  no: {
-    label: "Samfunnsarbeid", title: "Organisert og frivillig arbeid", subtitle: "Erfaring med organisasjonsledelse, støtte til arabisktalende flyktninger og innvandrere i Norge, mediearbeid og frivillig koordinering.", primary: "Ledelse og organisasjoner", secondary: "Media og samfunnsrolle", tertiary: "Fokusområder", object: "volunteer",
-    primaryItems: [{ year: "2019–2023", title: "Radio Mangfold Norge", place: "Frivillig, deretter daglig leder fra 2021 til 2023", text: "Startet som frivillig i 2019, ble daglig leder i 2021 og ledet organisasjonen frem til arbeidet ble avsluttet i 2023." }, { year: "Slutten av 2025–nå", title: "Norway Now Platform", place: "Grunnlegger og leder", text: "Etablerte Norway Now på slutten av 2025 for å støtte arabisktalende flyktninger og innvandrere i Norge, og leder plattformen i dag." }],
-    secondaryItems: [{ year: "2022–2025", title: "Syrian Student Organization in Norway", place: "Medlem og ansvarlig for mediaavdelingen", text: "Ble med i organisasjonen i 2022 og var aktiv til 2025, med ansvar for media, kommunikasjon og innholdsarbeid." }],
-    tertiaryItems: ["Støtte til arabisktalende flyktninger og innvandrere i Norge.", "Samfunnsmedia, kommunikasjon og offentlig informasjon.", "Organisering av frivillige initiativer og bygging av samfunnsplattformer."],
-  },
-  fr: {
-    label: "Impact communautaire", title: "Organisations et bénévolat", subtitle: "Leadership communautaire, soutien aux réfugiés et immigrés arabophones en Norvège, communication et initiatives bénévoles organisées.", primary: "Leadership et organisations", secondary: "Médias et rôle communautaire", tertiary: "Axes de travail", object: "volunteer",
-    primaryItems: [{ year: "2019–2023", title: "Radio Mangfold Norge", place: "Bénévole, puis directeur général de 2021 à 2023", text: "A commencé comme bénévole en 2019, puis est devenu directeur général en 2021 et a dirigé l’organisation jusqu’à la fin de ses activités en 2023." }, { year: "Fin 2025–présent", title: "Norway Now Platform", place: "Fondateur et directeur", text: "A fondé Norway Now fin 2025 pour soutenir les réfugiés et immigrés arabophones en Norvège, et dirige actuellement la plateforme." }],
-    secondaryItems: [{ year: "2022–2025", title: "Syrian Student Organization in Norway", place: "Membre et responsable du département médias", text: "A rejoint l’organisation en 2022 et y est resté actif jusqu’en 2025, avec la responsabilité du département médias et communication." }],
-    tertiaryItems: ["Soutien aux réfugiés et immigrés arabophones en Norvège.", "Médias communautaires, communication et information publique.", "Organisation d’initiatives bénévoles et création de plateformes communautaires."],
-  },
-};
-
-baseTranslations.digital = {
-  en: {
-    label: "Digital systems", title: "Digital Marketing / Freelancing / Website Creation",
-    subtitle: "A focused digital skill set for websites, social media, email marketing, strategy, freelancing, and AI automation.",
-    primary: "Core Digital Skills", secondary: "Strategy & Automation", tertiary: "Service Areas", object: "digital",
-    primaryItems: [
-      { year: "Skill", title: "Website Creation", place: "Web presence and landing pages", text: "Creating clean websites and landing pages for projects, organizations, services, and personal brands." },
-      { year: "Skill", title: "Social Media Management", place: "Digital communication", text: "Managing content, publishing workflows, campaigns, and communication across social media channels." },
-      { year: "Skill", title: "Email Marketing", place: "Newsletters and audience communication", text: "Planning and managing email campaigns, newsletters, subscriber communication, and audience updates." },
-    ],
-    secondaryItems: [
-      { year: "Skill", title: "Content Planning & Strategies", place: "Content systems", text: "Planning content calendars, campaign structures, publishing strategies, and audience-focused messaging." },
-      { year: "Skill", title: "Freelancing & AI Automation", place: "Efficient digital execution", text: "Combining freelance delivery with AI-assisted workflows, automation, research, content production, and practical digital systems." },
-    ],
-    tertiaryItems: ["Website creation and landing pages.", "Social media management and campaign planning.", "Email marketing, content strategy, freelancing, and AI automation."],
-  },
-  ar: {
-    label: "الأنظمة الرقمية", title: "التسويق الرقمي / الفريلانس / إنشاء المواقع",
-    subtitle: "قسم مخصص للمهارات الرقمية: إنشاء المواقع، إدارة وسائل التواصل، الإيميل ماركتينغ، تخطيط المحتوى والاستراتيجيات، الفريلانس، وAI automation.",
-    primary: "المهارات الرقمية الأساسية", secondary: "الاستراتيجية والأتمتة", tertiary: "مجالات الخدمة", object: "digital",
-    primaryItems: [
-      { year: "مهارة", title: "إنشاء المواقع", place: "مواقع وصفحات هبوط", text: "إنشاء مواقع وصفحات هبوط نظيفة للمشاريع، المنظمات، الخدمات، والهويات الشخصية." },
-      { year: "مهارة", title: "إدارة وسائل التواصل الاجتماعي", place: "إدارة المحتوى والقنوات الرقمية", text: "إدارة المحتوى، النشر، الحملات، والتواصل عبر قنوات التواصل الاجتماعي بطريقة منظمة." },
-      { year: "مهارة", title: "إيميل ماركتينج", place: "النشرات البريدية والتواصل مع الجمهور", text: "تخطيط وإدارة حملات البريد الإلكتروني، النشرات البريدية، تواصل المشتركين، وتحديثات الجمهور." },
-    ],
-    secondaryItems: [
-      { year: "مهارة", title: "Content Planning and Strategies", place: "أنظمة المحتوى", text: "تخطيط تقويم المحتوى، هيكلة الحملات، استراتيجيات النشر، وصياغة الرسائل المناسبة للجمهور." },
-      { year: "مهارة", title: "Freelancing and AI Automation", place: "تنفيذ رقمي فعّال", text: "دمج أعمال الفريلانس مع workflows مدعومة بالذكاء الاصطناعي، الأتمتة، البحث، إنتاج المحتوى، والأنظمة الرقمية العملية." },
-    ],
-    tertiaryItems: ["إنشاء المواقع وصفحات الهبوط.", "إدارة السوشيال ميديا وتخطيط الحملات.", "إيميل ماركتينج، استراتيجية محتوى، فريلانس، وأتمتة بالذكاء الاصطناعي."],
-  },
-  no: {
-    label: "Digitale systemer", title: "Digital markedsføring / frilans / nettsider", subtitle: "Ferdigheter innen nettsider, sosiale medier, e-postmarkedsføring, strategi, frilans og AI-automatisering.", primary: "Digitale kjerneferdigheter", secondary: "Strategi og automatisering", tertiary: "Tjenesteområder", object: "digital",
-    primaryItems: [{ year: "Skill", title: "Nettsideutvikling", place: "Web og landingssider", text: "Enkle og ryddige nettsider for prosjekter, organisasjoner, tjenester og personlige merkevarer." }, { year: "Skill", title: "Sosiale medier", place: "Digital kommunikasjon", text: "Innhold, publisering, kampanjer og kommunikasjon på sosiale medier." }, { year: "Skill", title: "E-postmarkedsføring", place: "Nyhetsbrev", text: "Planlegging og oppfølging av e-postkampanjer, nyhetsbrev og publikumskommunikasjon." }],
-    secondaryItems: [{ year: "Skill", title: "Innholdsplanlegging og strategier", place: "Innholdssystemer", text: "Planlegging av innholdskalendere, kampanjer, publiseringsstrategier og målrettede budskap." }, { year: "Skill", title: "Frilans og AI-automatisering", place: "Effektiv digital gjennomføring", text: "Kombinerer frilansarbeid med AI-støttede arbeidsflyter, automatisering, research og innholdsproduksjon." }],
-    tertiaryItems: ["Nettsider og landingssider.", "Sosiale medier og kampanjeplanlegging.", "E-postmarkedsføring, innholdsstrategi, frilans og AI-automatisering."],
-  },
-  fr: {
-    label: "Systèmes digitaux", title: "Marketing digital / freelance / création de sites", subtitle: "Compétences en sites web, réseaux sociaux, email marketing, stratégie, freelance et automatisation IA.", primary: "Compétences digitales", secondary: "Stratégie et automatisation", tertiary: "Services", object: "digital",
-    primaryItems: [{ year: "Skill", title: "Création de sites web", place: "Sites et landing pages", text: "Création de sites simples et propres pour projets, organisations, services et marques personnelles." }, { year: "Skill", title: "Gestion des réseaux sociaux", place: "Communication digitale", text: "Gestion de contenu, publication, campagnes et communication sur les réseaux sociaux." }, { year: "Skill", title: "Email marketing", place: "Newsletters", text: "Planification et gestion de campagnes email, newsletters et communication avec l’audience." }],
-    secondaryItems: [{ year: "Skill", title: "Planification et stratégies de contenu", place: "Systèmes de contenu", text: "Calendriers de contenu, structures de campagnes, stratégies de publication et messages ciblés." }, { year: "Skill", title: "Freelance et automatisation IA", place: "Exécution digitale efficace", text: "Combinaison du freelancing avec des workflows assistés par IA, automatisation, recherche et production de contenu." }],
-    tertiaryItems: ["Création de sites et landing pages.", "Gestion des réseaux sociaux et planification de campagnes.", "Email marketing, stratégie de contenu, freelance et automatisation IA."],
-  },
-};
-
-const profileContent = baseTranslations;
-
 const portals = [
   { id: "energy", field: "energy", accent: "#CFFF3E", glow: "rgba(207, 255, 62, 0.45)", gradient: "linear-gradient(135deg, #E8FFD5 0%, #9BE8D9 70%, #78C7FF 100%)" },
-  { id: "media", field: "media", accent: "#B79CFF", glow: "rgba(183, 156, 255, 0.42)", gradient: "linear-gradient(135deg, #F3ECFF 0%, #DED3FF 58%, #D4F7FF 100%)" },
   { id: "volunteer", field: "volunteer", accent: "#36D99F", glow: "rgba(54, 217, 159, 0.42)", gradient: "linear-gradient(135deg, #D8FFF0 0%, #B5F7E7 60%, #E8FFF8 100%)" },
+  { id: "media", field: "media", accent: "#B79CFF", glow: "rgba(183, 156, 255, 0.42)", gradient: "linear-gradient(135deg, #F3ECFF 0%, #DED3FF 58%, #D4F7FF 100%)" },
   { id: "digital", field: "digital", accent: "#FF7A4F", glow: "rgba(255, 122, 79, 0.43)", gradient: "linear-gradient(135deg, #FFE2D2 0%, #FFBCA5 38%, #8F42FF 100%)" },
 ];
 
@@ -218,24 +22,84 @@ function Object3D({ type }) {
   );
 }
 
-function PortalButton({ portal, title, active, onOpen, index }) {
+function ExternalGlyph({ size = 14 }) {
   return (
-    <button type="button" className={`portal-choice ${active ? "portal-choice-active" : ""}`} onClick={() => onOpen(portal.id)} aria-label={title} aria-pressed={active} style={{ "--accent": portal.accent, "--glow": portal.glow, "--sphere": portal.gradient, animationDelay: `${index * 110}ms` }}>
+    <svg className="external-glyph" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M14 5h5v5M19 5l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function BrandIcon({ type }) {
+  const common = { width: 24, height: 24, viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": true };
+
+  if (type === "linkedin") return <svg {...common}><path d="M5.2 3.5A2.2 2.2 0 1 1 5.2 8a2.2 2.2 0 0 1 0-4.5ZM3.3 9.5h3.8V21H3.3V9.5Zm6.1 0H13v1.6h.1c.5-.9 1.7-2 3.6-2 3.8 0 4.5 2.5 4.5 5.8V21h-3.8v-5.4c0-1.3 0-3-1.9-3s-2.2 1.4-2.2 2.9V21H9.4V9.5Z" /></svg>;
+  if (type === "certificate") return <svg {...common}><path d="M12 2 4.5 5v6.1c0 4.7 3.2 9 7.5 10.9 4.3-1.9 7.5-6.2 7.5-10.9V5L12 2Zm0 3.1 4.5 1.8v4.2c0 3.1-1.9 6.3-4.5 7.8-2.6-1.5-4.5-4.7-4.5-7.8V6.9L12 5.1Zm-.9 3.1h1.8v3l2.5 1.5-.9 1.5-3.4-2V8.2Z" /></svg>;
+  if (type === "energy") return <svg {...common}><path d="M13.4 1 5 13h5.7L9.8 23 19 9h-5.8L13.4 1Z" /></svg>;
+  if (type === "x") return <svg {...common}><path d="M4.2 3h4.6l4 5.4L17.5 3h2.2l-5.9 7 6.3 11h-4.6l-4.4-6-5 6H3.9l6.2-7.5L4.2 3Zm3.4 1.8L16.4 19h2L9.6 4.8h-2Z" /></svg>;
+  if (type === "youtube") return <svg {...common}><path d="M21.6 7.1a3 3 0 0 0-2.1-2.1C17.7 4.5 12 4.5 12 4.5s-5.7 0-7.5.5a3 3 0 0 0-2.1 2.1A31 31 0 0 0 2 12a31 31 0 0 0 .4 4.9A3 3 0 0 0 4.5 19c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.9ZM10 15.5v-7l6 3.5-6 3.5Z" /></svg>;
+  if (type === "instagram") return <svg {...common}><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm10.5 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" /></svg>;
+  if (type === "tiktok") return <svg {...common}><path d="M14.5 2h3a5.7 5.7 0 0 0 4.5 4.5v3a8.5 8.5 0 0 1-4.5-1.3V15a7 7 0 1 1-7-7c.5 0 1 .1 1.5.2v3.1a4 4 0 1 0 2.5 3.7V2Z" /></svg>;
+  if (type === "facebook") return <svg {...common}><path d="M14 8h4V3.2c-.7-.1-2.1-.2-3.8-.2-3.7 0-6.2 2.3-6.2 6.4V13H4v5h4v6h5v-6h4.2l.8-5H13V9.8c0-1.2.3-1.8 1-1.8Z" /></svg>;
+  if (type === "whatsapp") return <svg {...common}><path d="M20.5 3.5A11.7 11.7 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L0 24l6.5-1.7c1.7.9 3.6 1.4 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.4ZM12.2 21.7h-.1c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.9 1 1-3.8-.2-.4a9.7 9.7 0 1 1 8.6 4.8Zm5.3-7.3c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.7.1-1.8-.9-3-1.7-4.2-3.8-.3-.6.3-.5.9-1.7.1-.2.1-.4 0-.6l-.9-2c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.5c.2.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z" /></svg>;
+  if (type === "email") return <svg {...common}><path d="M3 4h18a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 3.2V18h18V7.2l-9 6-9-6ZM4.8 6 12 10.8 19.2 6H4.8Z" /></svg>;
+  return null;
+}
+
+function getCountLabel(count, singular, plural) {
+  return `${count} ${count === 1 ? singular : plural}`;
+}
+
+function getPortalMeta(portalId, portalContent, labels) {
+  if (portalId === "energy") {
+    return [
+      getCountLabel(portalContent.primaryItems.length, labels.degree, labels.degrees),
+      getCountLabel(portalContent.tertiaryItems.length, labels.project, labels.projects),
+    ].join(" · ");
+  }
+
+  if (portalId === "volunteer") {
+    const organizations = portalContent.primaryItems.length + portalContent.secondaryItems.length;
+    return getCountLabel(organizations, labels.organization, labels.organizations);
+  }
+
+  if (portalId === "media") {
+    return getCountLabel(portalContent.tertiaryItems.length, labels.focusArea, labels.focusAreas);
+  }
+
+  const services = portalContent.primaryItems.length + portalContent.secondaryItems.length;
+  return getCountLabel(services, labels.serviceArea, labels.serviceAreas);
+}
+
+function PortalButton({ portal, title, meta, active, onOpen, index }) {
+  return (
+    <button
+      type="button"
+      className={`portal-choice ${portal.id === "energy" ? "portal-choice-featured" : ""} ${active ? "portal-choice-active" : ""}`}
+      onClick={() => onOpen(portal.id)}
+      aria-label={`${title}: ${meta}`}
+      aria-pressed={active}
+      style={{ "--accent": portal.accent, "--glow": portal.glow, "--sphere": portal.gradient, animationDelay: `${index * 110}ms` }}
+    >
       <span className="sphere3d"><Object3D type={portal.id} /></span>
-      <span className="portal-title">{title}</span>
+      <span className="portal-copy">
+        <span className="portal-title">{title}</span>
+        <span className="portal-meta">{meta}</span>
+      </span>
     </button>
   );
 }
 
 function Modal({ type, text, onClose }) {
   if (!type) return null;
-  const title = type === "overview" ? text.overviewTitle : text.aboutTitle;
-  const body = type === "overview" ? text.overviewText : text.aboutText;
+  const title = type === "overview" ? text.modals.overviewTitle : text.modals.aboutTitle;
+  const body = type === "overview" ? text.modals.overviewText : text.modals.aboutText;
   return (
     <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" onClick={onClose}>
       <div className="modal-card" onClick={(event) => event.stopPropagation()}>
-        <button className="modal-close" type="button" onClick={onClose} aria-label="Close">×</button>
-        <p>{type === "overview" ? text.overview : text.about}</p>
+        <button className="modal-close" type="button" onClick={onClose} aria-label={text.nav.close}>×</button>
+        <p>{type === "overview" ? text.nav.overview : text.nav.about}</p>
         <h2 id="modal-title">{title}</h2>
         <span>{body}</span>
       </div>
@@ -243,54 +107,151 @@ function Modal({ type, text, onClose }) {
   );
 }
 
-function Topbar({ text, theme, language, setLanguage, toggleTheme, setModal, onBack, isSubpage }) {
+function Topbar({ text, theme, language, setLanguage, toggleTheme, setModal, onBack, onContact, isSubpage, isArabic }) {
   return (
     <header className="topbar">
-      <nav className="nav-left" aria-label="Primary navigation">
-        {isSubpage && <button type="button" className="back-button" onClick={onBack}>← {text.back}</button>}
-        <button type="button" onClick={() => setModal("overview")}>{text.overview}</button>
-        <button type="button" onClick={() => setModal("about")}>{text.about}</button>
+      <nav className="nav-left" aria-label={text.nav.primaryNavigation}>
+        {isSubpage && <button type="button" className="back-button" onClick={onBack}>{isArabic ? "→" : "←"} {text.nav.back}</button>}
+        <button type="button" onClick={() => setModal("overview")}>{text.nav.overview}</button>
+        <button type="button" onClick={() => setModal("about")}>{text.nav.about}</button>
       </nav>
-      <a className="brand" href="#top" aria-label="Jakob Olsen home" onClick={onBack}>JO</a>
+      <a className="brand" href="#top" aria-label={text.nav.home} onClick={onBack}>{text.nav.brandName}</a>
       <div className="nav-right">
-        <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={text.theme} title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
+        <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={text.nav.theme} title={theme === "dark" ? text.nav.switchLight : text.nav.switchDark}>
           <span className="theme-toggle-thumb" aria-hidden="true" />
           <span className="theme-toggle-icon" aria-hidden="true">{theme === "dark" ? "☾" : "☀"}</span>
         </button>
-        <label className="language-select" aria-label={text.language} title={languageNames[language]}>
+        <label className="language-select" aria-label={text.nav.language} title={languageNames[language]}>
           <select value={language} onChange={(event) => setLanguage(event.target.value)}>
             {Object.entries(languages).map(([code, label]) => <option key={code} value={code}>{label}</option>)}
           </select>
         </label>
-        <a className="contact-button" href="mailto:jakoub.k.olsen@gmail.com">{text.contact}</a>
+        <button type="button" className="contact-button" onClick={onContact}>{text.nav.contact}</button>
       </div>
     </header>
   );
 }
 
-function GatewayHome({ labels, activePortal, openPortal, text }) {
+function GatewayHome({ activePortal, openPortal, text }) {
   return (
     <div className="gateway-content" id="top">
-      <div className="portal-stage" aria-label="Portfolio fields">
-        {portals.map((portal, index) => <PortalButton key={portal.id} portal={portal} title={labels[portal.field]} active={activePortal === portal.id} onOpen={openPortal} index={index} />)}
+      <div className="portal-stage" aria-label={text.nav.portfolioFields}>
+        {portals.map((portal, index) => {
+          const portalContent = text.portals[portal.field];
+          const meta = getPortalMeta(portal.id, portalContent, text.gatewayMeta);
+          return <PortalButton key={portal.id} portal={portal} title={portalContent.title} meta={meta} active={activePortal === portal.id} onOpen={openPortal} index={index} />;
+        })}
       </div>
-      <div className="intro-copy"><p>{text.intro}</p><h1>{text.headline}</h1><span>{text.subline}</span></div>
+      <div className="intro-copy"><p>{text.hero.intro}</p><h1>{text.hero.headline}</h1><span>{text.hero.subline}</span></div>
     </div>
   );
 }
 
-function ProfilePage({ content }) {
+function TimelineItem({ item }) {
   return (
-    <div className="energy-page" id={content.object}>
+    <div className={`energy-item ${item.year ? "" : "energy-item-no-year"}`}>
+      {item.year && <span className="energy-year">{item.year}</span>}
+      <div><h2>{item.title}</h2><h3>{item.place}</h3><p>{item.text}</p></div>
+    </div>
+  );
+}
+
+function EnergyProjects({ items }) {
+  return (
+    <div className="energy-projects">
+      {items.map((item) => {
+        const body = <><strong>{item.name}{item.url && <ExternalGlyph />}</strong><span>{item.description}</span></>;
+        return item.url ? (
+          <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`${item.name}: ${item.description}`}>{body}</a>
+        ) : (
+          <span key={item.name}>{body}</span>
+        );
+      })}
+    </div>
+  );
+}
+
+function GalleryItem({ item, language }) {
+  const [loaded, setLoaded] = useState(false);
+  const alt = item.alt?.[language] || "";
+  const caption = item.caption?.[language] || "";
+  const width = item.width || 1200;
+  const height = item.height || 800;
+
+  return (
+    <figure className="media-gallery-item energy-card">
+      {item.type === "video" ? (
+        loaded ? (
+          <video controls preload="metadata" poster={item.poster} width={width} height={height}>
+            <source src={item.src} />
+          </video>
+        ) : (
+          <button type="button" className="media-video-loader" onClick={() => setLoaded(true)} aria-label={caption || alt}>
+            <img src={item.poster} alt={alt} loading="lazy" width={width} height={height} />
+            <span aria-hidden="true">▶</span>
+          </button>
+        )
+      ) : (
+        <img src={item.src} alt={alt} loading="lazy" width={width} height={height} />
+      )}
+      {caption && <figcaption>{caption}</figcaption>}
+    </figure>
+  );
+}
+
+function MediaGallery({ language, label }) {
+  if (!media.gallery.length) return null;
+  return <section className="media-gallery" aria-label={label}>{media.gallery.map((item) => <GalleryItem key={`${item.type}-${item.src}`} item={item} language={language} />)}</section>;
+}
+
+function ProfilePage({ profile, language, detailsLabel }) {
+  return (
+    <div className="energy-page" id={profile.object}>
       <section className="energy-hero">
-        <div><p>{content.label}</p><h1>{content.title}</h1><span>{content.subtitle}</span></div>
-        <div className="energy-hero-orb" aria-hidden="true"><span className="sphere3d energy-page-sphere"><Object3D type={content.object} /></span></div>
+        <div><p>{profile.label}</p><h1>{profile.title}</h1><span>{profile.subtitle}</span></div>
+        <div className="energy-hero-orb" aria-hidden="true"><span className="sphere3d energy-page-sphere"><Object3D type={profile.object} /></span></div>
       </section>
-      <section className="energy-sections" aria-label={`${content.title} portfolio details`}>
-        <article className="energy-card energy-card-wide"><p className="energy-card-label">{content.primary}</p><div className="energy-timeline">{content.primaryItems.map((item) => <div className="energy-item" key={`${item.year}-${item.title}`}><span className="energy-year">{item.year}</span><div><h2>{item.title}</h2><h3>{item.place}</h3><p>{item.text}</p></div></div>)}</div></article>
-        <article className="energy-card"><p className="energy-card-label">{content.secondary}</p><div className="energy-timeline compact">{content.secondaryItems.map((item) => <div className="energy-item" key={`${item.year}-${item.title}`}><span className="energy-year">{item.year}</span><div><h2>{item.title}</h2><h3>{item.place}</h3><p>{item.text}</p></div></div>)}</div></article>
-        <article className="energy-card"><p className="energy-card-label">{content.tertiary}</p><div className="energy-projects">{content.tertiaryItems.map((item) => <span key={item}>{item}</span>)}</div></article>
+      <section className="energy-sections" aria-label={`${profile.title} — ${detailsLabel}`}>
+        <article className="energy-card energy-card-wide"><p className="energy-card-label">{profile.primary}</p><div className="energy-timeline">{profile.primaryItems.map((item) => <TimelineItem key={`${item.year || "item"}-${item.title}`} item={item} />)}</div></article>
+        <article className="energy-card"><p className="energy-card-label">{profile.secondary}</p><div className="energy-timeline compact">{profile.secondaryItems.map((item) => <TimelineItem key={`${item.year || "item"}-${item.title}`} item={item} />)}</div></article>
+        <article className="energy-card"><p className="energy-card-label">{profile.tertiary}</p>{profile.object === "energy" ? <EnergyProjects items={profile.tertiaryItems} /> : <div className="energy-projects">{profile.tertiaryItems.map((item) => <span key={item}>{item}</span>)}</div>}</article>
       </section>
+      {profile.object === "media" && <MediaGallery language={language} label={profile.galleryLabel} />}
+    </div>
+  );
+}
+
+function ContactPage({ text }) {
+  return (
+    <div className="contact-page" id="contact">
+      <section className="contact-header" aria-labelledby="contact-title">
+        <p>{text.contact.pageLabel}</p>
+        <h1 id="contact-title">{text.contact.name}</h1>
+        <h2>{text.contact.role}</h2>
+        <span>{text.contact.invitation}</span>
+      </section>
+      <nav className="contact-link-tree" aria-label={text.contact.pageLabel}>
+        {contactLinks.map((link) => {
+          const subtitle = text.contact.subtitles[link.id];
+          const isMail = link.url.startsWith("mailto:");
+          return (
+            <a
+              key={link.id}
+              className={`contact-link ${link.featured ? "contact-link-featured" : ""}`}
+              href={link.url}
+              target={isMail ? undefined : "_blank"}
+              rel={isMail ? undefined : "noopener noreferrer"}
+              aria-label={`${text.contact.ariaPrefix} ${link.name}: ${subtitle}`}
+              style={{ "--brand-color": link.color }}
+              data-platform={link.id}
+            >
+              <span className="contact-link-icon"><BrandIcon type={link.icon} /></span>
+              <span className="contact-link-copy"><strong>{link.name}</strong><small>{subtitle}</small></span>
+              <span className="contact-link-arrow" aria-hidden="true"><ExternalGlyph size={16} /></span>
+            </a>
+          );
+        })}
+      </nav>
     </div>
   );
 }
@@ -302,22 +263,21 @@ export default function App() {
   const [modal, setModal] = useState(null);
   const [page, setPage] = useState(() => {
     const hash = window.location.hash.replace("#", "");
-    return profileContent[hash] ? hash : "home";
+    return [...portals.map((portal) => portal.id), "contact"].includes(hash) ? hash : "home";
   });
 
-  const text = copy[language];
-  const labels = portalLabels[language];
+  const text = content[language];
   const isArabic = language === "ar";
-  const currentProfile = page === "home" ? null : profileContent[page]?.[language];
+  const currentProfile = portals.some((portal) => portal.id === page) ? text.portals[page] : null;
+
+  function openPage(id) {
+    setPage(id);
+    window.history.replaceState(null, "", `#${id}`);
+  }
 
   function openPortal(id) {
     setActivePortal(id);
-    if (profileContent[id]) {
-      setPage(id);
-      window.history.replaceState(null, "", `#${id}`);
-      return;
-    }
-    window.history.replaceState(null, "", `#${id}`);
+    openPage(id);
   }
 
   function goHome(event) {
@@ -330,9 +290,9 @@ export default function App() {
   return (
     <main className="portfolio-gateway" data-theme={theme} dir={isArabic ? "rtl" : "ltr"}>
       <div className="ambient-bg" aria-hidden="true"><span /><span /><span /></div>
-      <section className={`gateway-frame ${page !== "home" ? "gateway-frame-subpage" : ""}`} aria-label="Interactive portfolio gateway">
-        <Topbar text={text} theme={theme} language={language} setLanguage={setLanguage} toggleTheme={() => setTheme((current) => (current === "dark" ? "light" : "dark"))} setModal={setModal} onBack={goHome} isSubpage={page !== "home"} />
-        {currentProfile ? <ProfilePage content={currentProfile} /> : <GatewayHome labels={labels} activePortal={activePortal} openPortal={openPortal} text={text} />}
+      <section className={`gateway-frame ${page !== "home" ? "gateway-frame-subpage" : ""}`} aria-label={text.nav.gateway}>
+        <Topbar text={text} theme={theme} language={language} setLanguage={setLanguage} toggleTheme={() => setTheme((current) => (current === "dark" ? "light" : "dark"))} setModal={setModal} onBack={goHome} onContact={() => openPage("contact")} isSubpage={page !== "home"} isArabic={isArabic} />
+        {page === "contact" ? <ContactPage text={text} /> : currentProfile ? <ProfilePage profile={currentProfile} language={language} detailsLabel={text.nav.portfolioDetails} /> : <GatewayHome activePortal={activePortal} openPortal={openPortal} text={text} />}
       </section>
       <Modal type={modal} text={text} onClose={() => setModal(null)} />
     </main>

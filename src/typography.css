@@ -41,8 +41,10 @@ textarea {
 }
 
 /* English / LTR display hierarchy */
+.portfolio-gateway:not([dir="rtl"]) .brand,
 .portfolio-gateway:not([dir="rtl"]) .intro-copy h1,
 .portfolio-gateway:not([dir="rtl"]) .energy-hero h1,
+.portfolio-gateway:not([dir="rtl"]) .contact-header h1,
 .portfolio-gateway:not([dir="rtl"]) .modal-card h2 {
   font-family: var(--font-en-display);
   font-weight: 400;
@@ -58,8 +60,10 @@ textarea {
 }
 
 /* Arabic hierarchy */
+.portfolio-gateway[dir="rtl"] .brand,
 .portfolio-gateway[dir="rtl"] .intro-copy h1,
 .portfolio-gateway[dir="rtl"] .energy-hero h1,
+.portfolio-gateway[dir="rtl"] .contact-header h1,
 .portfolio-gateway[dir="rtl"] .energy-item h2,
 .portfolio-gateway[dir="rtl"] .modal-card h2,
 .portfolio-gateway[dir="rtl"] .portal-title {
@@ -75,46 +79,32 @@ textarea {
 .portfolio-gateway[dir="rtl"] .energy-item p,
 .portfolio-gateway[dir="rtl"] .energy-item h3,
 .portfolio-gateway[dir="rtl"] .energy-projects span,
+.portfolio-gateway[dir="rtl"] .energy-projects a,
 .portfolio-gateway[dir="rtl"] .modal-card span,
 .portfolio-gateway[dir="rtl"] .nav-left button,
-.portfolio-gateway[dir="rtl"] .contact-button {
+.portfolio-gateway[dir="rtl"] .contact-button,
+.portfolio-gateway[dir="rtl"] .contact-link {
   font-family: var(--font-ar-body);
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.85;
 }
 
-/* Language-aware portfolio wordmark */
+/* Language-aware primary portfolio name */
 .brand {
   display: inline-flex;
   min-width: 0;
   align-items: center;
   color: inherit;
-  font-size: 0 !important;
-  line-height: 1;
-  letter-spacing: 0 !important;
-  white-space: nowrap;
-}
-
-.brand::after {
-  content: "Jakob Portfolio";
-  display: inline-block;
-  font-family: var(--font-en-display);
   font-size: clamp(1rem, 1.75vw, 1.35rem);
-  font-weight: 400;
   line-height: 1.05;
-  letter-spacing: -0.025em;
+  text-decoration: none;
   white-space: nowrap;
 }
 
-.portfolio-gateway[dir="rtl"] .brand::after {
-  content: "Portfolio خالد الأسعد (Jakob)";
-  direction: rtl;
-  font-family: var(--font-ar-heading);
+.portfolio-gateway[dir="rtl"] .brand {
   font-size: clamp(0.92rem, 1.55vw, 1.18rem);
-  font-weight: 800;
   line-height: 1.25;
-  letter-spacing: 0;
 }
 
 /* Numbers and small data-like UI should stay sharp */
@@ -130,14 +120,17 @@ textarea {
 .contact-button,
 .language-select select,
 .portal-title,
+.portal-meta,
 .energy-card-label,
 .energy-item h3,
 .energy-projects span,
+.energy-projects a,
 .intro-copy p,
 .intro-copy span,
 .energy-hero span,
 .energy-item p,
-.modal-card span {
+.modal-card span,
+.contact-link {
   text-wrap: pretty;
 }
 
@@ -145,6 +138,7 @@ textarea {
 .energy-hero span,
 .energy-item p,
 .energy-projects span,
+.energy-projects a,
 .modal-card span {
   line-height: 1.72;
 }
@@ -153,7 +147,8 @@ textarea {
 .portfolio-gateway[dir="rtl"] .energy-hero,
 .portfolio-gateway[dir="rtl"] .energy-item,
 .portfolio-gateway[dir="rtl"] .energy-card,
-.portfolio-gateway[dir="rtl"] .modal-card {
+.portfolio-gateway[dir="rtl"] .modal-card,
+.portfolio-gateway[dir="rtl"] .contact-page {
   text-align: right;
 }
 
@@ -166,21 +161,17 @@ textarea {
 }
 
 @media (max-width: 960px) {
-  .brand::after {
+  .brand {
     font-size: 1rem;
   }
 
-  .portfolio-gateway[dir="rtl"] .brand::after {
+  .portfolio-gateway[dir="rtl"] .brand {
     font-size: 0.88rem;
   }
 }
 
 @media (max-width: 620px) {
   .brand {
-    max-width: 9.5rem;
-  }
-
-  .brand::after {
     overflow: hidden;
     max-width: 9.5rem;
     font-size: 0.96rem;
@@ -188,10 +179,6 @@ textarea {
   }
 
   .portfolio-gateway[dir="rtl"] .brand {
-    max-width: 10.5rem;
-  }
-
-  .portfolio-gateway[dir="rtl"] .brand::after {
     overflow: visible;
     max-width: 10.5rem;
     font-size: 0.76rem;
