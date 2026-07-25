@@ -5,6 +5,7 @@ import { contactLinks } from "./content/index.js";
 import "./styles.css";
 import "./typography.css";
 import "./upgrade.css";
+import "./story.css";
 
 const personSchema = {
   "@context": "https://schema.org",
