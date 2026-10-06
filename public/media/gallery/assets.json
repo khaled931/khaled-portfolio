@@ -1,0 +1,115 @@
+{
+  "generatedFrom": "User-approved Experience Gallery reference",
+  "assets": {
+    "overview": {
+      "sourceWidth": 1536,
+      "sourceHeight": 1024,
+      "sourceSha256": "51a15c55c97bdac803e0163a1f0ccbb368111443f1cfd9e549e6512c183e2db2",
+      "variants": [
+        {
+          "filename": "overview-480.webp",
+          "width": 480,
+          "bytes": 43886
+        },
+        {
+          "filename": "overview-900.webp",
+          "width": 900,
+          "bytes": 137650
+        },
+        {
+          "filename": "overview-1440.webp",
+          "width": 1440,
+          "bytes": 345956
+        }
+      ]
+    },
+    "experience": {
+      "sourceWidth": 1448,
+      "sourceHeight": 1086,
+      "sourceSha256": "d57538c9ef385c78df352879fe4a47a44bfa3690f2855f4a6dde0ae684faccf9",
+      "variants": [
+        {
+          "filename": "experience-480.webp",
+          "width": 480,
+          "bytes": 33588
+        },
+        {
+          "filename": "experience-900.webp",
+          "width": 900,
+          "bytes": 94794
+        },
+        {
+          "filename": "experience-1440.webp",
+          "width": 1440,
+          "bytes": 245114
+        }
+      ]
+    },
+    "projects": {
+      "sourceWidth": 1448,
+      "sourceHeight": 1086,
+      "sourceSha256": "c766ead1808f038224fecbab72436d995df5010a227d01e77e2e923b99622896",
+      "variants": [
+        {
+          "filename": "projects-480.webp",
+          "width": 480,
+          "bytes": 34642
+        },
+        {
+          "filename": "projects-900.webp",
+          "width": 900,
+          "bytes": 95920
+        },
+        {
+          "filename": "projects-1440.webp",
+          "width": 1440,
+          "bytes": 238578
+        }
+      ]
+    },
+    "volunteering": {
+      "sourceWidth": 1448,
+      "sourceHeight": 1086,
+      "sourceSha256": "ce83b3a5b88be3ef6b2ff6f0b6d8e7b96fccffa541fa99454582f3be80831155",
+      "variants": [
+        {
+          "filename": "volunteering-480.webp",
+          "width": 480,
+          "bytes": 37788
+        },
+        {
+          "filename": "volunteering-900.webp",
+          "width": 900,
+          "bytes": 98120
+        },
+        {
+          "filename": "volunteering-1440.webp",
+          "width": 1440,
+          "bytes": 231854
+        }
+      ]
+    },
+    "education": {
+      "sourceWidth": 1448,
+      "sourceHeight": 1086,
+      "sourceSha256": "3b177e239155c01deee1420144bbcf3121bd8f8b4d5452628c6b53410f74272a",
+      "variants": [
+        {
+          "filename": "education-480.webp",
+          "width": 480,
+          "bytes": 33046
+        },
+        {
+          "filename": "education-900.webp",
+          "width": 900,
+          "bytes": 90762
+        },
+        {
+          "filename": "education-1440.webp",
+          "width": 1440,
+          "bytes": 224662
+        }
+      ]
+    }
+  }
+}

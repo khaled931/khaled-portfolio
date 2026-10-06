@@ -1,292 +1,1153 @@
-import React, { useEffect, useState } from "react";
-import { contactLinks, content } from "./content/index.js";
-import { media } from "./mediaGallery.js";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { BriefcaseIcon } from "@phosphor-icons/react/dist/csr/Briefcase";
+import { ChartBarIcon } from "@phosphor-icons/react/dist/csr/ChartBar";
+import { UsersThreeIcon } from "@phosphor-icons/react/dist/csr/UsersThree";
+import { GraduationCapIcon } from "@phosphor-icons/react/dist/csr/GraduationCap";
+import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { ArrowLeftIcon } from "@phosphor-icons/react/dist/csr/ArrowLeft";
+import { ArrowUpRightIcon } from "@phosphor-icons/react/dist/csr/ArrowUpRight";
+import { SunIcon } from "@phosphor-icons/react/dist/csr/Sun";
+import { MoonIcon } from "@phosphor-icons/react/dist/csr/Moon";
+import { ListIcon } from "@phosphor-icons/react/dist/csr/List";
+import { XIcon } from "@phosphor-icons/react/dist/csr/X";
+import { CaretDownIcon } from "@phosphor-icons/react/dist/csr/CaretDown";
+import { CheckIcon } from "@phosphor-icons/react/dist/csr/Check";
+import { PlayIcon } from "@phosphor-icons/react/dist/csr/Play";
+import { CameraIcon } from "@phosphor-icons/react/dist/csr/Camera";
+import { GlobeIcon } from "@phosphor-icons/react/dist/csr/Globe";
+import { EnvelopeSimpleIcon } from "@phosphor-icons/react/dist/csr/EnvelopeSimple";
+import { LinkedinLogoIcon } from "@phosphor-icons/react/dist/csr/LinkedinLogo";
+import { YoutubeLogoIcon } from "@phosphor-icons/react/dist/csr/YoutubeLogo";
+import { InstagramLogoIcon } from "@phosphor-icons/react/dist/csr/InstagramLogo";
+import { TiktokLogoIcon } from "@phosphor-icons/react/dist/csr/TiktokLogo";
+import { FacebookLogoIcon } from "@phosphor-icons/react/dist/csr/FacebookLogo";
+import { WhatsappLogoIcon } from "@phosphor-icons/react/dist/csr/WhatsappLogo";
+import { XLogoIcon } from "@phosphor-icons/react/dist/csr/XLogo";
+import { LightningIcon } from "@phosphor-icons/react/dist/csr/Lightning";
+import { CertificateIcon } from "@phosphor-icons/react/dist/csr/Certificate";
+import { content, contactLinks } from "./content/index.js";
 import { storyContent } from "./storyContent.js";
+import { media } from "./mediaGallery.js";
+import { galleryContent, roomPositions } from "./galleryContent.js";
+import {
+  roomIds,
+  pageFromHash,
+  languageIds,
+  isPlainNavigation,
+  nextRoom,
+  readPreference,
+  savePreference,
+} from "./navigation.js";
 
-const languages = { en: "EN", ar: "AR", no: "NO", fr: "FR" };
-const languageNames = { en: "English", ar: "العربية", no: "Norsk", fr: "Français" };
-const profileIds = ["energy", "volunteer", "media", "digital"];
+const roomIcons = {
+  experience: BriefcaseIcon,
+  projects: ChartBarIcon,
+  volunteering: UsersThreeIcon,
+  education: GraduationCapIcon,
+};
+const brandIcons = {
+  linkedin: LinkedinLogoIcon,
+  certificate: CertificateIcon,
+  energy: LightningIcon,
+  x: XLogoIcon,
+  youtube: YoutubeLogoIcon,
+  instagram: InstagramLogoIcon,
+  tiktok: TiktokLogoIcon,
+  facebook: FacebookLogoIcon,
+  whatsapp: WhatsappLogoIcon,
+  email: EnvelopeSimpleIcon,
+};
+const languageNames = {
+  en: "English",
+  ar: "العربية",
+  no: "Norsk",
+  fr: "Français",
+};
+const photos = media.gallery.filter((item) => item.type === "image");
+const artworkSizes = [480, 900, 1440];
 
-function Object3D({ type }) {
+function Icon({ icon: Component, ...props }) {
+  return <Component size={22} weight="fill" aria-hidden="true" {...props} />;
+}
+function DirectionArrow({ rtl, back = false, ...props }) {
   return (
-    <span className={`object3d object-${type}`} aria-hidden="true">
-      {type === "energy" && <><span className="energy-bolt" /><span className="turbine-mast" /><span className="turbine-hub" /><span className="turbine-blade blade-a" /><span className="turbine-blade blade-b" /><span className="turbine-blade blade-c" /><span className="energy-orbit orbit-a" /><span className="energy-orbit orbit-b" /></>}
-      {type === "media" && <><span className="camera-body" /><span className="camera-top" /><span className="camera-lens" /><span className="camera-glass" /><span className="drone-wing wing-a" /><span className="drone-wing wing-b" /><span className="drone-rotor rotor-a" /><span className="drone-rotor rotor-b" /></>}
-      {type === "volunteer" && <><span className="org-base" /><span className="org-roof" /><span className="org-column column-a" /><span className="org-column column-b" /><span className="org-column column-c" /><span className="org-node node-a" /><span className="org-node node-b" /><span className="org-node node-c" /></>}
-      {type === "digital" && <><span className="digital-window" /><span className="digital-grid" /><span className="digital-bar bar-a" /><span className="digital-bar bar-b" /><span className="digital-cursor" /><span className="digital-spark spark-a" /><span className="digital-spark spark-b" /></>}
-    </span>
+    <Icon icon={rtl !== back ? ArrowLeftIcon : ArrowRightIcon} {...props} />
   );
 }
 
-function ExternalGlyph({ size = 14 }) {
+function Art({
+  name,
+  alt,
+  className = "",
+  priority = false,
+  sizes = "(max-width: 760px) 100vw, 60vw",
+  onError,
+}) {
   return (
-    <svg className="external-glyph" width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M14 5h5v5M19 5l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <img
+      className={className}
+      src={`/media/gallery/${name}-900.webp`}
+      srcSet={artworkSizes
+        .map((size) => `/media/gallery/${name}-${size}.webp ${size}w`)
+        .join(", ")}
+      sizes={sizes}
+      width={name === "overview" ? 1536 : 1448}
+      height={name === "overview" ? 1024 : 1086}
+      alt={alt}
+      fetchPriority={priority ? "high" : "auto"}
+      decoding="async"
+      onError={onError}
+    />
   );
 }
 
-function ArrowGlyph({ isArabic = false }) {
-  return <span aria-hidden="true">{isArabic ? "←" : "→"}</span>;
-}
-
-function BrandIcon({ type }) {
-  const common = { width: 24, height: 24, viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": true };
-  if (type === "linkedin") return <svg {...common}><path d="M5.2 3.5A2.2 2.2 0 1 1 5.2 8a2.2 2.2 0 0 1 0-4.5ZM3.3 9.5h3.8V21H3.3V9.5Zm6.1 0H13v1.6h.1c.5-.9 1.7-2 3.6-2 3.8 0 4.5 2.5 4.5 5.8V21h-3.8v-5.4c0-1.3 0-3-1.9-3s-2.2 1.4-2.2 2.9V21H9.4V9.5Z" /></svg>;
-  if (type === "certificate") return <svg {...common}><path d="M12 2 4.5 5v6.1c0 4.7 3.2 9 7.5 10.9 4.3-1.9 7.5-6.2 7.5-10.9V5L12 2Zm0 3.1 4.5 1.8v4.2c0 3.1-1.9 6.3-4.5 7.8-2.6-1.5-4.5-4.7-4.5-7.8V6.9L12 5.1Zm-.9 3.1h1.8v3l2.5 1.5-.9 1.5-3.4-2V8.2Z" /></svg>;
-  if (type === "energy") return <svg {...common}><path d="M13.4 1 5 13h5.7L9.8 23 19 9h-5.8L13.4 1Z" /></svg>;
-  if (type === "x") return <svg {...common}><path d="M4.2 3h4.6l4 5.4L17.5 3h2.2l-5.9 7 6.3 11h-4.6l-4.4-6-5 6H3.9l6.2-7.5L4.2 3Zm3.4 1.8L16.4 19h2L9.6 4.8h-2Z" /></svg>;
-  if (type === "youtube") return <svg {...common}><path d="M21.6 7.1a3 3 0 0 0-2.1-2.1C17.7 4.5 12 4.5 12 4.5s-5.7 0-7.5.5a3 3 0 0 0-2.1 2.1A31 31 0 0 0 2 12a31 31 0 0 0 .4 4.9A3 3 0 0 0 4.5 19c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22 12a31 31 0 0 0-.4-4.9ZM10 15.5v-7l6 3.5-6 3.5Z" /></svg>;
-  if (type === "instagram") return <svg {...common}><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm10.5 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" /></svg>;
-  if (type === "tiktok") return <svg {...common}><path d="M14.5 2h3a5.7 5.7 0 0 0 4.5 4.5v3a8.5 8.5 0 0 1-4.5-1.3V15a7 7 0 1 1-7-7c.5 0 1 .1 1.5.2v3.1a4 4 0 1 0 2.5 3.7V2Z" /></svg>;
-  if (type === "facebook") return <svg {...common}><path d="M14 8h4V3.2c-.7-.1-2.1-.2-3.8-.2-3.7 0-6.2 2.3-6.2 6.4V13H4v5h4v6h5v-6h4.2l.8-5H13V9.8c0-1.2.3-1.8 1-1.8Z" /></svg>;
-  if (type === "whatsapp") return <svg {...common}><path d="M20.5 3.5A11.7 11.7 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L0 24l6.5-1.7c1.7.9 3.6 1.4 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.4ZM12.2 21.7h-.1c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.9 1 1-3.8-.2-.4a9.7 9.7 0 1 1 8.6 4.8Z" /></svg>;
-  if (type === "email") return <svg {...common}><path d="M3 4h18a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 3.2V18h18V7.2l-9 6-9-6ZM4.8 6 12 10.8 19.2 6H4.8Z" /></svg>;
-  return null;
-}
-
-function Topbar({ text, story, theme, language, setLanguage, toggleTheme, onBack, onContact, onNavigate, isSubpage, isArabic }) {
+function PageLink({ page, onNavigate, children, ...props }) {
   return (
-    <header className="topbar story-topbar">
-      <nav className="nav-left story-nav" aria-label={text.nav.primaryNavigation}>
-        {isSubpage ? (
-          <button type="button" className="back-button" onClick={onBack}>{isArabic ? "→" : "←"} {text.nav.back}</button>
-        ) : (
+    <a
+      href={`#${page}`}
+      onClick={(event) => {
+        if (isPlainNavigation(event)) {
+          event.preventDefault();
+          onNavigate(page, event);
+        }
+      }}
+      {...props}
+    >
+      {children}
+    </a>
+  );
+}
+
+function Modal({ children, label, onClose, className = "", onKeyDown }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const previous = document.activeElement;
+    const dialog = ref.current;
+    dialog.showModal();
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      const current = document.activeElement;
+      dialog.close();
+      document.body.style.overflow = overflow;
+      // A menu destination has already focused its heading; preserve that focus.
+      const target =
+        current?.isConnected &&
+        current !== document.body &&
+        !dialog.contains(current)
+          ? current
+          : previous;
+      if (target?.isConnected) target.focus({ preventScroll: true });
+    };
+  }, []);
+  return (
+    <dialog
+      ref={ref}
+      aria-label={label}
+      className={`modal ${className}`}
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      onClick={(event) => {
+        if (event.target === ref.current) onClose();
+      }}
+      onKeyDown={onKeyDown}
+    >
+      {children}
+    </dialog>
+  );
+}
+
+function Header({
+  t,
+  text,
+  page,
+  theme,
+  language,
+  setLanguage,
+  toggleTheme,
+  onNavigate,
+  rtl,
+}) {
+  const [menu, setMenu] = useState(false);
+  const navigate = (id, event) => {
+    setMenu(false);
+    onNavigate(id, event);
+  };
+  const labelFor = (id) => t.rooms[id] || t[id];
+  return (
+    <>
+      <header className="site-header">
+        <nav className="desktop-nav" aria-label={text.nav.primaryNavigation}>
+          {["story", ...roomIds].map((id) => (
+            <PageLink
+              key={id}
+              page={id}
+              onNavigate={onNavigate}
+              aria-current={page === id ? "page" : undefined}
+            >
+              {labelFor(id)}
+            </PageLink>
+          ))}
+        </nav>
+        <PageLink
+          className="brand"
+          page="gallery"
+          onNavigate={onNavigate}
+          aria-label={text.nav.home}
+        >
+          <strong dir="ltr">Jakob Olsen</strong>
+          <span lang="ar" dir="rtl">
+            خالد الأسعد
+          </span>
+        </PageLink>
+        <div className="header-tools">
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={toggleTheme}
+            aria-label={
+              theme === "dark" ? text.nav.switchLight : text.nav.switchDark
+            }
+            aria-pressed={theme === "dark"}
+          >
+            <span>
+              <Icon icon={theme === "dark" ? MoonIcon : SunIcon} size={16} />
+            </span>
+          </button>
+          <label className="language-picker">
+            <span className="sr-only">{text.nav.language}</span>
+            <select
+              value={language}
+              onChange={(event) => setLanguage(event.target.value)}
+            >
+              {languageIds.map((id) => (
+                <option key={id} value={id}>
+                  {id.toUpperCase()} · {languageNames[id]}
+                </option>
+              ))}
+            </select>
+            <Icon icon={CaretDownIcon} size={12} />
+          </label>
+          <PageLink
+            className="button header-contact"
+            page="contact"
+            onNavigate={onNavigate}
+          >
+            {text.nav.contact}
+          </PageLink>
+          <button
+            className="icon-button menu-trigger"
+            type="button"
+            aria-label={t.menu}
+            aria-haspopup="dialog"
+            aria-expanded={menu}
+            onClick={() => setMenu(true)}
+          >
+            <Icon icon={ListIcon} />
+          </button>
+        </div>
+      </header>
+      {menu && (
+        <Modal
+          label={text.nav.primaryNavigation}
+          className="menu-modal"
+          onClose={() => setMenu(false)}
+        >
+          <div className="modal-top">
+            <span className="eyebrow">{t.allRooms}</span>
+            <button
+              className="icon-button"
+              type="button"
+              aria-label={t.closeMenu}
+              onClick={() => setMenu(false)}
+            >
+              <Icon icon={XIcon} />
+            </button>
+          </div>
+          <nav aria-label={text.nav.primaryNavigation}>
+            <PageLink page="gallery" onNavigate={navigate}>
+              <span>{t.overview}</span>
+              <DirectionArrow rtl={rtl} />
+            </PageLink>
+            {roomIds.map((id, index) => (
+              <PageLink
+                key={id}
+                page={id}
+                onNavigate={navigate}
+                aria-current={page === id ? "page" : undefined}
+              >
+                <span className="menu-number">0{index + 1}</span>
+                <Icon icon={roomIcons[id]} />
+                <span>{t.rooms[id]}</span>
+                <DirectionArrow rtl={rtl} />
+              </PageLink>
+            ))}
+            <div className="menu-secondary">
+              {["story", "visuals", "digital", "contact"].map((id) => (
+                <PageLink key={id} page={id} onNavigate={navigate}>
+                  {labelFor(id)}
+                  <Icon icon={ArrowUpRightIcon} size={18} mirrored={rtl} />
+                </PageLink>
+              ))}
+            </div>
+          </nav>
+          <p className="menu-caption">
+            {t.footer}
+            <br />
+            {t.based}
+          </p>
+        </Modal>
+      )}
+    </>
+  );
+}
+
+function Dock({ t, page, visited, onNavigate }) {
+  return (
+    <nav className="room-dock" aria-label={t.allRooms}>
+      {roomIds.map((id) => (
+        <PageLink
+          key={id}
+          page={id}
+          onNavigate={onNavigate}
+          className={`dock-link ${page === id ? "active" : ""}`}
+          aria-current={page === id ? "page" : undefined}
+        >
+          <span className="dock-icon">
+            <Icon icon={roomIcons[id]} />
+            {visited.has(id) && page !== id && (
+              <Icon icon={CheckIcon} size={10} className="visited-dot" />
+            )}
+          </span>
+          <span>{t.shortRooms[id]}</span>
+        </PageLink>
+      ))}
+    </nav>
+  );
+}
+
+function Gallery({ t, onNavigate, visited, rtl }) {
+  const stage = useRef(null);
+  const [worldWidth, setWorldWidth] = useState(null);
+  const [imageFailed, setImageFailed] = useState(false);
+  useLayoutEffect(() => {
+    const update = () => {
+      const { width, height } = stage.current.getBoundingClientRect();
+      setWorldWidth(Math.min(width, height * 1.5));
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(stage.current);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div className="gallery-home">
+      <section
+        ref={stage}
+        className="gallery-stage"
+        aria-labelledby="page-title"
+      >
+        <div className="gallery-intro">
+          <p className="eyebrow">{t.eyebrow}</p>
+          <h1 id="page-title" tabIndex={-1}>
+            {t.title.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </h1>
+          <p>{t.intro}</p>
+          <PageLink
+            className="quiet-link gallery-story"
+            page="story"
+            onNavigate={onNavigate}
+          >
+            {t.story}
+            <DirectionArrow rtl={rtl} size={18} />
+          </PageLink>
+        </div>
+        <div className="gallery-purpose">
+          <h2>
+            {t.purpose.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </h2>
+          <p>{t.footer}</p>
+          <small>{t.purposeText}</small>
+        </div>
+        <div
+          className="gallery-world"
+          style={worldWidth ? { width: worldWidth } : undefined}
+        >
+          <Art
+            name="overview"
+            alt={t.galleryAlt}
+            className="overview-art"
+            priority
+            sizes="(max-width: 760px) 100vw, 90vw"
+            onError={() => setImageFailed(true)}
+          />
+          {!imageFailed && (
+            <nav className="room-entrances" aria-label={t.explore}>
+              {roomIds.map((id) => (
+                <PageLink
+                  key={id}
+                  page={id}
+                  onNavigate={onNavigate}
+                  className="room-entrance"
+                  style={{
+                    left: `${roomPositions[id].x}%`,
+                    top: `${roomPositions[id].y}%`,
+                  }}
+                  aria-label={`${t.enter} · ${t.rooms[id]}`}
+                  data-flight-room={id}
+                >
+                  <span className="entrance-circle">
+                    <DirectionArrow rtl={false} size={21} />
+                  </span>
+                  <span className="entrance-label">{t.rooms[id]}</span>
+                </PageLink>
+              ))}
+            </nav>
+          )}
+        </div>
+        {imageFailed && (
+          <p className="art-error" role="status">
+            {t.loadingError}
+          </p>
+        )}
+      </section>
+      <div className="gallery-caption">
+        <span>{t.explore}</span>
+        <span className="caption-rule" />
+        <span dir="ltr">01 — 04</span>
+      </div>
+      <nav className="room-directory" aria-label={t.explore}>
+        {roomIds.map((id, index) => (
+          <PageLink key={id} page={id} onNavigate={onNavigate}>
+            <span className="directory-number">0{index + 1}</span>
+            <Icon icon={roomIcons[id]} />
+            <strong>{t.rooms[id]}</strong>
+            {visited.has(id) ? (
+              <Icon icon={CheckIcon} size={18} />
+            ) : (
+              <DirectionArrow rtl={rtl} size={18} />
+            )}
+          </PageLink>
+        ))}
+      </nav>
+      <BeyondRooms t={t} onNavigate={onNavigate} rtl={rtl} />
+    </div>
+  );
+}
+
+function BeyondRooms({ t, onNavigate, rtl }) {
+  return (
+    <section className="beyond-rooms">
+      <p className="eyebrow">{t.more}</p>
+      <nav aria-label={t.more}>
+        {["story", "visuals", "digital", "contact"].map((id) => (
+          <PageLink key={id} page={id} onNavigate={onNavigate}>
+            <span>{t[id]}</span>
+            <DirectionArrow rtl={rtl} size={18} />
+          </PageLink>
+        ))}
+      </nav>
+    </section>
+  );
+}
+function Breadcrumb({ t, page, onNavigate, rtl }) {
+  return (
+    <div className="breadcrumb">
+      <PageLink page="gallery" onNavigate={onNavigate}>
+        <DirectionArrow rtl={rtl} back size={17} />
+        {t.overview}
+      </PageLink>
+      {roomIds.includes(page) && (
+        <span>
+          {t.room} <b dir="ltr">0{roomIds.indexOf(page) + 1}</b> {t.of}{" "}
+          <b>04</b>
+        </span>
+      )}
+    </div>
+  );
+}
+function TimelineCard({ item, featured = false }) {
+  return (
+    <article className={`info-card ${featured ? "featured-card" : ""}`}>
+      {item.year && (
+        <span className="card-meta" dir="auto">
+          {item.year}
+        </span>
+      )}
+      <h2 dir="auto">{item.title}</h2>
+      <p className="card-subtitle" dir="auto">
+        {item.place}
+      </p>
+      <p>{item.text}</p>
+    </article>
+  );
+}
+function ExternalLink({ href, children, t, className = "button", rtl }) {
+  return (
+    <a
+      className={className}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${children} · ${t.external}`}
+    >
+      {children}
+      <Icon icon={ArrowUpRightIcon} size={18} mirrored={rtl} />
+    </a>
+  );
+}
+
+function RoomPage({ t, text, story, page, onNavigate, rtl }) {
+  const energy = text.portals.energy;
+  const community = text.portals.volunteer;
+  const next = nextRoom(page);
+  return (
+    <section className={`room-layout room-${page}`}>
+      <div className="room-hero" key={`${page}-art`}>
+        <Art name={page} alt={t.roomAlt[page]} priority />
+        <span className="room-hero-index" aria-hidden="true">
+          0{roomIds.indexOf(page) + 1}
+        </span>
+        {page === "experience" && (
+          <PageLink
+            page={next}
+            onNavigate={onNavigate}
+            className="hero-next"
+            aria-label={`${t.enter} · ${t.rooms[next]}`}
+          >
+            <DirectionArrow rtl={rtl} size={20} />
+          </PageLink>
+        )}
+      </div>
+      <div className="room-content route-enter" key={page}>
+        <div className="room-heading">
+          <p className="eyebrow">
+            {t.room} 0{roomIds.indexOf(page) + 1}
+          </p>
+          <h1 id="page-title" tabIndex={-1}>
+            {t.rooms[page]}
+          </h1>
+          <p>{t.descriptions[page]}</p>
+        </div>
+        {page === "experience" && (
           <>
-            <button type="button" onClick={() => onNavigate("story")}>{story.nav.story}</button>
-            <button type="button" onClick={() => onNavigate("work")}>{story.nav.work}</button>
-            <button type="button" onClick={() => onNavigate("journey")}>{story.nav.journey}</button>
+            <article className="info-card featured-card">
+              <h2 dir="ltr">Veyt</h2>
+              <p className="card-subtitle">{t.role}</p>
+              <p>{energy.secondaryItems[0].text}</p>
+            </article>
           </>
         )}
-      </nav>
-      <a className="brand" href="#top" aria-label={text.nav.home} onClick={onBack}>{text.nav.brandName}</a>
-      <div className="nav-right">
-        <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={text.nav.theme} title={theme === "dark" ? text.nav.switchLight : text.nav.switchDark}>
-          <span className="theme-toggle-thumb" aria-hidden="true" />
-          <span className="theme-toggle-icon" aria-hidden="true">{theme === "dark" ? "☾" : "☀"}</span>
-        </button>
-        <label className="language-select" aria-label={text.nav.language} title={languageNames[language]}>
-          <select value={language} onChange={(event) => setLanguage(event.target.value)}>
-            {Object.entries(languages).map(([code, label]) => <option key={code} value={code}>{label}</option>)}
-          </select>
-        </label>
-        <button type="button" className="contact-button" onClick={onContact}>{text.nav.contact}</button>
-      </div>
-    </header>
-  );
-}
-
-function StoryHome({ story, openPage, onNavigate, onContact, isArabic }) {
-  return (
-    <div className="story-home" id="top">
-      <section className="story-hero" aria-labelledby="story-hero-title">
-        <div className="story-hero-copy">
-          <p className="story-eyebrow">{story.hero.kicker}</p>
-          <h1 id="story-hero-title">{story.hero.headline}</h1>
-          <p className="story-lead">{story.hero.lead}</p>
-          <div className="story-actions">
-            <button type="button" className="story-button story-button-primary" onClick={() => onNavigate("work")}>{story.hero.primaryCta} <ArrowGlyph isArabic={isArabic} /></button>
-            <button type="button" className="story-button story-button-secondary" onClick={() => onNavigate("story")}>{story.hero.secondaryCta}</button>
+        {page === "projects" && (
+          <>
+            {[story.work.items[1], story.work.items[0]].map((item, index) => (
+              <article
+                className={`info-card project-card ${index === 0 ? "featured-card" : ""}`}
+                key={item.title}
+              >
+                {index === 0 ? (
+                  <>
+                    <span className="card-meta">{item.label}</span>
+                    <h2 dir="ltr">{item.title}</h2>
+                    <p>{item.text}</p>
+                    <ExternalLink href={item.url} t={t} rtl={rtl}>
+                      {t.openProject}
+                    </ExternalLink>
+                  </>
+                ) : (
+                  <a
+                    className="secondary-project"
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${t.openProject}: ${item.title} · ${t.external}`}
+                  >
+                    <div className="secondary-project-copy">
+                      <span className="card-meta">{item.label}</span>
+                      <h2 dir="ltr">{item.title}</h2>
+                      <p>{item.text}</p>
+                    </div>
+                    <Icon icon={ArrowUpRightIcon} size={22} mirrored={rtl} />
+                  </a>
+                )}
+              </article>
+            ))}
+            <details className="disclosure">
+              <summary>
+                {story.work.items[2].title}
+                <Icon icon={CaretDownIcon} size={17} />
+              </summary>
+              <p>{story.work.items[2].text}</p>
+              <PageLink
+                className="quiet-link"
+                page="digital"
+                onNavigate={onNavigate}
+              >
+                {t.digital}
+                <DirectionArrow rtl={rtl} size={17} />
+              </PageLink>
+            </details>
+          </>
+        )}
+        {page === "volunteering" && (
+          <>
+            <TimelineCard
+              item={{
+                ...community.primaryItems[1],
+                year: community.primaryItems[1].year.replace(
+                  "present",
+                  t.present,
+                ),
+              }}
+              featured
+            />
+            <TimelineCard item={community.primaryItems[0]} />
+            {community.secondaryItems.map((item) => (
+              <TimelineCard key={item.title} item={item} />
+            ))}
+            <details className="disclosure">
+              <summary>
+                {community.tertiary}
+                <Icon icon={CaretDownIcon} size={17} />
+              </summary>
+              <ul>
+                {community.tertiaryItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </details>
+          </>
+        )}
+        {page === "education" && (
+          <div className="degree-list">
+            {[...energy.primaryItems].reverse().map((item) => (
+              <TimelineCard
+                key={item.year}
+                item={item}
+                featured={item.year === "2026"}
+              />
+            ))}
           </div>
-          <div className="story-chips" aria-label={story.hero.kicker}>{story.hero.chips.map((chip) => <span key={chip}>{chip}</span>)}</div>
-        </div>
-        <div className="story-hero-visual">
-          <img src="/media/photography/coastal-island.webp" alt={story.hero.imageAlt} width="560" height="386" fetchPriority="high" />
-          <div className="story-signal"><strong>{story.hero.signal}</strong><span>{story.hero.formula.join(" · ")}</span></div>
-          <div className="story-formula" aria-hidden="true">{story.hero.formula.map((item, index) => <React.Fragment key={item}><span>{item}</span>{index < story.hero.formula.length - 1 && <b>+</b>}</React.Fragment>)}</div>
-        </div>
-      </section>
+        )}
+        <PageLink
+          page={next}
+          onNavigate={onNavigate}
+          className="button continue-button"
+        >
+          <span>
+            {t.next} {t.rooms[next]}
+          </span>
+          <DirectionArrow rtl={rtl} size={20} />
+        </PageLink>
+        <PageLink
+          page="gallery"
+          onNavigate={onNavigate}
+          className="quiet-link overview-return"
+        >
+          {t.backGallery}
+          <DirectionArrow rtl={rtl} back size={17} />
+        </PageLink>
+        {page === "experience" && (
+          <details className="disclosure">
+            <summary>
+              {t.focus}
+              <Icon icon={CaretDownIcon} size={17} />
+            </summary>
+            <div className="focus-panel">
+              <ul>
+                {story.story.pillars.map((item) => (
+                  <li key={item.id}>
+                    <Icon icon={CheckIcon} size={16} />
+                    {item.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
+        )}
+      </div>
+    </section>
+  );
+}
 
-      <section className="story-section story-intro" id="story" aria-labelledby="story-title">
-        <header className="story-section-heading">
-          <p className="story-eyebrow">{story.story.eyebrow}</p>
-          <h2 id="story-title">{story.story.title}</h2>
+function StoryPage({ t, story, onNavigate, rtl }) {
+  return (
+    <div className="editorial-page route-enter">
+      <header className="editorial-heading">
+        <p className="eyebrow">{t.journey}</p>
+        <h1 id="page-title" tabIndex={-1}>
+          {story.hero.headline}
+        </h1>
+        <p>{story.hero.lead}</p>
+      </header>
+      <div className="story-spread">
+        <img
+          src="/media/photography/coastal-island.webp"
+          alt={story.hero.imageAlt}
+          width="560"
+          height="386"
+        />
+        <div>
+          <span className="eyebrow">{story.story.eyebrow}</span>
+          <h2>{story.story.title}</h2>
           <p>{story.story.body}</p>
-        </header>
-        <div className="story-pillars">
-          {story.story.pillars.map((pillar) => (
-            <button type="button" className={`story-pillar story-pillar-${pillar.id}`} key={pillar.id} onClick={() => openPage(pillar.id)}>
-              <span className="story-pillar-number">{pillar.number}</span>
-              <span className="story-pillar-icon"><Object3D type={pillar.id} /></span>
-              <strong>{pillar.title}</strong>
-              <p>{pillar.text}</p>
-              <span className="story-text-link">{pillar.action} <ArrowGlyph isArabic={isArabic} /></span>
-            </button>
+          <div className="tags">
+            {story.hero.chips.map((chip) => (
+              <span key={chip}>{chip}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+      <ol className="journey-steps">
+        {story.journey.steps.map((step, index) => (
+          <li key={step.marker}>
+            <span className="journey-index">0{index + 1}</span>
+            <div>
+              <span className="eyebrow">{step.marker}</span>
+              <h2>{step.title}</h2>
+              <p>{step.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <BeyondRooms t={t} onNavigate={onNavigate} rtl={rtl} />
+    </div>
+  );
+}
+
+function DigitalPage({ t, profile }) {
+  return (
+    <div className="editorial-page route-enter">
+      <header className="editorial-heading">
+        <p className="eyebrow">{profile.label}</p>
+        <h1 id="page-title" tabIndex={-1}>
+          {t.digital}
+        </h1>
+        <p>{profile.subtitle}</p>
+      </header>
+      <div className="digital-columns">
+        {[
+          { title: profile.primary, items: profile.primaryItems },
+          { title: profile.secondary, items: profile.secondaryItems },
+        ].map((group) => (
+          <section key={group.title}>
+            <h2 className="section-title">{group.title}</h2>
+            {group.items.map((item) => (
+              <TimelineCard key={item.title} item={item} />
+            ))}
+          </section>
+        ))}
+      </div>
+      <section className="focus-panel">
+        <h2>{profile.tertiary}</h2>
+        <ul>
+          {profile.tertiaryItems.map((item) => (
+            <li key={item}>
+              <Icon icon={CheckIcon} size={16} />
+              {item}
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
-
-      <section className="story-section selected-work" id="work" aria-labelledby="work-title">
-        <header className="story-section-heading story-heading-row">
-          <div><p className="story-eyebrow">{story.work.eyebrow}</p><h2 id="work-title">{story.work.title}</h2></div>
-          <p>{story.work.description}</p>
-        </header>
-        <div className="work-grid">
-          {story.work.items.map((item, index) => {
-            const body = <><span className="work-index">0{index + 1}</span><span className="work-label">{item.label}</span><h3>{item.title}</h3><p>{item.text}</p><span className="story-text-link">{item.action} {item.url ? <ExternalGlyph /> : <ArrowGlyph isArabic={isArabic} />}</span></>;
-            return item.url ? (
-              <a className={`work-card work-card-${item.tone}`} key={item.title} href={item.url} target="_blank" rel="noopener noreferrer">{body}</a>
-            ) : (
-              <button type="button" className={`work-card work-card-${item.tone}`} key={item.title} onClick={() => openPage(item.target)}>{body}</button>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="story-section journey-section" id="journey" aria-labelledby="journey-title">
-        <header className="story-section-heading journey-heading">
-          <p className="story-eyebrow">{story.journey.eyebrow}</p>
-          <h2 id="journey-title">{story.journey.title}</h2>
-          <p>{story.journey.intro}</p>
-        </header>
-        <div className="journey-line">
-          {story.journey.steps.map((step, index) => <article className="journey-step" key={step.marker}><span className="journey-marker">{index + 1}</span><p>{step.marker}</p><h3>{step.title}</h3><span>{step.text}</span></article>)}
-        </div>
-      </section>
-
-      <section className="impact-strip" aria-label={story.impact.label}>
-        <p>{story.impact.label}</p>
-        <div>{story.impact.items.map((item) => <span className="impact-item" key={item.label}><strong>{item.value}</strong><small>{item.label}</small></span>)}</div>
-      </section>
-
-      <section className="story-section visual-story" id="visuals" aria-labelledby="visual-title">
-        <div className="visual-copy">
-          <p className="story-eyebrow">{story.visual.eyebrow}</p>
-          <h2 id="visual-title">{story.visual.title}</h2>
-          <p>{story.visual.text}</p>
-          <button type="button" className="story-button story-button-dark" onClick={() => openPage("media")}>{story.visual.action} <ArrowGlyph isArabic={isArabic} /></button>
-        </div>
-        <div className="visual-mosaic">
-          <img className="visual-wide" src="/media/photography/emerald-beach.webp" alt={story.visual.imageAlt[0]} loading="lazy" width="500" height="198" />
-          <img src="/media/photography/autumn-lake.webp" alt={story.visual.imageAlt[1]} loading="lazy" width="280" height="266" />
-          <img src="/media/photography/drone-sunset.webp" alt={story.visual.imageAlt[2]} loading="lazy" width="760" height="507" />
-        </div>
-      </section>
-
-      <section className="story-closing" aria-labelledby="closing-title">
-        <div><p className="story-eyebrow">{story.closing.eyebrow}</p><h2 id="closing-title">{story.closing.title}</h2><span>{story.closing.text}</span></div>
-        <button type="button" className="story-button story-button-lime" onClick={onContact}>{story.closing.action} <ArrowGlyph isArabic={isArabic} /></button>
-      </section>
-      <footer className="story-footer"><strong>Jakob Olsen</strong><span>Energy · Data · Communication</span></footer>
     </div>
   );
 }
 
-function TimelineItem({ item }) {
-  return <div className={`energy-item ${item.year ? "" : "energy-item-no-year"}`}>{item.year && <span className="energy-year">{item.year}</span>}<div><h2>{item.title}</h2><h3>{item.place}</h3><p>{item.text}</p></div></div>;
-}
-
-function EnergyProjects({ items }) {
-  return <div className="energy-projects">{items.map((item) => { const body = <><strong>{item.name}{item.url && <ExternalGlyph />}</strong><span>{item.description}</span></>; return item.url ? <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer" aria-label={`${item.name}: ${item.description}`}>{body}</a> : <span key={item.name}>{body}</span>; })}</div>;
-}
-
-function GalleryItem({ item, language }) {
-  const [loaded, setLoaded] = useState(false);
-  const alt = item.alt?.[language] || "";
-  const caption = item.caption?.[language] || "";
-  const width = item.width || 1200;
-  const height = item.height || 800;
-  const className = ["media-gallery-item", "energy-card", item.wide ? "media-gallery-item-wide" : "", item.portrait ? "media-gallery-item-portrait" : ""].filter(Boolean).join(" ");
-
+function PhotoViewer({
+  index,
+  setIndex,
+  language,
+  t,
+  rtl,
+  onClose,
+  closeLabel,
+}) {
+  const item = photos[index];
+  const move = (delta) =>
+    setIndex((current) => (current + delta + photos.length) % photos.length);
   return (
-    <figure className={className}>
-      {item.type === "youtube" ? (
-        loaded ? (
-          <iframe src={`https://www.youtube-nocookie.com/embed/${item.youtubeId}?rel=0`} title={caption || alt} width={width} height={height} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
-        ) : (
-          <button type="button" className="media-video-loader" onClick={() => setLoaded(true)} aria-label={caption || alt}>
-            <img src={item.poster} alt={alt} loading="lazy" decoding="async" width={width} height={height} /><span aria-hidden="true">▶</span>
+    <Modal
+      label={item.caption[language]}
+      className="photo-modal"
+      onClose={onClose}
+      onKeyDown={(event) => {
+        if (["ArrowRight", "ArrowLeft"].includes(event.key)) {
+          event.preventDefault();
+          move(event.key === "ArrowRight" ? (rtl ? -1 : 1) : rtl ? 1 : -1);
+        }
+      }}
+    >
+      <div className="modal-top">
+        <span>
+          {t.imageCount} <b>{index + 1}</b> / {photos.length}
+        </span>
+        <button
+          className="icon-button"
+          type="button"
+          aria-label={closeLabel}
+          onClick={onClose}
+        >
+          <Icon icon={XIcon} />
+        </button>
+      </div>
+      <figure>
+        <img
+          src={item.src}
+          alt={item.alt[language]}
+          width={item.width}
+          height={item.height}
+        />
+        <figcaption>{item.caption[language]}</figcaption>
+      </figure>
+      <div className="photo-controls">
+        <button
+          className="icon-button"
+          type="button"
+          aria-label={t.previousImage}
+          onClick={() => move(-1)}
+        >
+          <DirectionArrow rtl={rtl} back />
+        </button>
+        <button
+          className="icon-button"
+          type="button"
+          aria-label={t.nextImage}
+          onClick={() => move(1)}
+        >
+          <DirectionArrow rtl={rtl} />
+        </button>
+      </div>
+    </Modal>
+  );
+}
+
+function VisualsPage({ t, text, story, language, rtl }) {
+  const [photoIndex, setPhotoIndex] = useState(null);
+  const video = media.gallery.find((item) => item.type === "youtube");
+  return (
+    <div className="editorial-page route-enter">
+      <header className="editorial-heading">
+        <p className="eyebrow">{story.visual.eyebrow}</p>
+        <h1 id="page-title" tabIndex={-1}>
+          {t.visuals}
+        </h1>
+        <p>{story.visual.text}</p>
+      </header>
+      <div className="photo-grid">
+        {photos.map((item, index) => (
+          <button
+            key={item.id}
+            className={`photo-item ${item.wide ? "wide" : ""}`}
+            type="button"
+            aria-label={`${t.enlarge}: ${item.caption[language]}`}
+            onClick={() => setPhotoIndex(index)}
+          >
+            <img
+              src={item.src}
+              width={item.width}
+              height={item.height}
+              alt={item.alt[language]}
+              loading="lazy"
+            />
+            <span>
+              {item.caption[language]}
+              <Icon icon={CameraIcon} size={18} />
+            </span>
           </button>
-        )
-      ) : item.type === "video" ? (
-        <video controls preload="metadata" poster={item.poster} width={width} height={height}><source src={item.src} /></video>
-      ) : (
-        <img src={item.src} alt={alt} loading="lazy" decoding="async" width={width} height={height} />
+        ))}
+      </div>
+      {video && (
+        <a
+          className="video-link"
+          href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${t.video} · ${t.external}`}
+        >
+          <img
+            src={video.poster}
+            alt=""
+            width="760"
+            height="507"
+            loading="lazy"
+          />
+          <span>
+            <Icon icon={PlayIcon} size={30} />
+            <strong>{t.video}</strong>
+            <Icon icon={ArrowUpRightIcon} mirrored={rtl} />
+          </span>
+        </a>
       )}
-      {caption && <figcaption>{caption}</figcaption>}
-    </figure>
-  );
-}
-
-function MediaGallery({ language, label }) {
-  if (!media.gallery.length) return null;
-  return <section className="media-gallery" aria-label={label}>{media.gallery.map((item) => <GalleryItem key={item.id} item={item} language={language} />)}</section>;
-}
-
-function ProfilePage({ profile, language, detailsLabel }) {
-  return (
-    <div className="energy-page" id={profile.object}>
-      <section className="energy-hero"><div><p>{profile.label}</p><h1>{profile.title}</h1><span>{profile.subtitle}</span></div><div className="energy-hero-orb" aria-hidden="true"><span className="sphere3d energy-page-sphere"><Object3D type={profile.object} /></span></div></section>
-      <section className="energy-sections" aria-label={`${profile.title} — ${detailsLabel}`}>
-        <article className="energy-card energy-card-wide"><p className="energy-card-label">{profile.primary}</p><div className="energy-timeline">{profile.primaryItems.map((item) => <TimelineItem key={`${item.year || "item"}-${item.title}`} item={item} />)}</div></article>
-        <article className="energy-card"><p className="energy-card-label">{profile.secondary}</p><div className="energy-timeline compact">{profile.secondaryItems.map((item) => <TimelineItem key={`${item.year || "item"}-${item.title}`} item={item} />)}</div></article>
-        <article className="energy-card"><p className="energy-card-label">{profile.tertiary}</p>{profile.object === "energy" ? <EnergyProjects items={profile.tertiaryItems} /> : <div className="energy-projects">{profile.tertiaryItems.map((item) => <span key={item}>{item}</span>)}</div>}</article>
-      </section>
-      {profile.object === "media" && <MediaGallery language={language} label={profile.galleryLabel} />}
+      <div className="digital-columns visual-skills">
+        {[
+          ...text.portals.media.primaryItems,
+          ...text.portals.media.secondaryItems,
+        ].map((item) => (
+          <TimelineCard
+            key={item.title}
+            item={{
+              ...item,
+              year: item.year === "Skill" ? t.skill : item.year,
+            }}
+          />
+        ))}
+      </div>
+      {photoIndex !== null && (
+        <PhotoViewer
+          index={photoIndex}
+          setIndex={setPhotoIndex}
+          language={language}
+          t={t}
+          rtl={rtl}
+          closeLabel={text.nav.close}
+          onClose={() => setPhotoIndex(null)}
+        />
+      )}
     </div>
   );
 }
 
-function ContactPage({ text }) {
+function ContactPage({ t, text, rtl }) {
+  const email = contactLinks.find((item) => item.id === "email");
+  const linkedin = contactLinks.find((item) => item.id === "linkedin");
   return (
-    <div className="contact-page" id="contact">
-      <section className="contact-header" aria-labelledby="contact-title"><p>{text.contact.pageLabel}</p><h1 id="contact-title">{text.contact.name}</h1><h2>{text.contact.role}</h2><span>{text.contact.invitation}</span></section>
-      <nav className="contact-link-tree" aria-label={text.contact.pageLabel}>
-        {contactLinks.map((link) => { const subtitle = text.contact.subtitles[link.id]; const isMail = link.url.startsWith("mailto:"); return <a key={link.id} className={`contact-link ${link.featured ? "contact-link-featured" : ""}`} href={link.url} target={isMail ? undefined : "_blank"} rel={isMail ? undefined : "noopener noreferrer"} aria-label={`${text.contact.ariaPrefix} ${link.name}: ${subtitle}`} style={{ "--brand-color": link.color }} data-platform={link.id}><span className="contact-link-icon"><BrandIcon type={link.icon} /></span><span className="contact-link-copy"><strong>{link.name}</strong><small>{subtitle}</small></span><span className="contact-link-arrow" aria-hidden="true"><ExternalGlyph size={16} /></span></a>; })}
+    <div className="editorial-page contact-page route-enter">
+      <header className="editorial-heading">
+        <p className="eyebrow">{t.based}</p>
+        <h1 id="page-title" tabIndex={-1}>
+          {t.contact}
+        </h1>
+        <p>{text.contact.invitation}</p>
+      </header>
+      <div className="contact-primary">
+        <a className="button" href={email.url}>
+          <Icon icon={EnvelopeSimpleIcon} />
+          {t.email}
+          <DirectionArrow rtl={rtl} size={18} />
+        </a>
+        <ExternalLink
+          href={linkedin.url}
+          className="button button-secondary"
+          t={t}
+          rtl={rtl}
+        >
+          {t.linkedin}
+        </ExternalLink>
+      </div>
+      <nav className="contact-grid" aria-label={text.contact.pageLabel}>
+        {contactLinks.map((item) => (
+          <a
+            href={item.url}
+            key={item.id}
+            target={item.url.startsWith("mailto:") ? undefined : "_blank"}
+            rel={
+              item.url.startsWith("mailto:") ? undefined : "noopener noreferrer"
+            }
+          >
+            <span className="contact-icon">
+              <Icon icon={brandIcons[item.icon] || GlobeIcon} />
+            </span>
+            <span>
+              <strong>{item.name}</strong>
+              <small>{text.contact.subtitles[item.id]}</small>
+            </span>
+            <Icon icon={ArrowUpRightIcon} size={18} mirrored={rtl} />
+          </a>
+        ))}
       </nav>
     </div>
   );
 }
 
 export default function App() {
-  const [theme, setTheme] = useState("light");
-  const [language, setLanguage] = useState("en");
-  const [page, setPage] = useState(() => {
-    const hash = window.location.hash.replace("#", "");
-    return [...profileIds, "contact"].includes(hash) ? hash : "home";
-  });
-
-  const text = content[language];
-  const story = storyContent[language];
-  const isArabic = language === "ar";
-  const currentProfile = profileIds.includes(page) ? text.portals[page] : null;
-
+  const [page, setPage] = useState(() => pageFromHash(window.location.hash));
+  const [language, setLanguage] = useState(() =>
+    readPreference(
+      () => window.localStorage,
+      "portfolio-language",
+      languageIds,
+      "en",
+    ),
+  );
+  const [theme, setTheme] = useState(() =>
+    readPreference(
+      () => window.localStorage,
+      "portfolio-theme",
+      ["light", "dark"],
+      "light",
+    ),
+  );
+  const [visited, setVisited] = useState(
+    () => new Set(roomIds.includes(page) ? [page] : []),
+  );
+  const [flight, setFlight] = useState(null);
+  const didNavigate = useRef(false);
+  const flightSequence = useRef(0);
+  const rtl = language === "ar";
+  const text = content[language],
+    story = storyContent[language],
+    t = galleryContent[language];
+  useEffect(() => {
+    const sync = () => {
+      didNavigate.current = true;
+      setPage(pageFromHash(window.location.hash));
+      setFlight(null);
+    };
+    window.addEventListener("popstate", sync);
+    window.addEventListener("hashchange", sync);
+    return () => {
+      window.removeEventListener("popstate", sync);
+      window.removeEventListener("hashchange", sync);
+    };
+  }, []);
   useEffect(() => {
     document.documentElement.lang = language === "no" ? "nb" : language;
-    document.documentElement.dir = isArabic ? "rtl" : "ltr";
-  }, [language, isArabic]);
-
-  function openPage(id) {
-    setPage(id);
-    window.history.replaceState(null, "", `#${id}`);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function goHome(event) {
-    event?.preventDefault?.();
-    setPage("home");
-    window.history.replaceState(null, "", window.location.pathname);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function navigateHomeSection(id) {
-    if (page !== "home") {
-      setPage("home");
-      window.history.replaceState(null, "", window.location.pathname);
-      window.requestAnimationFrame(() => window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })));
-      return;
+    document.documentElement.dir = rtl ? "rtl" : "ltr";
+    document.documentElement.dataset.theme = theme;
+    savePreference(() => window.localStorage, "portfolio-language", language);
+    savePreference(() => window.localStorage, "portfolio-theme", theme);
+  }, [language, theme, rtl]);
+  useEffect(() => {
+    document.title = `${t.rooms[page] || t[page] || t.overview} | Jakob Olsen · خالد الأسعد`;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === "light" ? "#f5f7f3" : "#0b242c";
+  }, [page, language, theme, t]);
+  useLayoutEffect(() => {
+    if (roomIds.includes(page))
+      setVisited((old) => (old.has(page) ? old : new Set([...old, page])));
+    if (didNavigate.current) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+      document.getElementById("page-title")?.focus({ preventScroll: true });
     }
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [page]);
+  function navigate(id, event) {
+    if (id === page) return;
+    if (
+      page === "gallery" &&
+      event?.currentTarget.hasAttribute("data-flight-room") &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      const bounds = event.currentTarget
+        .closest(".gallery-world")
+        .getBoundingClientRect();
+      setFlight({
+        id,
+        sequence: ++flightSequence.current,
+        left: bounds.left,
+        top: bounds.top,
+        width: bounds.width,
+        height: bounds.height,
+      });
+    } else setFlight(null);
+    didNavigate.current = true;
+    window.history.pushState(null, "", `#${id}`);
+    setPage(id);
   }
-
   return (
-    <main className="portfolio-gateway story-layout" data-theme={theme} dir={isArabic ? "rtl" : "ltr"}>
-      <div className="ambient-bg" aria-hidden="true"><span /><span /><span /></div>
-      <section className={`gateway-frame ${page !== "home" ? "gateway-frame-subpage" : "story-frame"}`} aria-label={text.nav.gateway}>
-        <Topbar text={text} story={story} theme={theme} language={language} setLanguage={setLanguage} toggleTheme={() => setTheme((current) => current === "dark" ? "light" : "dark")} onBack={goHome} onContact={() => openPage("contact")} onNavigate={navigateHomeSection} isSubpage={page !== "home"} isArabic={isArabic} />
-        {page === "contact" ? <ContactPage text={text} /> : currentProfile ? <ProfilePage profile={currentProfile} language={language} detailsLabel={text.nav.portfolioDetails} /> : <StoryHome story={story} openPage={openPage} onNavigate={navigateHomeSection} onContact={() => openPage("contact")} isArabic={isArabic} />}
-      </section>
-    </main>
+    <div className="portfolio" data-theme={theme} dir={rtl ? "rtl" : "ltr"}>
+      <a
+        className="skip-link"
+        href="#main-content"
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById("page-title")?.focus();
+        }}
+      >
+        {t.skip}
+      </a>
+      <div className="portfolio-frame">
+        <Header
+          t={t}
+          text={text}
+          page={page}
+          theme={theme}
+          language={language}
+          setLanguage={setLanguage}
+          toggleTheme={() =>
+            setTheme((old) => (old === "light" ? "dark" : "light"))
+          }
+          onNavigate={navigate}
+          rtl={rtl}
+        />
+        <main
+          id="main-content"
+          className={`main-content ${page === "gallery" ? "overview-page" : ""}`}
+        >
+          {page !== "gallery" && (
+            <Breadcrumb t={t} page={page} onNavigate={navigate} rtl={rtl} />
+          )}
+          {page === "gallery" && (
+            <Gallery t={t} onNavigate={navigate} visited={visited} rtl={rtl} />
+          )}
+          {roomIds.includes(page) && (
+            <RoomPage
+              t={t}
+              text={text}
+              story={story}
+              page={page}
+              onNavigate={navigate}
+              rtl={rtl}
+            />
+          )}
+          {page === "story" && (
+            <StoryPage t={t} story={story} onNavigate={navigate} rtl={rtl} />
+          )}
+          {page === "digital" && (
+            <DigitalPage t={t} profile={text.portals.digital} />
+          )}
+          {page === "visuals" && (
+            <VisualsPage
+              t={t}
+              text={text}
+              story={story}
+              language={language}
+              rtl={rtl}
+            />
+          )}
+          {page === "contact" && <ContactPage t={t} text={text} rtl={rtl} />}
+        </main>
+        <footer className="site-footer">
+          <span>
+            Jakob Olsen <span lang="ar">· خالد الأسعد</span>
+          </span>
+          <span>{t.footer}</span>
+          <PageLink page="contact" onNavigate={navigate}>
+            {text.nav.contact}
+            <Icon icon={ArrowUpRightIcon} size={15} mirrored={rtl} />
+          </PageLink>
+        </footer>
+      </div>
+      <Dock t={t} page={page} visited={visited} onNavigate={navigate} />
+      {flight && (
+        <div
+          key={flight.sequence}
+          className="gallery-flight"
+          aria-hidden="true"
+          onAnimationEnd={() =>
+            setFlight((current) =>
+              current?.sequence === flight.sequence ? null : current,
+            )
+          }
+          style={{
+            left: flight.left,
+            top: flight.top,
+            width: flight.width,
+            height: flight.height,
+            transformOrigin: `${roomPositions[flight.id].x}% ${roomPositions[flight.id].y}%`,
+          }}
+        >
+          <Art name="overview" alt="" />
+        </div>
+      )}
+      <div className="sr-only" role="status" aria-live="polite">
+        {t.rooms[page] || t[page] || t.overview}
+      </div>
+    </div>
   );
 }
