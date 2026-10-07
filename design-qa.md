@@ -82,3 +82,18 @@ The initial comparison result was blocked while the above visual issues were act
 - [x] Four-room navigation, responsive widths, RTL, preferences, dialogs and content continuity.
 - [x] Local tests, production build and diff check.
 - [x] Review branch prepared for draft pull request handoff; production release follows review.
+
+## Interactive scene and entrance visibility update
+
+Result: passed for the reviewed responsive browser states. The approved artwork remains the scene source. CSS perspective gives it a limited tilt, with pan and 1–3× zoom; this is an interactive image plane, not geometry that can be viewed from behind. No WebGL dependency or new artwork was added.
+
+- Mouse drag tilts the scene. Zoom switches to pan, and the mode button allows either interaction. Wheel zoom is opt-in; ordinary page scrolling and browser Ctrl/Command zoom remain available. Pointer-relative zoom preserves the viewed location, and pan is bounded.
+- On touch screens, Explore enables gestures only within the scene. Two-finger pinch changes the zoom and midpoint; releasing pointers clears the drag state. Done, Escape or Reset exits exploration. Default touch scrolling stays available without activating exploration.
+- Close look centers the selected room at 2.2× without changing the route. The visitor then follows its native entrance link. Keyboard navigation brings a focused room entrance into view when zoomed. Links preserve normal taps; a drag beginning on a link does not accidentally open it.
+- Entrance targets are 52px on desktop/tablet and 48px on phones, with inverse camera scaling to retain their usable size. White arrows and labels on `#082e38`, white borders and a dark outer ring remain visible against both light and dark parts of the artwork. Labels stay visible. The 3.4-second beacon runs three cycles, and reduced-motion preferences remove motion. The Experience-to-Projects arrow uses the same contrast and a persistent label.
+- Revised mobile labels for Education and Volunteering sit beside their targets after the first browser review found overlap. At 320/390/430/768px, all four targets and labels are inside the overview viewport with no label covering another target. Client/scroll widths are respectively 305/305, 375/375, 415/415 and 753/753.
+- Actual desktop drag measured yaw 5.5° and pitch −3.3°, then cleared the dragging state. Desktop and phone Close look centered Projects at 2.2×; the phone entrance still measured approximately 48px and successfully opened `#projects`. Returning to the overview and Reset worked.
+- Actual Arabic light-theme browser evidence: `qa/camera-desktop-ar.jpg`, `qa/camera-mobile-ar.jpg`. These are screenshots of the running implementation, not reconstructed designs. Application console error entries: zero in both reviewed tabs; unrelated browser-extension entries were excluded by origin.
+- `npm test`: **23 tests passed**, including the original 11 navigation/content checks, four camera math checks and eight scene interaction checks covering all four languages, drag-versus-tap behavior, wheel opt-in, keyboard controls and touch pinch cleanup. Production build and whitespace checks pass. No dependency changes.
+
+The responsive review uses the same development-only iframe harness described above. It does not certify physical mobile hardware, Safari or full 3D orbiting around the buildings.
