@@ -18,6 +18,9 @@ The development server runs on port 4173. `npm run dev -- --host 0.0.0.0 --port 
 ## Visitor experience
 
 - Choose a room through its gallery entrance, the header, the persistent mobile dock or the accessible menu.
+- Drag the overview to tilt its perspective; use Explore, zoom controls or the wheel to inspect it up to 3×. After zooming, drag to pan. The Close look selector centers a room without opening it, so visitors can inspect the entrance before following its link.
+- On touch screens, Explore enables dragging and two-finger zoom inside the scene; Done or Reset restores ordinary page gestures. Keyboard users can focus the scene and use arrows, +/−, Home and Escape. The camera moves a perspective-transformed image plane, not a volumetric 3D model.
+- Room entrances retain their size while zooming, with white-on-teal arrows, contrasting outlines and persistent localized labels. A short, finite beacon animation draws attention; reduced-motion preferences remove it.
 - The gallery entrance briefly zooms toward the selected room. Direct room switching stays fast; reduced-motion preferences remove the camera animation.
 - Native hash links support shared destinations, refresh, browser Back/Forward and modifier-click. Old `#energy`, `#volunteer` and `#media` links still resolve.
 - English, Arabic, Norwegian and French remain available. Arabic uses RTL reading order; the physical gallery and room order remain consistent. Language and appearance persist when storage is available.
@@ -36,6 +39,9 @@ The development server runs on port 4173. `npm run dev -- --host 0.0.0.0 --port 
 | `src/navigation.js`     | Destinations, legacy links and resilient preferences            |
 | `src/App.jsx`           | Semantic screens, navigation, modal focus and room interactions |
 | `src/gallery.css`       | Responsive layout, themes, focus and motion                     |
+| `src/scene.css`         | Camera viewport, controls and high-contrast entrance styling    |
+| `src/sceneCamera.js`    | Bounded camera, anchored zoom and pinch calculations            |
+| `src/useSceneCamera.js` | Pointer gestures, optional wheel zoom and keyboard controls     |
 | `src/typography.css`    | Locally hosted Inter and IBM Plex Sans Arabic                   |
 
 Generated artwork has 480px, 900px and 1440px WebP variants in `public/media/gallery/`. `assets.json` records source dimensions, hashes and exported sizes. Images select their size through `srcset`; only the current room image loads. No WebGL runtime or remote font requests are required.

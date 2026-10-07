@@ -25,6 +25,12 @@ import { WhatsappLogoIcon } from "@phosphor-icons/react/dist/csr/WhatsappLogo";
 import { XLogoIcon } from "@phosphor-icons/react/dist/csr/XLogo";
 import { LightningIcon } from "@phosphor-icons/react/dist/csr/Lightning";
 import { CertificateIcon } from "@phosphor-icons/react/dist/csr/Certificate";
+import { HandIcon } from "@phosphor-icons/react/dist/csr/Hand";
+import { CubeIcon } from "@phosphor-icons/react/dist/csr/Cube";
+import { PlusIcon } from "@phosphor-icons/react/dist/csr/Plus";
+import { MinusIcon } from "@phosphor-icons/react/dist/csr/Minus";
+import { ArrowCounterClockwiseIcon } from "@phosphor-icons/react/dist/csr/ArrowCounterClockwise";
+import { useSceneCamera } from "./useSceneCamera.js";
 import { content, contactLinks } from "./content/index.js";
 import { storyContent } from "./storyContent.js";
 import { media } from "./mediaGallery.js";
@@ -82,6 +88,7 @@ function Art({
   priority = false,
   sizes = "(max-width: 760px) 100vw, 60vw",
   onError,
+  onLoad,
 }) {
   return (
     <img
@@ -96,7 +103,9 @@ function Art({
       alt={alt}
       fetchPriority={priority ? "high" : "auto"}
       decoding="async"
+      draggable={false}
       onError={onError}
+      onLoad={onLoad}
     />
   );
 }
@@ -330,8 +339,12 @@ function Dock({ t, page, visited, onNavigate }) {
 
 function Gallery({ t, onNavigate, visited, rtl }) {
   const stage = useRef(null);
+  const viewport = useRef(null);
+  const world = useRef(null);
+  const camera = useSceneCamera(viewport, world);
   const [worldWidth, setWorldWidth] = useState(null);
   const [imageFailed, setImageFailed] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   useLayoutEffect(() => {
     const update = () => {
       const { width, height } = stage.current.getBoundingClientRect();
@@ -343,7 +356,13 @@ function Gallery({ t, onNavigate, visited, rtl }) {
     return () => observer.disconnect();
   }, []);
   return (
-    <div className="gallery-home">
+    <div
+      className="gallery-home"
+      data-camera-moved={
+        camera.view.scale > 1.05 ||
+        Math.abs(camera.view.yaw) + Math.abs(camera.view.pitch) > 1
+      }
+    >
       <section
         ref={stage}
         className="gallery-stage"
@@ -376,47 +395,98 @@ function Gallery({ t, onNavigate, visited, rtl }) {
           <small>{t.purposeText}</small>
         </div>
         <div
-          className="gallery-world"
-          style={worldWidth ? { width: worldWidth } : undefined}
+          ref={viewport}
+          className="scene-viewport"
+          role="region"
+          aria-label={t.scene.label}
+          aria-describedby="scene-help scene-keyboard-help"
+          aria-busy={!imageLoaded && !imageFailed}
+          tabIndex={0}
+          data-interactive={camera.enabled}
+          data-dragging={camera.dragging}
+          data-mode={camera.mode}
+          {...camera.events}
         >
-          <Art
-            name="overview"
-            alt={t.galleryAlt}
-            className="overview-art"
-            priority
-            sizes="(max-width: 760px) 100vw, 90vw"
-            onError={() => setImageFailed(true)}
-          />
-          {!imageFailed && (
-            <nav className="room-entrances" aria-label={t.explore}>
-              {roomIds.map((id) => (
-                <PageLink
-                  key={id}
-                  page={id}
-                  onNavigate={onNavigate}
-                  className="room-entrance"
-                  style={{
-                    left: `${roomPositions[id].x}%`,
-                    top: `${roomPositions[id].y}%`,
-                  }}
-                  aria-label={`${t.enter} · ${t.rooms[id]}`}
-                  data-flight-room={id}
-                >
-                  <span className="entrance-circle">
-                    <DirectionArrow rtl={false} size={21} />
-                  </span>
-                  <span className="entrance-label">{t.rooms[id]}</span>
-                </PageLink>
-              ))}
-            </nav>
-          )}
+          <div
+            ref={world}
+            className="gallery-world"
+            data-animated={camera.animated}
+            style={{
+              width: worldWidth || undefined,
+              "--camera-scale": camera.view.scale,
+              "--camera-x": `${camera.view.x}px`,
+              "--camera-y": `${camera.view.y}px`,
+              "--camera-pitch": `${camera.view.pitch}deg`,
+              "--camera-yaw": `${camera.view.yaw}deg`,
+              "--pin-scale": 1 / camera.view.scale,
+            }}
+          >
+            <Art
+              name="overview"
+              alt={t.galleryAlt}
+              className="overview-art"
+              priority
+              sizes={
+                worldWidth
+                  ? `${Math.ceil(worldWidth * (camera.view.scale > 1.4 ? 2.5 : 1))}px`
+                  : "(max-width: 760px) 100vw, 90vw"
+              }
+              onError={() => setImageFailed(true)}
+              onLoad={() => setImageLoaded(true)}
+            />
+            {!imageFailed && (
+              <nav className="room-entrances" aria-label={t.explore}>
+                {roomIds.map((id, index) => (
+                  <PageLink
+                    key={id}
+                    page={id}
+                    onNavigate={onNavigate}
+                    className="room-entrance"
+                    draggable={false}
+                    data-focused={camera.focusedRoom === id}
+                    onFocus={(event) => {
+                      if (
+                        camera.view.scale > 1.05 &&
+                        camera.focusedRoom !== id &&
+                        event.currentTarget.matches(":focus-visible")
+                      )
+                        camera.focusRoom(id, roomPositions[id]);
+                    }}
+                    style={{
+                      left: `${roomPositions[id].x}%`,
+                      top: `${roomPositions[id].y}%`,
+                      "--beacon-delay": `${index * 0.4}s`,
+                    }}
+                    aria-label={`${t.enter} · ${t.rooms[id]}`}
+                    data-flight-room={id}
+                  >
+                    <span className="entrance-circle">
+                      <DirectionArrow rtl={false} size={24} />
+                    </span>
+                    <span className="entrance-label" dir={rtl ? "rtl" : "ltr"}>
+                      <span className="entrance-index" aria-hidden="true">
+                        0{index + 1}
+                      </span>
+                      {t.rooms[id]}
+                    </span>
+                  </PageLink>
+                ))}
+              </nav>
+            )}
+          </div>
         </div>
+        {!imageLoaded && !imageFailed && (
+          <p className="scene-loading" role="status">
+            {t.scene.loading}
+          </p>
+        )}
         {imageFailed && (
           <p className="art-error" role="status">
             {t.loadingError}
           </p>
         )}
       </section>
+      <SceneControls t={t} camera={camera} />
       <div className="gallery-caption">
         <span>{t.explore}</span>
         <span className="caption-rule" />
@@ -437,6 +507,108 @@ function Gallery({ t, onNavigate, visited, rtl }) {
         ))}
       </nav>
       <BeyondRooms t={t} onNavigate={onNavigate} rtl={rtl} />
+    </div>
+  );
+}
+
+function SceneControls({ t, camera }) {
+  const s = t.scene;
+  return (
+    <div className="scene-toolbar" role="group" aria-label={s.controls}>
+      <div className="scene-control-row">
+        <div className="scene-mode-controls">
+          <button
+            type="button"
+            className="scene-control scene-enable"
+            aria-pressed={camera.enabled}
+            onClick={camera.toggle}
+          >
+            <Icon icon={HandIcon} size={19} />
+            {camera.enabled ? s.stop : s.enable}
+          </button>
+          <button
+            type="button"
+            className="scene-control scene-mode"
+            aria-pressed={camera.mode === "orbit"}
+            aria-label={camera.mode === "orbit" ? s.switchPan : s.switchOrbit}
+            title={camera.mode === "orbit" ? s.switchPan : s.switchOrbit}
+            onClick={camera.toggleMode}
+          >
+            <Icon
+              icon={camera.mode === "orbit" ? CubeIcon : HandIcon}
+              size={21}
+            />
+          </button>
+        </div>
+        <div className="scene-zoom-controls">
+          <button
+            type="button"
+            className="scene-control"
+            aria-label={s.zoomOut}
+            title={s.zoomOut}
+            onClick={() => camera.zoom(0.8)}
+            disabled={camera.view.scale <= 1.001}
+          >
+            <Icon icon={MinusIcon} size={21} />
+          </button>
+          <output
+            className="scene-zoom-value"
+            aria-label={s.zoomLevel}
+            aria-live="off"
+            dir="ltr"
+          >
+            {Math.round(camera.view.scale * 100)}%
+          </output>
+          <button
+            type="button"
+            className="scene-control"
+            aria-label={s.zoomIn}
+            title={s.zoomIn}
+            onClick={() => camera.zoom(1.25)}
+            disabled={camera.view.scale >= 2.999}
+          >
+            <Icon icon={PlusIcon} size={21} />
+          </button>
+          <button
+            type="button"
+            className="scene-control"
+            aria-label={s.reset}
+            title={s.reset}
+            onClick={camera.reset}
+          >
+            <Icon icon={ArrowCounterClockwiseIcon} size={20} />
+          </button>
+        </div>
+      </div>
+      <label className="scene-focus-picker">
+        <span>{s.closeup}</span>
+        <select
+          value={camera.focusedRoom}
+          onChange={(event) =>
+            camera.focusRoom(
+              event.target.value,
+              roomPositions[event.target.value],
+            )
+          }
+        >
+          <option value="">{s.choose}</option>
+          {roomIds.map((id) => (
+            <option key={id} value={id}>
+              {t.rooms[id]}
+            </option>
+          ))}
+        </select>
+      </label>
+      <p id="scene-help" className="scene-help">
+        {camera.enabled
+          ? camera.mode === "orbit"
+            ? s.orbitHint
+            : s.panHint
+          : s.idleHint}
+      </p>
+      <p id="scene-keyboard-help" className="sr-only">
+        {s.keyboardHint}
+      </p>
     </div>
   );
 }
@@ -521,7 +693,8 @@ function RoomPage({ t, text, story, page, onNavigate, rtl }) {
             className="hero-next"
             aria-label={`${t.enter} · ${t.rooms[next]}`}
           >
-            <DirectionArrow rtl={rtl} size={20} />
+            <DirectionArrow rtl={rtl} size={24} />
+            <span className="hero-next-label">{t.rooms[next]}</span>
           </PageLink>
         )}
       </div>

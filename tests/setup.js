@@ -1,4 +1,17 @@
 import { vi } from "vitest";
+window.PointerEvent = class extends MouseEvent {
+  constructor(type, options = {}) {
+    super(type, options);
+    Object.defineProperty(this, "pointerId", {
+      value: options.pointerId ?? 1,
+      configurable: true,
+    });
+    Object.defineProperty(this, "pointerType", {
+      value: options.pointerType ?? "mouse",
+      configurable: true,
+    });
+  }
+};
 globalThis.ResizeObserver = class {
   observe() {}
   disconnect() {}

@@ -73,6 +73,29 @@ export const galleryContent = {
     },
     loadingError:
       "The illustration could not load. You can still explore every room below.",
+    scene: {
+      label: "Interactive gallery scene",
+      controls: "Scene controls",
+      enable: "Explore",
+      stop: "Done",
+      switchPan: "Switch to dragging",
+      switchOrbit: "Switch to perspective",
+      zoomIn: "Zoom into scene",
+      zoomOut: "Zoom out of scene",
+      zoomLevel: "Scene zoom",
+      reset: "Reset scene",
+      closeup: "Closer look",
+      choose: "Choose a room",
+      loading: "Loading the gallery…",
+      idleHint:
+        "Enable Explore to drag and zoom, or choose a room for a closer look.",
+      orbitHint:
+        "Drag to tilt the view. Pinch or use + and − to zoom. Tap a room to enter.",
+      panHint:
+        "Drag to move. Pinch or use + and − to zoom. Tap a room to enter.",
+      keyboardHint:
+        "With the scene focused, use the arrow keys to move, plus or minus to zoom, Home to reset and Escape to stop controlling the scene.",
+    },
     footer: "Energy · Data · Communication",
     based: "Oslo, Norway",
     external: "Opens in a new tab",
@@ -149,6 +172,28 @@ export const galleryContent = {
     },
     loadingError:
       "تعذّر تحميل الصورة. يمكنك استكشاف جميع القاعات من الروابط أدناه.",
+    scene: {
+      label: "مشهد المعرض التفاعلي",
+      controls: "التحكم بالمشهد",
+      enable: "استكشاف",
+      stop: "إنهاء",
+      switchPan: "التبديل إلى سحب المشهد",
+      switchOrbit: "التبديل إلى تحريك المنظور",
+      zoomIn: "تكبير المشهد",
+      zoomOut: "تصغير المشهد",
+      zoomLevel: "مستوى تكبير المشهد",
+      reset: "إعادة ضبط المشهد",
+      closeup: "نظرة أقرب",
+      choose: "اختر قاعة",
+      loading: "جارٍ تحميل المعرض…",
+      idleHint: "فعّل الاستكشاف للسحب والتكبير، أو اختر قاعة لتراها عن قرب.",
+      orbitHint:
+        "اسحب لتحريك المنظور، وقرّب بإصبعين أو بأزرار + و−. اضغط القاعة للدخول.",
+      panHint:
+        "اسحب لتحريك المشهد، وقرّب بإصبعين أو بأزرار + و−. اضغط القاعة للدخول.",
+      keyboardHint:
+        "عند التركيز على المشهد، استخدم الأسهم للتحريك و+ و− للتكبير والتصغير وHome لإعادة الضبط وEscape لإنهاء التحكم.",
+    },
     footer: "الطاقة · البيانات · التواصل",
     based: "أوسلو، النرويج",
     external: "يفتح في علامة تبويب جديدة",
@@ -227,6 +272,29 @@ export const galleryContent = {
     },
     loadingError:
       "Illustrasjonen kunne ikke lastes. Du kan fortsatt utforske rommene nedenfor.",
+    scene: {
+      label: "Interaktiv galleriscene",
+      controls: "Scenekontroller",
+      enable: "Utforsk",
+      stop: "Ferdig",
+      switchPan: "Bytt til dra-modus",
+      switchOrbit: "Bytt til perspektiv",
+      zoomIn: "Zoom inn i scenen",
+      zoomOut: "Zoom ut av scenen",
+      zoomLevel: "Scenens zoomnivå",
+      reset: "Tilbakestill scenen",
+      closeup: "Se nærmere",
+      choose: "Velg et rom",
+      loading: "Laster galleriet…",
+      idleHint:
+        "Aktiver Utforsk for å dra og zoome, eller velg et rom for å se nærmere.",
+      orbitHint:
+        "Dra for å vippe perspektivet. Knip eller bruk + og − for å zoome. Trykk på et rom for å gå inn.",
+      panHint:
+        "Dra for å flytte. Knip eller bruk + og − for å zoome. Trykk på et rom for å gå inn.",
+      keyboardHint:
+        "Når scenen har fokus, bruk piltastene for å flytte, pluss og minus for å zoome, Home for å tilbakestille og Escape for å avslutte kontrollen.",
+    },
     footer: "Energi · Data · Kommunikasjon",
     based: "Oslo, Norge",
     external: "Åpnes i en ny fane",
@@ -307,6 +375,29 @@ export const galleryContent = {
     },
     loadingError:
       "L’illustration n’a pas pu être chargée. Les salles restent accessibles ci-dessous.",
+    scene: {
+      label: "Scène interactive du parcours",
+      controls: "Commandes de la scène",
+      enable: "Explorer",
+      stop: "Terminer",
+      switchPan: "Passer au déplacement",
+      switchOrbit: "Passer à la perspective",
+      zoomIn: "Agrandir la scène",
+      zoomOut: "Réduire la scène",
+      zoomLevel: "Zoom de la scène",
+      reset: "Réinitialiser la scène",
+      closeup: "Voir de plus près",
+      choose: "Choisir une salle",
+      loading: "Chargement du parcours…",
+      idleHint:
+        "Activez Explorer pour déplacer et zoomer, ou choisissez une salle pour la voir de plus près.",
+      orbitHint:
+        "Faites glisser pour incliner la vue. Pincez ou utilisez + et − pour zoomer. Touchez une salle pour entrer.",
+      panHint:
+        "Faites glisser pour déplacer. Pincez ou utilisez + et − pour zoomer. Touchez une salle pour entrer.",
+      keyboardHint:
+        "Lorsque la scène est sélectionnée, utilisez les flèches pour déplacer, plus et moins pour zoomer, Home pour réinitialiser et Escape pour arrêter le contrôle.",
+    },
     footer: "Énergie · Données · Communication",
     based: "Oslo, Norvège",
     external: "S’ouvre dans un nouvel onglet",
