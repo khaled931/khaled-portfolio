@@ -2,10 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { contactLinks } from "./content/index.js";
-import "./styles.css";
 import "./typography.css";
-import "./upgrade.css";
-import "./story.css";
+import "./gallery.css";
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -19,7 +17,9 @@ const personSchema = {
     addressCountry: "NO",
   },
   knowsLanguage: ["en", "ar", "no", "fr"],
-  sameAs: contactLinks.filter((link) => !link.url.startsWith("mailto:")).map((link) => link.url),
+  sameAs: contactLinks
+    .filter((link) => !link.url.startsWith("mailto:"))
+    .map((link) => link.url),
   url: "https://khaled-portfolio-ecru.vercel.app/",
 };
 

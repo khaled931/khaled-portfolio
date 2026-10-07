@@ -1,0 +1,10 @@
+{
+  "mobile": {
+    "application": [],
+    "excludedExtensionErrors": 126
+  },
+  "desktop": {
+    "application": [],
+    "excludedExtensionErrors": 20
+  }
+}

@@ -1,8 +1,10 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  optimizeDeps: {
-    noDiscovery: true,
-    include: [],
+  server: {
+    host: "0.0.0.0",
+    allowedHosts: ["terminal.local"],
+    port: 4173,
+    strictPort: true,
   },
 });
