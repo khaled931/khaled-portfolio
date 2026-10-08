@@ -1,0 +1,750 @@
+/* The house is the home screen. Interface chrome stays outside the architecture. */
+.portfolio[data-page="gallery"] {
+  padding: 0;
+  background: var(--paper);
+}
+.portfolio[data-page="gallery"] .portfolio-frame {
+  max-width: none;
+  border: 0;
+  border-radius: 0;
+}
+.portfolio[data-page="gallery"] .site-header {
+  border-radius: 0;
+  padding-inline: clamp(20px, 3vw, 56px);
+  background: var(--paper);
+  backdrop-filter: none;
+}
+.portfolio[data-page="gallery"] .site-footer {
+  margin: 0;
+  padding: 26px clamp(24px, 6vw, 100px);
+}
+.house-home {
+  --house-ink: #10323b;
+  --house-secondary: #385257;
+  --house-type: clamp(54px, 6.3vw, 96px);
+}
+.house-journey {
+  --house-header-height: 72px;
+  height: 640svh;
+  position: relative;
+}
+.house-journey[data-animated="false"] {
+  height: auto;
+}
+.house-stage {
+  position: sticky;
+  top: var(--house-header-height);
+  height: calc(100svh - var(--house-header-height));
+  min-height: 0;
+  isolation: isolate;
+  color: var(--house-ink);
+  background: #dce8e6;
+  overflow: clip;
+  --tour-progress: 0;
+}
+.house-journey[data-animated="false"] .house-stage {
+  position: relative;
+  top: 0;
+}
+.house-art,
+.house-still,
+.house-canvas,
+.house-tone {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.house-art {
+  z-index: -2;
+  direction: ltr;
+}
+.house-still {
+  object-fit: cover;
+  object-position: 58% 50%;
+}
+.house-canvas {
+  opacity: 0;
+  transition: opacity 200ms var(--ease);
+}
+.house-stage[data-status="ready"] .house-canvas {
+  opacity: 1;
+}
+.house-webgl {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: pan-y pinch-zoom;
+}
+.house-canvas[data-dragging="true"] .house-webgl {
+  cursor: grabbing;
+}
+.house-tone {
+  z-index: -1;
+  pointer-events: none;
+  /* A readability scrim, not an ornamental page gradient. */
+  background: linear-gradient(
+    90deg,
+    rgb(236 241 232 / 96%) 0%,
+    rgb(236 241 232 / 78%) 24%,
+    rgb(236 241 232 / 0%) 58%
+  );
+  opacity: 0.84;
+}
+.house-stage:not([data-chapter="entrance"]) .house-tone {
+  background: linear-gradient(
+    0deg,
+    rgb(10 35 42 / 89%) 0%,
+    rgb(10 35 42 / 57%) 22%,
+    transparent 65%
+  );
+  opacity: 1;
+}
+.house-stage:not([data-chapter="entrance"]) {
+  color: #fffaf0;
+}
+.house-topline {
+  position: absolute;
+  inset-inline: clamp(24px, 4vw, 64px);
+  top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.house-topline > span {
+  max-width: 60%;
+}
+.house-direct {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 12px;
+  white-space: nowrap;
+  color: #12353d;
+  background: rgb(242 244 235 / 88%);
+  padding: 0 16px;
+  border: 1px solid rgb(16 50 59 / 14%);
+  border-radius: 3px;
+}
+.house-direct:hover {
+  background: #fffaf0;
+}
+.house-direct > span {
+  font-size: 18px;
+}
+.house-welcome {
+  position: absolute;
+  top: 18%;
+  inset-inline-start: clamp(24px, 4vw, 64px);
+  width: min(37%, 520px);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 160ms var(--ease);
+}
+.house-welcome[aria-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+}
+.house-welcome h1 {
+  font-size: var(--house-type);
+  font-weight: 600;
+  letter-spacing: -0.075em;
+  line-height: 1.04;
+  text-wrap: initial;
+}
+.house-welcome h1 span {
+  display: block;
+}
+.house-welcome p {
+  max-width: 290px;
+  margin-top: 24px;
+  color: var(--house-secondary);
+  line-height: 1.65;
+  font-size: 14px;
+}
+.house-chapter {
+  position: absolute;
+  bottom: 112px;
+  inset-inline-start: clamp(24px, 4vw, 64px);
+  max-width: min(470px, 45%);
+  animation: house-text-in 200ms var(--ease) both;
+}
+.house-chapter-number {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  font-weight: 500;
+  color: #f0d398;
+  margin-bottom: 16px;
+}
+.house-chapter-number > span {
+  font-size: 15px;
+}
+.house-chapter h2 {
+  font-size: clamp(34px, 3.8vw, 56px);
+  font-weight: 550;
+  letter-spacing: -0.045em;
+  line-height: 1.13;
+}
+.house-chapter > p:not(.house-chapter-number) {
+  max-width: 370px;
+  margin-top: 14px;
+  font-size: 14px;
+  color: #e2e8e3;
+  line-height: 1.7;
+}
+.house-read {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 20px;
+  min-height: 44px;
+  padding: 0 18px;
+  background: #fff5dd;
+  color: #10323b;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 650;
+  transition: background-color 120ms var(--ease);
+}
+.house-read:hover {
+  background: #f1d9a4;
+}
+.house-read > span {
+  font-size: 20px;
+}
+.house-chapters {
+  position: absolute;
+  inset-inline-end: 28px;
+  top: 42%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.house-chapters button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: rgb(240 244 235 / 83%);
+  color: #12353d;
+  border: 1px solid rgb(16 50 59 / 20%);
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  transition:
+    background-color 120ms var(--ease),
+    color 120ms var(--ease);
+}
+.house-chapters button[aria-current],
+.house-chapters button:hover {
+  background: #153c45;
+  color: #fff5dd;
+}
+.house-chapter-tooltip {
+  position: absolute;
+  inset-inline-end: 56px;
+  padding: 7px 10px;
+  background: #f5f1e5;
+  color: #12353d;
+  white-space: nowrap;
+  font-size: 11px;
+  opacity: 0;
+  pointer-events: none;
+}
+.house-chapters button:is(:hover, :focus-visible) .house-chapter-tooltip {
+  opacity: 1;
+}
+.house-bottomline {
+  position: absolute;
+  bottom: 30px;
+  inset-inline: clamp(24px, 4vw, 64px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.house-scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0;
+  min-height: 44px;
+  background: transparent;
+  color: inherit;
+  text-align: start;
+  font-size: 12px;
+  font-weight: 650;
+}
+.scroll-symbol {
+  display: block;
+  width: 23px;
+  height: 34px;
+  border: 1.5px solid currentColor;
+  border-radius: 15px;
+  position: relative;
+}
+.scroll-symbol > span {
+  position: absolute;
+  top: 7px;
+  left: 9px;
+  height: 7px;
+  width: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  animation: house-scroll-hint 1.5s var(--ease) 3;
+}
+.house-look-hint {
+  font-size: 10px;
+  max-width: 30%;
+  text-align: end;
+  opacity: 0.8;
+}
+.house-load-message {
+  font-size: 12px;
+}
+.house-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgb(16 50 59 / 15%);
+  direction: ltr;
+}
+.house-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #bd9954;
+  transform-origin: left;
+  transform: scaleX(var(--tour-progress));
+}
+.house-directory {
+  max-width: 1240px;
+  margin: auto;
+  padding: 92px clamp(24px, 5vw, 70px) 68px;
+}
+.house-directory-heading {
+  max-width: 650px;
+  margin-bottom: 42px;
+}
+.house-directory h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 550;
+  letter-spacing: -0.035em;
+  margin: 16px 0;
+  scroll-margin-top: 104px;
+}
+.house-directory-heading > p:last-child {
+  color: var(--muted);
+  font-size: 14px;
+}
+.house-directory-list {
+  border-top: 1px solid var(--line);
+}
+.house-directory-list > a {
+  display: grid;
+  grid-template-columns: 60px 1fr 44px;
+  gap: 20px;
+  align-items: start;
+  padding-block: 28px;
+  border-bottom: 1px solid var(--line);
+}
+.house-directory-index {
+  color: var(--gold-ink);
+  font-size: 11px;
+  padding-top: 7px;
+}
+.house-directory-list h3 {
+  font-size: 23px;
+  font-weight: 550;
+  letter-spacing: -0.025em;
+}
+.house-directory-list p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 7px;
+  max-width: 630px;
+}
+.house-directory-arrow {
+  text-align: end;
+  font-size: 22px;
+}
+.house-directory-list a:hover h3 {
+  color: var(--gold-ink);
+}
+.house-beyond {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+}
+.house-beyond > a {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 44px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.house-beyond > a:hover {
+  color: var(--gold-ink);
+}
+.house-home:dir(rtl) .house-welcome h1 {
+  letter-spacing: -0.045em;
+  line-height: 1.26;
+}
+.house-home:dir(rtl) .house-topline,
+.house-home:dir(rtl) .house-chapter-number {
+  letter-spacing: 0;
+}
+.house-home:dir(rtl) .house-tone {
+  transform: none;
+}
+.house-home:dir(rtl) .house-welcome,
+.house-home:dir(rtl) .house-chapter {
+  inset-inline-start: auto;
+  left: clamp(24px, 4vw, 64px);
+  right: auto;
+  text-align: right;
+}
+.house-home:dir(rtl) .house-stage:not([data-chapter="entrance"]) .house-tone {
+  transform: none;
+}
+:root[data-theme="dark"] .house-stage[data-chapter="entrance"] {
+  --house-ink: #f3ecda;
+  --house-secondary: #e1e9e2;
+}
+:root[data-theme="dark"] .house-stage[data-chapter="entrance"] .house-tone {
+  background: linear-gradient(
+    90deg,
+    rgb(14 40 45 / 91%),
+    rgb(14 40 45 / 58%) 24%,
+    transparent 58%
+  );
+}
+@keyframes house-scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(7px);
+    opacity: 0.25;
+  }
+}
+@keyframes house-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 1100px) {
+  .house-welcome {
+    top: 16%;
+  }
+  .house-welcome h1 {
+    font-size: clamp(50px, 7vw, 78px);
+  }
+  .house-welcome p {
+    max-width: 240px;
+  }
+}
+@media (max-width: 760px) {
+  .portfolio[data-page="gallery"] .site-header {
+    min-height: 68px;
+    padding: 8px 20px;
+    gap: 14px;
+  }
+  .portfolio[data-page="gallery"] .brand strong {
+    font-size: 15px;
+  }
+  .portfolio[data-page="gallery"] .brand span {
+    font-size: 11px;
+  }
+  .portfolio[data-page="gallery"] .header-tools {
+    gap: 6px;
+  }
+  .portfolio[data-page="gallery"] .language-picker {
+    border-radius: 6px;
+  }
+  .house-journey {
+    height: 620svh;
+  }
+  .house-stage {
+    min-height: 0;
+  }
+  .house-stage[data-status="unavailable"] .house-still {
+    object-fit: contain;
+    object-position: center 62%;
+    background: #dce8e6;
+  }
+  .house-topline {
+    top: 14px;
+    inset-inline: 22px;
+    gap: 12px;
+    letter-spacing: 0.05em;
+    font-size: 9px;
+  }
+  .house-direct {
+    font-size: 10px;
+    padding: 0 11px;
+    gap: 9px;
+  }
+  .house-welcome {
+    top: 90px;
+    inset-inline-start: 22px;
+    width: calc(100% - 44px);
+  }
+  .house-welcome h1 {
+    font-size: clamp(42px, 11vw, 60px);
+    line-height: 1.05;
+    letter-spacing: -0.066em;
+  }
+  .house-welcome h1 span {
+    display: inline;
+  }
+  .house-welcome h1 span + span::before {
+    content: " ";
+  }
+  .house-welcome p {
+    margin-top: 16px;
+    max-width: 260px;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .house-tone {
+    background: linear-gradient(
+      0deg,
+      rgb(229 236 227 / 40%) 0%,
+      transparent 34%,
+      rgb(233 239 231 / 90%) 86%,
+      rgb(233 239 231 / 90%) 100%
+    );
+  }
+  .house-stage:not([data-chapter="entrance"]) .house-tone {
+    background: linear-gradient(
+      0deg,
+      rgb(10 35 42 / 96%) 0%,
+      rgb(10 35 42 / 78%) 30%,
+      transparent 68%
+    );
+  }
+  .house-chapter {
+    bottom: 103px;
+    inset-inline: 22px;
+    max-width: calc(100% - 64px);
+  }
+  .house-chapter h2 {
+    font-size: 31px;
+  }
+  .house-chapter-number {
+    font-size: 9px;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+  .house-chapter > p:not(.house-chapter-number) {
+    margin-top: 12px;
+    font-size: 12px;
+    line-height: 1.6;
+    max-width: 310px;
+  }
+  .house-read {
+    margin-top: 16px;
+    font-size: 11px;
+  }
+  .house-chapters {
+    inset-inline-end: 9px;
+    top: 43%;
+    gap: 0;
+  }
+  .house-chapters button {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-size: 9px;
+    border-radius: 0;
+  }
+  .house-chapters button > span:first-child {
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: rgb(231 235 225 / 85%);
+    color: #143942;
+  }
+  .house-chapters button[aria-current] > span:first-child {
+    color: #fff5dd;
+    background: #164852;
+    border-color: #fff5dd;
+  }
+  .house-chapters button[aria-current],
+  .house-chapters button:hover {
+    color: inherit;
+    background: transparent;
+  }
+  .house-chapter-tooltip {
+    inset-inline-end: 42px;
+  }
+  .house-bottomline {
+    bottom: 24px;
+    inset-inline: 22px;
+    gap: 10px;
+  }
+  .house-scroll-cue {
+    font-size: 11px;
+    gap: 11px;
+    max-width: 65%;
+  }
+  .house-look-hint {
+    font-size: 9px;
+    max-width: 33%;
+  }
+  .scroll-symbol {
+    width: 20px;
+    height: 30px;
+  }
+  .scroll-symbol > span {
+    left: 8px;
+  }
+  .house-directory {
+    padding-block: 64px 45px;
+  }
+  .house-directory-heading {
+    margin-bottom: 28px;
+  }
+  .house-directory-list > a {
+    grid-template-columns: 22px 1fr 24px;
+    gap: 16px;
+    padding-block: 23px;
+  }
+  .house-directory-list h3 {
+    font-size: 21px;
+  }
+  .house-directory-list p {
+    font-size: 12px;
+  }
+  .house-beyond {
+    gap: 4px 24px;
+  }
+  .house-home:dir(rtl) .house-welcome h1 {
+    font-size: clamp(39px, 11vw, 55px);
+  }
+  .house-home:dir(rtl) .house-welcome {
+    left: 22px;
+  }
+  .house-home:dir(rtl) .house-chapter {
+    left: 22px;
+    right: 42px;
+  }
+  .house-home:dir(rtl) .house-tone {
+    transform: none;
+  }
+  :root[data-theme="dark"] .house-stage[data-chapter="entrance"] .house-tone {
+    background: linear-gradient(
+      0deg,
+      rgb(14 40 45 / 50%) 0%,
+      transparent 40%,
+      rgb(14 40 45 / 85%) 86%
+    );
+  }
+}
+@media (max-height: 650px) and (min-width: 761px) {
+  .house-stage {
+    min-height: 0;
+  }
+  .house-welcome {
+    top: 20%;
+  }
+  .house-welcome h1 {
+    font-size: 58px;
+  }
+  .house-welcome p {
+    margin-top: 18px;
+  }
+  .house-chapter {
+    bottom: 85px;
+  }
+  .house-chapter h2 {
+    font-size: 34px;
+  }
+  .house-chapter-number {
+    margin-bottom: 8px;
+  }
+  .house-read {
+    margin-top: 12px;
+  }
+  .house-bottomline {
+    bottom: 18px;
+  }
+}
+@media (max-height: 500px) {
+  .house-welcome {
+    top: 78px;
+  }
+  .house-welcome h1,
+  .house-home:dir(rtl) .house-welcome h1 {
+    font-size: 36px;
+  }
+  .house-welcome p {
+    margin-top: 12px;
+    font-size: 11px;
+    max-width: 240px;
+  }
+  .house-chapter {
+    bottom: 68px;
+  }
+  .house-chapter h2 {
+    font-size: 25px;
+  }
+  .house-chapter > p:not(.house-chapter-number) {
+    margin-top: 8px;
+    font-size: 11px;
+    max-width: 390px;
+  }
+  .house-read {
+    margin-top: 10px;
+  }
+  .house-chapter-number {
+    margin-bottom: 8px;
+  }
+  .house-bottomline {
+    bottom: 12px;
+  }
+  .house-chapters {
+    top: 24%;
+    gap: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .house-canvas {
+    transition: none;
+  }
+  .house-chapter,
+  .scroll-symbol > span {
+    animation: none;
+  }
+}
