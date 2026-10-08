@@ -1,6 +1,6 @@
-# Jakob Olsen / خالد الأسعد — Experience Gallery
+# Jakob Olsen / خالد الأسعد — A House for My Work
 
-A responsive React/Vite portfolio presented as four connected architectural exhibition rooms: **experience, projects, volunteering and education**. The artwork follows the approved sandstone, teal and gold reference; all navigation and portfolio content are accessible native HTML.
+A multilingual React/Vite portfolio with a connected 3D courtyard house as its home screen. Normal page scrolling opens the front door and moves the camera through education, professional experience, projects and community work. Direct native pages contain the full portfolio.
 
 ## Run and verify
 
@@ -13,45 +13,43 @@ npm test
 npm run build
 ```
 
-The development server runs on port 4173. `npm run dev -- --host 0.0.0.0 --port 4173` is also supported. The build outputs `dist/`, compatible with the existing Vercel Vite project.
+Vite serves the project on port 4173. The production output is `dist/`, compatible with the existing Vercel project.
 
 ## Visitor experience
 
-- Choose a room through its gallery entrance, the header, the persistent mobile dock or the accessible menu.
-- Drag the overview to tilt its perspective; use Explore, zoom controls or the wheel to inspect it up to 3×. After zooming, drag to pan. The Close look selector centers a room without opening it, so visitors can inspect the entrance before following its link.
-- On touch screens, Explore enables dragging and two-finger zoom inside the scene; Done or Reset restores ordinary page gestures. Keyboard users can focus the scene and use arrows, +/−, Home and Escape. The camera moves a perspective-transformed image plane, not a volumetric 3D model.
-- Room entrances retain their size while zooming, with white-on-teal arrows, contrasting outlines and persistent localized labels. A short, finite beacon animation draws attention; reduced-motion preferences remove it.
-- The gallery entrance briefly zooms toward the selected room. Direct room switching stays fast; reduced-motion preferences remove the camera animation.
-- Native hash links support shared destinations, refresh, browser Back/Forward and modifier-click. Old `#energy`, `#volunteer` and `#media` links still resolve.
-- English, Arabic, Norwegian and French remain available. Arabic uses RTL reading order; the physical gallery and room order remain consistent. Language and appearance persist when storage is available.
-- Story, digital work, original photography, the drone video and every existing contact link remain accessible through the menu and gallery links.
-- Original photographs open in a native modal with previous/next controls, keyboard arrows, Escape and focus restoration.
-- Mobile navigation respects safe areas. No scroll locking or gesture is required to move through the portfolio.
+- Start outside a complete sandstone house. Scroll normally or activate “Scroll to enter” to begin walking through it.
+- The camera travels through real openings in one model. The oak door opens before the camera reaches it; the route passes around the courtyard olive tree.
+- A compact chapter rail jumps to a room along the tour. Drag horizontally to look around; normal vertical phone scrolling and browser pinch zoom remain available.
+- “Browse sections”, the header and menu provide direct access. The home screen has no giant doorway arrows, zoom toolbar or fixed bottom dock. Native detail pages retain their navigation dock.
+- English, Arabic, Norwegian and French remain available. Labels and text localize; the physical architecture stays in the same orientation. Language and theme persist where browser storage is available.
+- With reduced motion, data saving or unavailable WebGL, the home screen becomes a single static entrance with a complete native section directory. No long, empty scrolling space is required.
+- Original photography, video, digital work, factual content and contact URLs remain available. Shared hash links, old aliases, browser history, keyboard focus and native dialogs are preserved.
 
-## Content and design
+## Implementation
 
-| File                    | Responsibility                                                  |
-| ----------------------- | --------------------------------------------------------------- |
-| `src/content/index.js`  | Existing translated professional content and contact URLs       |
-| `src/storyContent.js`   | Existing narrative and project descriptions                     |
-| `src/mediaGallery.js`   | Original photography and video references                       |
-| `src/galleryContent.js` | Localized gallery UI and entrance coordinates                   |
-| `src/navigation.js`     | Destinations, legacy links and resilient preferences            |
-| `src/App.jsx`           | Semantic screens, navigation, modal focus and room interactions |
-| `src/gallery.css`       | Responsive layout, themes, focus and motion                     |
-| `src/scene.css`         | Camera viewport, controls and high-contrast entrance styling    |
-| `src/sceneCamera.js`    | Bounded camera, anchored zoom and pinch calculations            |
-| `src/useSceneCamera.js` | Pointer gestures, optional wheel zoom and keyboard controls     |
-| `src/typography.css`    | Locally hosted Inter and IBM Plex Sans Arabic                   |
+| File | Role |
+| --- | --- |
+| `src/HouseJourney.jsx` | Sticky tour, native scroll measurement, chapter UI and resilient content access |
+| `src/houseScene.js` | Physical house, local geometry and textures, lighting, doors, look gestures and demand rendering |
+| `src/houseGeometry.js` | Metric texture coordinates, beveled joinery, shaped olive leaves and static mesh batching |
+| `src/houseMaterials.js`, `src/assets/house/` | Self-hosted photographic PBR surfaces, HDR sky and source/license records |
+| `src/houseJourney.js` | Continuous camera route, portrait framing and chapter stops |
+| `src/houseContent.js` | Tour copy in four languages |
+| `src/house.css` | Responsive home layout, text contrast, compact controls and static mode |
+| `src/App.jsx` | Detail pages, header, contact, dialogs, history and accessible navigation |
+| `src/content/index.js`, `src/storyContent.js` | Existing professional facts and translated descriptions |
+| `public/media/house/` | Optimized generated entrance illustration and its provenance |
 
-Generated artwork has 480px, 900px and 1440px WebP variants in `public/media/gallery/`. `assets.json` records source dimensions, hashes and exported sizes. Images select their size through `srcset`; only the current room image loads. No WebGL runtime or remote font requests are required.
+The WebGL runtime loads only on the home route. Rendering pauses after movement settles, outside the viewport and when the document is hidden. Static opaque geometry is batched by material; shadow maps update when doors or lighting change. All geometry and textures are served locally. Mobile pixel density and foliage density are capped. Photographic wood and plaster textures and an HDR daylight capture come from Poly Haven under CC0; complete source URLs are recorded in `src/assets/house/sources.json`. The generated static illustration is not a screenshot of the interactive model.
 
-To regenerate delivery variants from the original generated PNGs (named `overview.png`, `experience.png`, `projects.png`, `volunteering.png`, `education.png`):
+## Private review artifact
 
 ```sh
-node scripts/prepare-gallery-assets.mjs /path/to/source-images
+node scripts/build-review.mjs /absolute/path/jakob-portfolio-house-preview.html
 ```
 
-`design-reference.md` records the approved visual decisions. `design-qa.md` and `qa/` contain source comparisons and real browser captures. `qa/mobile.html` is a development-only iframe viewport harness, excluded from the production build. It checks responsive web layouts; it does not emulate a physical phone or mobile OS.
+This builds one HTML file with code, fonts and portfolio images embedded. Open the downloaded file in a browser to review it. The command neither pushes to GitHub nor deploys a website. Its temporary build directory is ignored by git.
 
-The quality workflow runs locked dependency installation, interaction tests and a production build on pull requests and relevant pushes. Production deployment uses the existing Vercel setup after the review branch is merged.
+## Verification status
+
+Interaction and camera tests, portrait camera-frustum checks and the production build are local checks. Actual desktop/mobile WebGL rendering and visual comparison still require an accessible authorized preview. `house-design-reference.md` records the direction and the browser / publication blockers encountered during this change. Existing `design-qa.md` and `qa/` screenshots document the previous gallery, not the new house.

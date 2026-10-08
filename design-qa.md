@@ -97,3 +97,20 @@ Result: passed for the reviewed responsive browser states. The approved artwork 
 - `npm test`: **23 tests passed**, including the original 11 navigation/content checks, four camera math checks and eight scene interaction checks covering all four languages, drag-versus-tap behavior, wheel opt-in, keyboard controls and touch pinch cleanup. Production build and whitespace checks pass. No dependency changes.
 
 The responsive review uses the same development-only iframe harness described above. It does not certify physical mobile hardware, Safari or full 3D orbiting around the buildings.
+
+
+## October 7 — House journey
+
+The home screen has been replaced by the house journey described in `house-design-reference.md`. Earlier screenshots in this file show the preceding gallery and are historical. Local checks cover navigation in all four languages, reduced-motion fallback, uninterrupted native scrolling, route continuity, courtyard clearance and portrait camera framing. The new WebGL scene has not yet passed browser visual inspection: the cloud browser could not reach the local server, local file URLs were blocked by browser policy, and automatic review rejected the GitHub push needed for a remote preview. Do not treat the generated static entrance artwork as a screenshot of the WebGL scene.
+
+- `npm test`: 22 tests passed across three files; production build and whitespace checks passed.
+- The standalone HTML review embeds its scripts, styles, fonts and 12 images. A DOM execution check confirmed the entrance, embedded images, Projects navigation, Arabic direction and zero script errors. This check does not exercise WebGL or replace browser visual inspection.
+- The public repository and production deployment have not been updated. Remote publication and a browser review remain pending explicit authorization.
+
+## October 8 — Natural materials and camera movement
+
+The user prioritized natural, accurate architectural appearance and smooth 3D transitions. The model now uses self-hosted photographic oak/plaster PBR maps and an HDR daylight sky. Source assets are CC0 and recorded in `src/assets/house/sources.json`. Door and furniture grain is mapped at metre scale. Jointed arch stones, beveled joinery, thin curved olive leaves, deep window sills, skirting, ceiling details and pendant lights replace several primitive-looking surfaces. Static opaque meshes are batched and shadow maps update only when needed; these are optimizations, not measured frame-rate claims.
+
+Camera view angles now interpolate along the shortest arc. A regression check detected abrupt rotations from the old moving look-at points. CPU ray tests also exposed door holes crossing the wall polygon boundary and triangulating shut; the wall outline now models those doors as open notches. The full route clears the real scene geometry at eye level after the door leaves open, under both desktop and mobile geometry settings.
+
+Local verification includes 26 tests, the production build, HDR decoding and portable HTML execution. The standalone review also handles browsers that restrict History API writes on local file URLs; its embedded images, Projects navigation and Arabic switching executed without script errors in the DOM check. The scene tests use a mocked renderer: they validate real geometry, ray intersections, finite coordinates, mesh batching and cleanup, not GPU rendering. The cloud browser still cannot access the local HTTP server. Automatic approval review again rejected pushing the public branch because it considered the latest approval ambiguous; no alternate publication mechanism was attempted. Actual desktop/mobile visual review remains pending, and photorealism is not certified.

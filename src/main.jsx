@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import { contactLinks } from "./content/index.js";
 import "./typography.css";
 import "./gallery.css";
-import "./scene.css";
+import "./house.css";
 
 const personSchema = {
   "@context": "https://schema.org",

@@ -1,0 +1,58 @@
+{
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "retrieved": "2026-10-08",
+  "assets": [
+    {
+      "file": "plaster-color.webp",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/beige_wall_001/beige_wall_001_diff_1k.jpg",
+      "page": "https://polyhaven.com/a/beige_wall_001",
+      "role": "color",
+      "processing": "Resampled to 1024x1024 and encoded WebP"
+    },
+    {
+      "file": "plaster-normal.webp",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/beige_wall_001/beige_wall_001_nor_gl_1k.jpg",
+      "page": "https://polyhaven.com/a/beige_wall_001",
+      "role": "normal",
+      "processing": "Resampled to 1024x1024 and encoded WebP"
+    },
+    {
+      "file": "plaster-roughness.webp",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/beige_wall_001/beige_wall_001_rough_1k.jpg",
+      "page": "https://polyhaven.com/a/beige_wall_001",
+      "role": "roughness",
+      "processing": "Resampled to 1024x1024 and encoded WebP"
+    },
+    {
+      "file": "oak-color.webp",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_diff_1k.jpg",
+      "page": "https://polyhaven.com/a/wood_floor",
+      "author": "Dimitrios Savva",
+      "role": "color",
+      "processing": "Resampled to 1024x1024 and encoded WebP"
+    },
+    {
+      "file": "oak-normal.webp",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_nor_gl_1k.jpg",
+      "page": "https://polyhaven.com/a/wood_floor",
+      "author": "Dimitrios Savva",
+      "role": "normal",
+      "processing": "Resampled to 1024x1024 and encoded WebP"
+    },
+    {
+      "file": "oak-roughness.webp",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_rough_1k.jpg",
+      "page": "https://polyhaven.com/a/wood_floor",
+      "author": "Dimitrios Savva",
+      "role": "roughness",
+      "processing": "Resampled to 1024x1024 and encoded WebP"
+    },
+    {
+      "file": "daylight.hdr",
+      "page": "https://polyhaven.com/a/kloppenheim_03_puresky",
+      "source": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/kloppenheim_03_puresky_1k.hdr",
+      "role": "HDR daylight environment"
+    }
+  ]
+}

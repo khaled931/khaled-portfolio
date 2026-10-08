@@ -10,6 +10,7 @@
     "dev": "vite --configLoader native",
     "build": "vite build --configLoader native",
     "preview": "vite preview",
+    "build:review": "node scripts/build-review.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -19,6 +20,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "three": "^0.186.1",
     "vite": "^7.0.0"
   },
   "devDependencies": {

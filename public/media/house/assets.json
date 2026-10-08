@@ -1,0 +1,27 @@
+{
+  "role": "Static entrance illustration for loading, reduced motion, data saving and unavailable WebGL. This is generated artwork, not a screenshot of the interactive WebGL model.",
+  "source": {
+    "width": 1536,
+    "height": 1024
+  },
+  "variants": [
+    {
+      "path": "public/media/house/entrance-480.webp",
+      "width": 480,
+      "height": 320,
+      "bytes": 44140
+    },
+    {
+      "path": "public/media/house/entrance-900.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 134068
+    },
+    {
+      "path": "public/media/house/entrance-1440.webp",
+      "width": 1440,
+      "height": 960,
+      "bytes": 275642
+    }
+  ]
+}

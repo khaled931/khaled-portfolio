@@ -56,9 +56,8 @@ describe("visitor navigation", () => {
 
   it("handles fast direct room changes and retains the native project URLs", async () => {
     render(<App />);
-    const dock = within(
-      screen.getByRole("navigation", { name: "The whole gallery" }),
-    );
+    const dock = () =>
+      within(screen.getByRole("navigation", { name: "The whole gallery" }));
     for (const label of [
       "Experience",
       "Projects",
@@ -66,7 +65,7 @@ describe("visitor navigation", () => {
       "Education",
       "Projects",
     ])
-      await userEvent.click(dock.getByRole("link", { name: label }));
+      await userEvent.click(dock().getByRole("link", { name: label }));
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
       "Projects",
     );
@@ -79,7 +78,9 @@ describe("visitor navigation", () => {
       "https://granularcertificates.com/",
     ]);
     expect(
-      dock.getByRole("link", { name: "Projects" }).getAttribute("aria-current"),
+      dock()
+        .getByRole("link", { name: "Projects" })
+        .getAttribute("aria-current"),
     ).toBe("page");
   });
 
@@ -118,7 +119,8 @@ describe("language, access and content continuity", () => {
       window.localStorage.setItem("portfolio-language", language);
       render(<App />);
       const t = galleryContent[language];
-      const dock = within(screen.getByRole("navigation", { name: t.allRooms }));
+      const dock = () =>
+        within(screen.getByRole("navigation", { name: t.allRooms }));
       for (const id of [
         "experience",
         "projects",
@@ -126,7 +128,7 @@ describe("language, access and content continuity", () => {
         "education",
       ]) {
         await userEvent.click(
-          dock.getByRole("link", { name: t.shortRooms[id] }),
+          dock().getByRole("link", { name: t.shortRooms[id] }),
         );
         expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
           t.rooms[id],
@@ -179,7 +181,9 @@ describe("language, access and content continuity", () => {
     }));
     render(<App />);
     await userEvent.click(
-      screen.getByRole("link", { name: "Enter · Experience", exact: true }),
+      within(
+        screen.getByRole("navigation", { name: "The whole gallery" }),
+      ).getByRole("link", { name: "Experience", exact: true }),
     );
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
       "Experience",
